@@ -9,6 +9,11 @@ export default function DefaultLayout() {
         return <Navigate to="/login" />; // user tries to access a protected route without being authenticated
     }
 
+    const onLogout = (event) => {
+        event.preventDefault();
+        // setToken(null);
+    };
+
     return (
         <div id="defaultLayout">
             <aside>
@@ -20,7 +25,13 @@ export default function DefaultLayout() {
             <div className="content">
                 <header>
                     <div>Header</div>
-                    <div>AuthenticatetUserInformation</div>
+                    <div>
+                        Authenticated User Information:
+                        {user.name}
+                        <a href="#" onClick={onLogout} className="btn-logout">
+                            Logout
+                        </a>
+                    </div>
                 </header>
                 <main>
                     <Outlet />{" "}
