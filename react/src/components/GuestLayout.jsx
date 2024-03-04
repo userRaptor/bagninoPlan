@@ -7,7 +7,7 @@ export default function GuestLayout() {
     // To render: Login or Signup (password forgotten, etc.)
 
     const {token} = useStateContext();
-    debugger;
+    //debugger;
 
     if (token) {
         return <Navigate to="/" />;    // user tries to access a protected route without being authenticated
