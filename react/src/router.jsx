@@ -30,15 +30,19 @@ const router = createBrowserRouter([
                 path: "/signup",
                 element: <Signup />,
             },
+            {
+                path: "/login",
+                element: <Login />,
+            },
         ],
     },
     {
-        path: "/login",
-        element: <Login />,
-    },
-    {
         path: "*",
-        element: <div>ERROR 404 - NOT FOUND VIEW!!!</div>,
+        element: (
+            <div>
+                <h1> ERROR 404 - NOT FOUND VIEW!!!</h1>
+            </div>
+        ),
     },
 ]);
 
