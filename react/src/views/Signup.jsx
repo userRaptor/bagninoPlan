@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+import { useState } from "react";
 
 export default function Signup() {
     const nameRef = useRef();
@@ -10,7 +10,8 @@ export default function Signup() {
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
 
-    const {setUser, setToken} = useStateContext();
+    const [errors, setErrors] = useState(null);
+    const { setUser, setToken } = useStateContext();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -23,25 +24,35 @@ export default function Signup() {
 
         console.log(payload);
 
-        axiosClient.post('/signup', payload)
+        axiosClient
+            .post("/signup", payload)
             .then((data) => {
                 setToken(data.token);
                 setUser(data.user);
             })
             .catch((error) => {
                 const response = error.response;
-                if (response && response.status == 422) {
+                if (response && response.status === 422) {
                     console.log(response.data.errors);
+                    setErrors(response.data.errors);
                 }
             });
-
-
     };
 
     return (
         <div>
             <form onSubmit={onSubmit}>
                 <h1 className="title">Signup</h1>
+                {errors && <div className="alert">
+                    {Object.keys(errors).map(key => (
+                        <p key={key}>
+                            {errors[key][0]}
+                        </p>
+                    ))}
+
+                </div>
+                }
+
                 <input ref={nameRef} placeholder="Full Name" type="text" />
                 <input
                     ref={emailRef}
