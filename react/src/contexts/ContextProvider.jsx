@@ -8,9 +8,7 @@ const StateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-    const [user, setUser] = useState({
-        name: "John Doe",
-    });
+    const [user, setUser] = useState({});
     //const [token, _setToken] = useState(null);
     const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); // if we have a token in local storage, we use it and when we refresh the page, we don't lose the token
 
