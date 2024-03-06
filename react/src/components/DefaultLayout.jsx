@@ -24,6 +24,7 @@ export default function DefaultLayout() {
     useEffect(() => {
         axiosClient.get("/user").then(({ data }) => {
             setUser(data);
+            console.log("User data" + data);
         });
     }, []);
 
@@ -39,8 +40,11 @@ export default function DefaultLayout() {
                 <header>
                     <div>Header</div>
                     <div>
-                        Authenticated User Information:
-                        {user && user.name}
+                        <h3>
+                            Authenticated User:{" "}
+                            {user ? user.name : "Loading..."}
+                        </h3>
+
                         <a href="#" onClick={onLogout} className="btn-logout">
                             Logout
                         </a>
