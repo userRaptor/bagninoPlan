@@ -16,13 +16,11 @@ export default function Users() {
             return;
         }
 
-        axiosClient.delete(`/users/${user.id}`)
-            .then(() => {
-                //TODO: show notification
-                getUsers();
-            })
+        axiosClient.delete(`/users/${user.id}`).then(() => {
+            //TODO: show notification
+            getUsers();
+        });
     };
-
 
     const getUsers = () => {
         setLoading(true);
@@ -40,9 +38,17 @@ export default function Users() {
 
     return (
         <div>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                }}
+            >
                 <h1>Users</h1>
-                <Link to="/users/new" className="btn-add">Add User</Link>
+                <Link to="/users/new" className="btn-add">
+                    Add User
+                </Link>
             </div>
             <div className="card animated fadeInDown">
                 <table>
@@ -58,7 +64,9 @@ export default function Users() {
                     <tbody>
                         {loading && (
                             <tr>
-                                <td colSpan="5" className="text-center">Loading...</td>
+                                <td colSpan="5" className="text-center">
+                                    Loading...
+                                </td>
                             </tr>
                         )}
                     </tbody>
@@ -70,9 +78,20 @@ export default function Users() {
                                 <td>{user.email}</td>
                                 <td>{user.created_at}</td>
                                 <td>
-                                    <Link to={`/users/${user.id}`} className="btn-edit">Edit</Link>
-                                    &nbsp; {/* &nbsp; is a non-breaking space */}
-                                    <button onClick={ev => onDelete(user)} className="btn-delete">Delete</button>
+                                    <Link
+                                        to={`/users/${user.id}`}
+                                        className="btn-edit"
+                                    >
+                                        Edit
+                                    </Link>
+                                    &nbsp;{" "}
+                                    {/* &nbsp; is a non-breaking space */}
+                                    <button
+                                        onClick={(ev) => onDelete(user)}
+                                        className="btn-delete"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}

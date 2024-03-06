@@ -17,9 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        
         return UserResource::collection(
             User::query()->orderBy('id', 'desc')->paginate(10)
+            // User::query()->orderBy('id', 'desc')->get()
         );
+        
     }
 
     /**
@@ -29,6 +32,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
+
         $user = User::create($data);
         return response(new UserResource($user), 201);
     }
