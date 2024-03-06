@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function UserForm() {
     let { id } = useParams();
@@ -12,6 +13,7 @@ export default function UserForm() {
     const [errors, setErrors] = useState(null);
 
     const navigate = useNavigate();
+    const {setNotification} = useStateContext();
 
     const [user, setUser] = useState({
         id: null,
@@ -20,6 +22,8 @@ export default function UserForm() {
         password: "",
         confirmPassword: "",
     });
+
+    
 
     if (id) {
         useEffect(() => {
@@ -52,6 +56,7 @@ export default function UserForm() {
             axiosClient
                 .put(`/users/${user.id}`, payload)
                 .then(() => {
+                    setNotification("The user was updated successfully!");
                     navigate("/users");
                 })
                 .catch((error) => {
@@ -66,6 +71,7 @@ export default function UserForm() {
                 .post("/users", payload)
                 .then(() => {
                     addUserSuccNotification();
+                    setNotification("The user was added successfully!");
                     navigate("/users");
                 })
                 .catch((error) => {

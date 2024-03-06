@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import axiosClient from "../axios-client";
 
 export default function DefaultLayout() {
-    const { user, token, setUser, setToken } = useStateContext();
+    const { user, token, notification, setUser, setToken, setNotification } =
+        useStateContext();
 
     if (!token) {
         return <Navigate to="/login" />; // user tries to access a protected route without being authenticated
@@ -13,11 +14,10 @@ export default function DefaultLayout() {
 
     const onLogout = (event) => {
         event.preventDefault();
-        
+
         axiosClient.post("/logout").then(() => {
             setUser(null);
             setToken(null);
-            
         });
     };
 
@@ -51,6 +51,8 @@ export default function DefaultLayout() {
                     {/* This is where the child routes will be rendered */}
                 </main>
             </div>
+
+            {notification && <div className="notification">{notification}</div>}
         </div>
     );
 }
