@@ -40,9 +40,17 @@ export default function UserForm() {
         event.preventDefault();
         console.log(user);
 
+        const payload = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            password_confirmation: user.confirmPassword,
+        };
+
         if (user.id) {
             axiosClient
-                .put(`/users/${user.id}`, user)
+                .put(`/users/${user.id}`, payload)
                 .then(() => {
                     navigate("/users");
                 })
@@ -54,13 +62,6 @@ export default function UserForm() {
                     }
                 });
         } else {
-            const payload = {
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                password_confirmation: user.confirmPassword,
-            };
-
             axiosClient
                 .post("/users", payload)
                 .then(() => {
