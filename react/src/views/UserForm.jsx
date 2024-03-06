@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useStateContext } from "../contexts/ContextProvider";
-import { toast, Toaster } from "sonner";
-import { ToastContainer } from "react-toastify";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axiosClient from "../axios-client";
 
@@ -64,6 +64,7 @@ export default function UserForm() {
             axiosClient
                 .post("/users", payload)
                 .then(() => {
+                    addUserSuccNotification();
                     navigate("/users");
                 })
                 .catch((error) => {
@@ -74,6 +75,12 @@ export default function UserForm() {
                     }
                 });
         }
+    };
+
+    const addUserSuccNotification = () => {
+        toast.success("The user was added successfully!", {
+            position: "bottom-right",
+        });
     };
 
     return (
@@ -135,6 +142,7 @@ export default function UserForm() {
                     </form>
                 )}
             </div>
+            <ToastContainer />
         </div>
     );
 }
