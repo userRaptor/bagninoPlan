@@ -7,6 +7,7 @@ import Dashboard from "./views/Dashboard";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import UserForm from "./views/UserForm";
+import Bestellungen from "./views/Bestellungen";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "/users/:id",
                 element: <UserForm key="userUpdate"/>,
+            },
+            {
+                path: "/bestellungen",
+                element: <Bestellungen />,
             },
         ],
     },
