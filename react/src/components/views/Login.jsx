@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../axios-client";
-import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../../axios-client";
+import { useStateContext } from "../../contexts/ContextProvider";
 import { useState, useRef } from "react";
 
 

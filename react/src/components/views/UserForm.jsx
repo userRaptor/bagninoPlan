@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import axiosClient from "../axios-client";
-import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../../axios-client";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 export default function UserForm() {
     let { id } = useParams();

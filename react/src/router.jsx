@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Login from "./views/Login";
-import Signup from "./views/Signup";
-import Users from "./views/Users";
-import Dashboard from "./views/Dashboard";
+import Login from "./components/views/Login";
+import Signup from "./components/views/Signup";
+import Users from "./components/views/Users";
+import Dashboard from "./components/views/Dashboard";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
-import UserForm from "./views/UserForm";
-import Bestellungen from "./views/Bestellungen";
+import UserForm from "./components/views/UserForm";
+import Bestellungen from "./components/views/Bestellungen";
 
 const router = createBrowserRouter([
     {
