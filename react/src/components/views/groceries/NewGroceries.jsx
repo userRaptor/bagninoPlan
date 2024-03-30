@@ -33,7 +33,7 @@ function NewGroceries() {
     const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
 
     const handleChangeName = (event) => setGroceriesName(event.target.value);
-    
+
     const handleChangeSupplier = (event) =>
         setGroceriesSupplier(event.target.value);
 
@@ -47,7 +47,14 @@ function NewGroceries() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     return (
-        <div>
+        <div
+            style={{
+                marginTop: "200px",
+                marginLeft: "30px",
+                marginRight: "200px",
+                marginBottom: "30px",
+            }}
+        >
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -73,7 +80,9 @@ function NewGroceries() {
                                         as={Button}
                                         rightIcon={<ChevronDownIcon />}
                                     >
-                                        {groceriesUnit !== "" ? groceriesUnit : "Einheit"}
+                                        {groceriesUnit !== ""
+                                            ? groceriesUnit
+                                            : "Einheit"}
                                     </MenuButton>
                                     <MenuList>
                                         <MenuItem
@@ -120,7 +129,9 @@ function NewGroceries() {
                                         as={Button}
                                         rightIcon={<ChevronDownIcon />}
                                     >
-                                        {groceriesCategory !== "" ? groceriesCategory : "Kategorie"}
+                                        {groceriesCategory !== ""
+                                            ? groceriesCategory
+                                            : "Kategorie"}
                                     </MenuButton>
                                     <MenuList>
                                         <MenuItem
@@ -132,7 +143,9 @@ function NewGroceries() {
                                         </MenuItem>
                                         <MenuItem
                                             onClick={() =>
-                                                handleChangeCategory("Milchprodukte")
+                                                handleChangeCategory(
+                                                    "Milchprodukte"
+                                                )
                                             }
                                         >
                                             Milchprodukte
