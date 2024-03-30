@@ -32,11 +32,6 @@ function NewGroceries() {
     const [groceriesCategory, setGroceriesCategory] = React.useState("");
     const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
 
-    const handleChangeName = (event) => setGroceriesName(event.target.value);
-
-    const handleChangeSupplier = (event) =>
-        setGroceriesSupplier(event.target.value);
-
     const handleChangeUnit = (event) => {
         setGroceriesUnit(event);
     };
@@ -55,6 +50,7 @@ function NewGroceries() {
                 marginBottom: "30px",
             }}
         >
+
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -70,7 +66,7 @@ function NewGroceries() {
                             <Td>
                                 <Input
                                     value={groceriesName}
-                                    onChange={handleChangeName}
+                                    onChange={(event) => setGroceriesName(event.target.value)}
                                     placeholder="Produktname"
                                 />
                             </Td>
@@ -177,7 +173,7 @@ function NewGroceries() {
                             <Td>
                                 <Input
                                     value={groceriesSupplier}
-                                    onChange={handleChangeSupplier}
+                                    onChange={(event) => setGroceriesSupplier(event.target.value)}
                                     placeholder="Lieferant"
                                 />
                             </Td>

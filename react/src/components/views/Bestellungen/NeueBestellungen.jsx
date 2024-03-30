@@ -25,6 +25,7 @@ function NeueBestellungen() {
     const [time, setTime] = React.useState("");
     const [schoolClass, setSchoolClass] = React.useState("");
     const [location, setLocation] = React.useState("");
+    const [purpose, setPurpose] = React.useState("");
 
     const handleDateTimeChange = (event) => {
         const dateTimeValue = event.target.value;
@@ -46,6 +47,9 @@ function NeueBestellungen() {
         <div>
             <Text mb="8px">
                 Value: {date} ({weekday})
+            </Text>
+            <Text mb="8px">
+                KLasse: {schoolClass} Ort: {location} Zeit: {time}
             </Text>
             <Input
                 placeholder="Hier ist ein Beispiel-Platzhalter"
@@ -71,6 +75,31 @@ function NeueBestellungen() {
                                     size="md"
                                     type="datetime-local"
                                     onChange={handleDateTimeChange} // Call the function when input changes
+                                />
+                            </Td>
+                            <Td>
+                                <Input
+                                    placeholder="Klasse"
+                                    size="md"
+                                    onChange={(event) =>
+                                        setSchoolClass(event.target.value)
+                                    }
+                                />
+                            </Td>
+                            <Td>
+                                <Input
+                                    placeholder="Ort"
+                                    size="md"
+                                    onChange={(event) =>
+                                        setLocation(event.target.value)
+                                    }
+                                />
+                            </Td>
+                            <Td>
+                                <Input
+                                    placeholder="Verwendungszweck"
+                                    size="md"
+                                    onChange={(event) => setPurpose(event.target.value)}
                                 />
                             </Td>
 
