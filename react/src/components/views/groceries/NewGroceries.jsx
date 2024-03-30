@@ -1,4 +1,8 @@
 import React from "react";
+import { Input, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+
 import {
     Table,
     Thead,
@@ -10,16 +14,40 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
-import { Input, Text } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+} from "@chakra-ui/react";
 
 function NewGroceries() {
-    const [value, setValue] = React.useState("");
+    const [groceriesName, setGroceriesName] = React.useState([]);
+    const [groceriesUnit, setGroceriesUnit] = React.useState("");
+    const [groceriesCategory, setGroceriesCategory] = React.useState("");
+    const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
 
-    const handleChange = (event) => setValue(event.target.value);
+    const handleChangeName = (event) => setGroceriesName(event.target.value);
+    
+    const handleChangeSupplier = (event) =>
+        setGroceriesSupplier(event.target.value);
+
+    const handleChangeUnit = (event) => {
+        setGroceriesUnit(event);
+    };
+
+    const handleChangeCategory = (event) => {
+        setGroceriesCategory(event);
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-            <Text mb="8px">Value: {value}</Text>
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -34,34 +62,114 @@ function NewGroceries() {
                         <Tr>
                             <Td>
                                 <Input
-                                    value={value}
-                                    onChange={handleChange}
+                                    value={groceriesName}
+                                    onChange={handleChangeName}
                                     placeholder="Produktname"
                                 />
                             </Td>
                             <Td>
-                                <Input
-                                    value={value}
-                                    onChange={handleChange}
-                                    placeholder="Einheit"
-                                />
+                                <Menu>
+                                    <MenuButton
+                                        as={Button}
+                                        rightIcon={<ChevronDownIcon />}
+                                    >
+                                        {groceriesUnit !== "" ? groceriesUnit : "Einheit"}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeUnit("kg")
+                                            }
+                                        >
+                                            Kilogramm
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeUnit("g")
+                                            }
+                                        >
+                                            Gramm
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeUnit("Stück")
+                                            }
+                                        >
+                                            Stück
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeUnit("l")
+                                            }
+                                        >
+                                            Liter
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeUnit("ml")
+                                            }
+                                        >
+                                            Milliliter
+                                        </MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </Td>
+                            <Td>
+                                <Menu>
+                                    <MenuButton
+                                        as={Button}
+                                        rightIcon={<ChevronDownIcon />}
+                                    >
+                                        {groceriesCategory !== "" ? groceriesCategory : "Kategorie"}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeCategory("Obst")
+                                            }
+                                        >
+                                            Obst
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeCategory("Milchprodukte")
+                                            }
+                                        >
+                                            Milchprodukte
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeCategory("Tiefkühl")
+                                            }
+                                        >
+                                            Tiefkühl
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeCategory("Gemüse")
+                                            }
+                                        >
+                                            Gemüse
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                handleChangeCategory("Fleisch")
+                                            }
+                                        >
+                                            Fleisch
+                                        </MenuItem>
+                                    </MenuList>
+                                </Menu>
                             </Td>
                             <Td>
                                 <Input
-                                    value={value}
-                                    onChange={handleChange}
-                                    placeholder="Kategorie"
-                                />
-                            </Td>
-                            <Td>
-                                <Input
-                                    value={value}
-                                    onChange={handleChange}
+                                    value={groceriesSupplier}
+                                    onChange={handleChangeSupplier}
                                     placeholder="Lieferant"
                                 />
                             </Td>
                             <Td>
-                                <Button colorScheme="blue">Button</Button>
+                                <Button colorScheme="blue">ADD</Button>
                             </Td>
                         </Tr>
                     </Tbody>
