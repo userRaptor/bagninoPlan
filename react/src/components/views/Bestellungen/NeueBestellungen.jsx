@@ -44,19 +44,13 @@ function NeueBestellungen() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
-        <div>
-            <Text mb="8px">
-                Value: {date} ({weekday})
-            </Text>
-            <Text mb="8px">
-                KLasse: {schoolClass} Ort: {location} Zeit: {time}
-            </Text>
-            <Input
-                placeholder="Hier ist ein Beispiel-Platzhalter"
-                size="sm"
-                width="200px"
-            />
-
+        <div style={{
+            marginTop: "10px",
+            marginLeft: "30px",
+            marginRight: "200px",
+            marginBottom: "30px",
+        }}>
+            
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -118,49 +112,10 @@ export default NeueBestellungen;
 
 {
     /* 
-                            <Td>
-                                <Calendar
-                                    onChange={handleDateChange}
-                                    value={selectedDate}
-                                />
-                            </Td>
-
-
-  const handleDateChange = (date) => {
-        setSelectedDate(date);
-        const formattedDate = formatDate(date);
-        setDate(formattedDate);
-        const extractedWeekday = getDayOfWeek(date);
-        setWeekday(extractedWeekday);
-    };
-
-    // Funktion zur Formatierung des Datums in "DD-MM-YYYY"
-    const formatDate = (date) => {
-        const formatted = `${date.getDate()}-${
-            date.getMonth() + 1
-        }-${date.getFullYear()}`;
-        return formatted;
-    };
-
-    // Funktion zur Extrahierung des Wochentags
-    const getDayOfWeek = (date) => {
-        const days = [
-            "Sonntag",
-            "Montag",
-            "Dienstag",
-            "Mittwoch",
-            "Donnerstag",
-            "Freitag",
-            "Samstag",
-        ];
-        const dayIndex = date.getDay();
-        return days[dayIndex];
-    };
-
-
-
-
-
-
-                            */
+    
+        <Text mb="8px">
+            Value: {date} ({weekday})
+        </Text>
+    
+    */
 }
