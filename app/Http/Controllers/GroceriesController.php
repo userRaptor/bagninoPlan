@@ -17,7 +17,6 @@ class GroceriesController extends Controller
     {
         //return DB::select('select * from groceries');
 
-        
         return GroceryResource::collection(
             Groceries::query()->orderBy('id', 'desc')->paginate(10)
         );
