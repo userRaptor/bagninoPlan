@@ -74,17 +74,6 @@ function NewGroceries() {
             });
     };
 
-    const deleteGroceries = (grocery) => {
-        axiosClient
-            .delete(`/groceries/${grocery.id}`)
-            .then(() => {
-                setRenderKey((prevKey) => prevKey + 1);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
     const groceriesAddedSuccessfullyAlert = () =>
         toast.success("The product was successfully added!", {
             position: "bottom-right",
@@ -105,8 +94,8 @@ function NewGroceries() {
         <div
             style={{
                 marginTop: "30px",
-                marginLeft: "70px",
-                marginRight: "250px",
+                marginLeft: "10px",
+                marginRight: "10px",
                 marginBottom: "30px",
             }}
         >

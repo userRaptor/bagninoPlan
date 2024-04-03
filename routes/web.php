@@ -24,3 +24,7 @@ Route::get('/', function () {
 
 
 Route::get('groceries', [GroceriesController::class, 'index']);
+
+Route::get('groceries/{id}', [GroceriesController::class, 'getByID']);
+
+Route::delete('groceries', [GroceriesController::class, 'deleteAll']);

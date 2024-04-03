@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreGroceryRequest;
 use App\Http\Resources\GroceryResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class GroceriesController extends Controller
 {
@@ -18,9 +19,13 @@ class GroceriesController extends Controller
         //return DB::select('select * from groceries');
 
         return GroceryResource::collection(
-            Groceries::query()->orderBy('id', 'desc')->paginate(10)
+            Groceries::query()->orderBy('id', 'desc')->get()
         );
-        
+    }
+
+    public function getByID($id)
+    {
+        return new GroceryResource(Groceries::find($id));
     }
 
     /**
@@ -80,6 +85,28 @@ class GroceriesController extends Controller
      */
     public function destroy(Groceries $groceries)
     {
-        //
+        // Daten werden in die log-Datei von Laravel geschrieben (storage/logs/laravel.log)
+        Log::info('Destroy method called with groceries id: '.$groceries->id);
+
+        $groceries->delete();
+
+        Log::info('Groceries with id: '.$groceries->id.' deleted successfully');
+
+        return response()->json(null, 204);
+    }
+
+    public function deleteByID($id)
+    {
+        $grocery = Groceries::find($id);
+        $grocery->delete();
+
+        return response()->json(null, 204);
+    }
+
+    public function deleteAll()
+    {
+        Groceries::query()->delete();
+
+        return response()->json(null, 204);
     }
 }
