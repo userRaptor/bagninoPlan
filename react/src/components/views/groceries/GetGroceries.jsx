@@ -2,9 +2,26 @@ import React from "react";
 import axiosClient from "../../../axios-client";
 
 import { useEffect } from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Divider,
+} from "@chakra-ui/react";
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+} from "@chakra-ui/react";
 
 function GetGroceries() {
     const [groceries, setGroceries] = React.useState([]);
@@ -26,26 +43,38 @@ function GetGroceries() {
     }, []);
 
     return (
-        <div style={{ marginTop: "70px" }}>
-            <Flex flexWrap="wrap" justifyContent="space-between">
-                {groceries.map((grocery) => (
-                    <Box key={grocery.id} width="300px" mb={4}>
-                        <Card>
-                            <CardHeader>
-                                <Heading size="md">{grocery.name}</Heading>
-                            </CardHeader>
-                            <CardBody>
-                                <Text>{grocery.unit}</Text>
-                                <Text>{grocery.category}</Text>
-                                <Text>{grocery.supplier}</Text>
-                            </CardBody>
-                            <CardFooter>
-                                <Button colorScheme="red">Delete</Button>
-                            </CardFooter>
-                        </Card>
-                    </Box>
-                ))}
-            </Flex>
+        <div>
+            <div style={{ marginTop: "50px", marginBottom: "50px" }}>
+                <Box height="5px" backgroundColor="black" />
+            </div>
+            <TableContainer>
+                <Table variant="striped" colorScheme="teal">
+                    <TableCaption>All available products</TableCaption>
+                    <Thead>
+                        <Tr>
+                            <Th>Name:</Th>
+                            <Th>Unit:</Th>
+                            <Th>Category:</Th>
+                            <Th>Supplier:</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {groceries.map((grocery) => (
+                            <Tr key={grocery.id}>
+                                <Td>{grocery.name}</Td>
+                                <Td>{grocery.unit}</Td>
+                                <Td>{grocery.category}</Td>
+                                <Td>{grocery.supplier}</Td>
+                                <Td>
+                                    <Button colorScheme="red" isDisabled>
+                                        Delete
+                                    </Button>
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </TableContainer>
         </div>
     );
 }

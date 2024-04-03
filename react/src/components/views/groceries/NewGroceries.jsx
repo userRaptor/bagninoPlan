@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
 import GetGroceries from "./GetGroceries";
 
@@ -27,6 +28,14 @@ import {
     MenuOptionGroup,
     MenuDivider,
 } from "@chakra-ui/react";
+
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+} from "@chakra-ui/react";
+
 import axiosClient from "../../../axios-client";
 
 function NewGroceries() {
@@ -34,6 +43,8 @@ function NewGroceries() {
     const [groceriesUnit, setGroceriesUnit] = React.useState("");
     const [groceriesCategory, setGroceriesCategory] = React.useState("");
     const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
+
+    const [renderKey, setRenderKey] = useState(0);
 
     const handleChangeUnit = (event) => {
         setGroceriesUnit(event);
@@ -57,26 +68,41 @@ function NewGroceries() {
             .post("/groceries", payload)
             .then((response) => {
                 console.log(response.data);
+                setRenderKey((prevKey) => prevKey + 1);
+                successfullAlert();
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
-    useEffect(() => {
-    }, []);
+    const successfullAlert = () => {
+        
+    };
 
+    useEffect(() => {}, []);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div
             style={{
-                marginTop: "200px",
-                marginLeft: "30px",
-                marginRight: "200px",
+                marginTop: "30px",
+                marginLeft: "70px",
+                marginRight: "250px",
                 marginBottom: "30px",
             }}
         >
+            <Text
+                style={{
+                    marginTop: "50px",
+                    marginLeft: "70px",
+                    marginBottom: "50px",
+                }}
+                fontSize="2xl"
+            >
+                ADD NEW GROCERIES:
+            </Text>
+
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -220,7 +246,8 @@ function NewGroceries() {
                 </Table>
             </TableContainer>
 
-            <GetGroceries />
+            <GetGroceries key={renderKey} />
+            
         </div>
     );
 }
