@@ -6,6 +6,9 @@ import { useState } from "react";
 
 import GetGroceries from "./GetGroceries";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import {
     Table,
     Thead,
@@ -29,14 +32,8 @@ import {
     MenuDivider,
 } from "@chakra-ui/react";
 
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-} from "@chakra-ui/react";
-
 import axiosClient from "../../../axios-client";
+import { Bounce } from "react-toastify";
 
 function NewGroceries() {
     const [groceriesName, setGroceriesName] = React.useState([]);
@@ -55,6 +52,7 @@ function NewGroceries() {
     };
 
     const saveGroceries = () => {
+        groceriesAddedSuccessfullyAlert();
         const payload = {
             name: groceriesName,
             unit: groceriesUnit,
@@ -76,9 +74,29 @@ function NewGroceries() {
             });
     };
 
-    const successfullAlert = () => {
-        
+    const deleteGroceries = (grocery) => {
+        axiosClient
+            .delete(`/groceries/${grocery.id}`)
+            .then(() => {
+                setRenderKey((prevKey) => prevKey + 1);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
+
+    const groceriesAddedSuccessfullyAlert = () =>
+        toast.success("The product was successfully added!", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
 
     useEffect(() => {}, []);
 
@@ -240,6 +258,19 @@ function NewGroceries() {
                                 >
                                     ADD
                                 </Button>
+                                <ToastContainer
+                                    position="bottom-right"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                    theme="colored"
+                                    transition={Bounce}
+                                />
                             </Td>
                         </Tr>
                     </Tbody>
@@ -247,7 +278,6 @@ function NewGroceries() {
             </TableContainer>
 
             <GetGroceries key={renderKey} />
-            
         </div>
     );
 }
