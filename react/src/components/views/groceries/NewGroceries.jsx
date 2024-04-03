@@ -32,6 +32,7 @@ function NewGroceries() {
     const [groceriesUnit, setGroceriesUnit] = React.useState("");
     const [groceriesCategory, setGroceriesCategory] = React.useState("");
     const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
+    const [groceries, setGroceries] = React.useState([]);
 
     const handleChangeUnit = (event) => {
         setGroceriesUnit(event);
@@ -61,10 +62,11 @@ function NewGroceries() {
             });
     };
 
-    const getGroceries = () => {
+    const fetchGroceries = () => {
         axiosClient
             .get("/groceries")
             .then((response) => {
+                setGroceries(response.data);
                 console.log(response.data);
             })
             .catch((error) => {
@@ -73,7 +75,7 @@ function NewGroceries() {
     };
 
     useEffect(() => {
-        console.log("useEffect");
+        fetchGroceries();
     }, []);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,6 +230,32 @@ function NewGroceries() {
                     </Tbody>
                 </Table>
             </TableContainer>
+            
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Unit</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Supplier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {groceries.map((grocery) => (
+                            <tr key={grocery.id}>
+                                <td>{grocery.id}</td>
+                                <td>{grocery.name}</td>
+                                <td>{grocery.unit}</td>
+                                <td>{grocery.category}</td>
+                                <td>{grocery.supplier}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
     );
 }

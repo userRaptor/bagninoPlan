@@ -20,7 +20,7 @@ class UserController extends Controller
         
         return UserResource::collection(
             User::query()->orderBy('id', 'desc')->paginate(10)
-            // User::query()->orderBy('id', 'desc')->get()
+            // User::query()->orderBy('id', 'desc')->get();
         );
         
     }

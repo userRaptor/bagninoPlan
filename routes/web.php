@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GroceriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// http://localhost:8000/
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('groceries', [GroceriesController::class, 'index']);

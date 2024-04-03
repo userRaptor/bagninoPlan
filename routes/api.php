@@ -35,5 +35,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/groceries', [GroceriesController::class, 'store']);
 
-Route::get('/groceries', [GroceriesController::class, 'show']);
+
+Route::get('/groceries', [GroceriesController::class, 'index']);
+
+//Route::get('/groceries', 'GroceriesController@index');
+
+
+
 

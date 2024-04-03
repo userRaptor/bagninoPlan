@@ -6,6 +6,7 @@ use App\Models\Groceries;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreGroceryRequest;
 use App\Http\Resources\GroceryResource;
+use Illuminate\Support\Facades\DB;
 
 class GroceriesController extends Controller
 {
@@ -14,7 +15,13 @@ class GroceriesController extends Controller
      */
     public function index()
     {
-        //
+        //return DB::select('select * from groceries');
+
+        
+        return GroceryResource::collection(
+            Groceries::query()->orderBy('id', 'desc')->paginate(10)
+        );
+        
     }
 
     /**
@@ -50,7 +57,7 @@ class GroceriesController extends Controller
      */
     public function show(Groceries $groceries)
     {
-        
+        return new GroceryResource($groceries);
     }
 
     /**
