@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\GroceriesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +32,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/groceries', [GroceriesController::class, 'store']);
 
-//Route::post('/groceries', [GroceriesController::class, 'store']);
