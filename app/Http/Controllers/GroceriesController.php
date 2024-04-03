@@ -28,11 +28,21 @@ class GroceriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        $grocery = Groceries::create($request->validated());
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'unit' => 'required',
+            'category' => 'required',
+            'supplier' => 'required',
+        ]);
+
+        $grocery = Groceries::create($validatedData);
+
         return new GroceryResource($grocery);
     }
+
 
 
     /**
@@ -40,7 +50,7 @@ class GroceriesController extends Controller
      */
     public function show(Groceries $groceries)
     {
-        //
+        
     }
 
     /**

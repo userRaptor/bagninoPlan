@@ -41,21 +41,40 @@ function NewGroceries() {
         setGroceriesCategory(event);
     };
 
-    const getGroceries = () => {
-        axiosClient.get("/groceries")
+    const saveGroceries = () => {
+        const payload = {
+            name: groceriesName,
+            unit: groceriesUnit,
+            category: groceriesCategory,
+            supplier: groceriesSupplier,
+        };
+
+        console.log(payload);
+
+        axiosClient
+            .post("/groceries", payload)
             .then((response) => {
-            console.log(response.data);
-        })
+                console.log(response.data);
+            })
             .catch((error) => {
-            console.log(error);
-        });
+                console.log(error);
+            });
+    };
+
+    const getGroceries = () => {
+        axiosClient
+            .get("/groceries")
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     useEffect(() => {
-        getGroceries();
-
+        console.log("useEffect");
     }, []);
-
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     return (
@@ -67,7 +86,6 @@ function NewGroceries() {
                 marginBottom: "30px",
             }}
         >
-
             <TableContainer>
                 <Table variant="simple">
                     <Thead>
@@ -83,7 +101,9 @@ function NewGroceries() {
                             <Td>
                                 <Input
                                     value={groceriesName}
-                                    onChange={(event) => setGroceriesName(event.target.value)}
+                                    onChange={(event) =>
+                                        setGroceriesName(event.target.value)
+                                    }
                                     placeholder="Produktname"
                                 />
                             </Td>
@@ -190,12 +210,19 @@ function NewGroceries() {
                             <Td>
                                 <Input
                                     value={groceriesSupplier}
-                                    onChange={(event) => setGroceriesSupplier(event.target.value)}
+                                    onChange={(event) =>
+                                        setGroceriesSupplier(event.target.value)
+                                    }
                                     placeholder="Lieferant"
                                 />
                             </Td>
                             <Td>
-                                <Button colorScheme="blue">ADD</Button>
+                                <Button
+                                    colorScheme="blue"
+                                    onClick={saveGroceries}
+                                >
+                                    ADD
+                                </Button>
                             </Td>
                         </Tr>
                     </Tbody>
