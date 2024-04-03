@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -25,6 +25,7 @@ import {
     MenuOptionGroup,
     MenuDivider,
 } from "@chakra-ui/react";
+import axiosClient from "../../../axios-client";
 
 function NewGroceries() {
     const [groceriesName, setGroceriesName] = React.useState([]);
@@ -39,6 +40,22 @@ function NewGroceries() {
     const handleChangeCategory = (event) => {
         setGroceriesCategory(event);
     };
+
+    const getGroceries = () => {
+        axiosClient.get("/groceries")
+            .then((response) => {
+            console.log(response.data);
+        })
+            .catch((error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        getGroceries();
+
+    }, []);
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     return (
