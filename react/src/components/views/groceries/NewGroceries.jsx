@@ -74,7 +74,7 @@ function NewGroceries() {
             });
     };
 
-    const groceriesAddedSuccessfullyAlert = () =>
+    const groceriesAddedSuccessfullyAlert = () => {
         toast.success("The product was successfully added!", {
             position: "bottom-right",
             autoClose: 5000,
@@ -86,6 +86,7 @@ function NewGroceries() {
             theme: "colored",
             transition: Bounce,
         });
+    };
 
     useEffect(() => {}, []);
 
