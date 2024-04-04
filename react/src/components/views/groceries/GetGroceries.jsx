@@ -1,6 +1,5 @@
 import React from "react";
 import axiosClient from "../../../axios-client";
-import axios from "axios";
 
 import { useEffect } from "react";
 
