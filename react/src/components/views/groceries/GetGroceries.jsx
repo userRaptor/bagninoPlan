@@ -1,14 +1,9 @@
 import React from "react";
 import axiosClient from "../../../axios-client";
+import axios from "axios";
 
 import { useEffect } from "react";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Divider,
-} from "@chakra-ui/react";
+
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import {
@@ -38,12 +33,14 @@ function GetGroceries() {
             });
     };
 
+
+
     const deleteGroceries = (grocery) => {
         console.log("DELETE ID: " + grocery.id);
         axiosClient
             .delete(`/groceries/${grocery.id}`)
             .then((response) => {
-                if (response.status === 204) {
+                if (response.status >= 200 && response.status < 300) {
                     console.log("Löschen erfolgreich");
                     fetchGroceries();
                 } else {
@@ -83,7 +80,7 @@ function GetGroceries() {
                     console.log("Serverantwort:", error.response);
                 }
             });
-    }
+    };
 
     useEffect(() => {
         fetchGroceries();
@@ -93,6 +90,7 @@ function GetGroceries() {
     return (
         <div>
             <Button onClick={deleteAll}>DELETE ALL</Button>
+
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                 <Box height="5px" backgroundColor="black" />
             </div>
