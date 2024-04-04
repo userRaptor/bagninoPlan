@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import {
     Table,
     Thead,
@@ -19,6 +20,7 @@ import {
 
 function GetGroceries() {
     const [groceries, setGroceries] = React.useState([]);
+    const [search, setSearch] = React.useState("");
 
     const fetchGroceries = () => {
         axiosClient
@@ -57,6 +59,8 @@ function GetGroceries() {
             });
     };
 
+    const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
+
     useEffect(() => {
         fetchGroceries();
     }, []);
@@ -67,6 +71,16 @@ function GetGroceries() {
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                 <Box height="5px" backgroundColor="black" />
             </div>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
+                <Input
+                    variant="outline"
+                    placeholder="Search"
+                    style={{ width: "30%" }}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
+
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">
                     <TableCaption>All available products</TableCaption>
@@ -80,7 +94,8 @@ function GetGroceries() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {groceries.map((grocery) => (
+                        
+                        {filteredGroceries.map((grocery) => (
                             <Tr key={grocery.id}>
                                 <Td>{grocery.id}</Td>
                                 <Td>{grocery.name}</Td>
