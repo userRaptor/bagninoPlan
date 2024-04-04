@@ -101,7 +101,7 @@ export default function Login() {
                     <Button
                         style={{
                             margin: "20px",
-                            marginLeft: "140px",
+                            marginLeft: "120px",
                             width: "200px",
                             backgroundColor: "darkgreen",
                             color: "white",
@@ -109,10 +109,12 @@ export default function Login() {
                     >
                         LOGIN
                     </Button>
-                    <Text fontSize="lg">
-                        {" "}
-                        Not registered? Create an account
-                    </Text>
+                    <div>
+                        <p>
+                            Not registered?{" "}
+                            <Link to="/signup">Create an account</Link>
+                        </p>
+                    </div>
                 </Box>
             </Flex>
         </div>
