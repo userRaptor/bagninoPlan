@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../../contexts/ContextProvider";
 import { useState, useRef } from "react";
-import { Input } from "@chakra-ui/react";
+import { Button, Flex, Input } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import "./Login.css";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -44,48 +49,108 @@ export default function Login() {
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-            }}
-        >
-            <form onSubmit={onSubmit}>
-                <h1 className="title">Login into your account</h1>
-                {errors && (
-                    <div className="alert">
-                        {Object.keys(errors).map((key) => (
-                            <p key={key}>{errors[key][0]}</p>
-                        ))}
+        <div className="background-image2">
+            <Flex>
+                <Box
+                    bg="lightgreen"
+                    w="100%"
+                    p={4}
+                    color="black"
+                    m={100}
+                    ml={500}
+                    mr={500}
+                >
+                    <Text fontSize="3xl">WELCOME to EduEat</Text>
+                    <Text fontSize="lg">Login into your account:</Text>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            margin: "20px",
+                        }}
+                    >
+                        <h1 style={{ marginRight: "40px" }}>E-Mail:</h1>
+                        <Input
+                            variant="outline"
+                            placeholder="Email"
+                            type="email"
+                            style={{ width: "300px" }}
+                            onChange={(event) => {
+                                setEmail(event.target.value);
+                            }}
+                        />
                     </div>
-                )}
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            margin: "20px",
+                        }}
+                    >
+                        <h1 style={{ marginRight: "15px" }}>Password:</h1>
+                        <Input
+                            variant="outline"
+                            placeholder="Password"
+                            type="password"
+                            style={{ width: "300px" }}
+                            onChange={(event) => {
+                                setPassword(event.target.value);
+                            }}
+                        />
+                    </div>
+                    <Button
+                        style={{
+                            margin: "20px",
+                            marginLeft: "140px",
+                            width: "200px",
+                            backgroundColor: "darkgreen",
+                            color: "white",
+                        }}
+                    >
+                        LOGIN
+                    </Button>
+                    <Text fontSize="lg">
+                        {" "}
+                        Not registered? Create an account
+                    </Text>
+                </Box>
+            </Flex>
+        </div>
+    );
+}
 
-                <div>
-                    <Input
-                        variant="outline"
-                        placeholder="Email"
-                        style={{ width: "70%" }}
-                        type="email"
-                    />
-                    <Input
-                        variant="outline"
-                        placeholder="Password"
-                        style={{ width: "70%" }}
-                        type="password"
-                    />
-                </div>
-
-                <input ref={emailRef} placeholder="Email" type="email" />
+/*
+<input ref={emailRef} placeholder="Email" type="email" />
                 <input
                     ref={passwordRef}
                     placeholder="Password"
                     type="password"
                 />
-                <button className="btn btn-block">Login</button>
-                <p className="message">
-                    Not registered? <Link to="/signup">Create an account</Link>
-                </p>
-            </form>
-        </div>
-    );
-}
+
+
+
+
+<form onSubmit={onSubmit}>
+                    {errors && (
+                        <div className="alert">
+                            {Object.keys(errors).map((key) => (
+                                <p key={key}>{errors[key][0]}</p>
+                            ))}
+                        </div>
+                    )}
+
+                    <button className="btn btn-block">Login</button>
+                    <p className="message">
+                        Not registered?{" "}
+                        <Link to="/signup">Create an account</Link>
+                    </p>
+                </form>
+
+
+
+
+
+
+
+
+                */
