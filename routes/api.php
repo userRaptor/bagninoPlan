@@ -38,14 +38,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/groceries', [GroceriesController::class, 'store']);
 Route::get('/groceries', [GroceriesController::class, 'index']);
 Route::get('/groceries/{id}', [GroceriesController::class, 'getByID']);
-
 Route::delete('/groceries/{id}', [GroceriesController::class, 'deleteByID']);
-
 Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
-
-Route::delete('/groceries/{groceries}', [GroceriesController::class, 'deleteByID']);
-Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
 
 
