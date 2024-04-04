@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Login from "./components/views/Login";
+import Login from "./components/views/Login/Login";
 import Signup from "./components/views/Signup";
 import Users from "./components/views/Users";
 import Dashboard from "./components/views/Dashboard";
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/users/new",
-                element: <UserForm key="userCreate"/>,
+                element: <UserForm key="userCreate" />,
             },
             {
                 path: "/users/:id",
-                element: <UserForm key="userUpdate"/>,
+                element: <UserForm key="userUpdate" />,
             },
         ],
     },

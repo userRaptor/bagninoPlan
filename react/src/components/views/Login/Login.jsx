@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../../axios-client";
-import { useStateContext } from "../../contexts/ContextProvider";
+import axiosClient from "../../../axios-client";
+import { useStateContext } from "../../../contexts/ContextProvider";
 import { useState, useRef } from "react";
-
-
+import { Input } from "@chakra-ui/react";
+import "./Login.css";
 
 export default function Login() {
-
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -36,31 +35,52 @@ export default function Login() {
                         setErrors(response.data.errors);
                     } else {
                         setErrors({
-                            email: [response.data.message]
-                        })
+                            email: [response.data.message],
+                        });
                     }
                     console.log(response.data.errors);
-
                 }
             });
     };
 
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+            }}
+        >
             <form onSubmit={onSubmit}>
                 <h1 className="title">Login into your account</h1>
+                {errors && (
+                    <div className="alert">
+                        {Object.keys(errors).map((key) => (
+                            <p key={key}>{errors[key][0]}</p>
+                        ))}
+                    </div>
+                )}
 
-                {errors && <div className="alert">
-                    {Object.keys(errors).map(key => (
-                        <p key={key}>
-                            {errors[key][0]}
-                        </p>
-                    ))}
+                <div>
+                    <Input
+                        variant="outline"
+                        placeholder="Email"
+                        style={{ width: "70%" }}
+                        type="email"
+                    />
+                    <Input
+                        variant="outline"
+                        placeholder="Password"
+                        style={{ width: "70%" }}
+                        type="password"
+                    />
                 </div>
-                }
 
                 <input ref={emailRef} placeholder="Email" type="email" />
-                <input ref={passwordRef} placeholder="Password" type="password" />
+                <input
+                    ref={passwordRef}
+                    placeholder="Password"
+                    type="password"
+                />
                 <button className="btn btn-block">Login</button>
                 <p className="message">
                     Not registered? <Link to="/signup">Create an account</Link>
