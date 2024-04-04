@@ -49,7 +49,7 @@ export default function Login() {
     };
 
     return (
-        <div className="background-image2">
+        <div className="background-image">
             <Flex>
                 <Box
                     bg="lightgreen"
