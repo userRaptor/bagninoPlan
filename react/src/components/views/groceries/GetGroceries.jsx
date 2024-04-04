@@ -33,29 +33,16 @@ function GetGroceries() {
             });
     };
 
-
-
-    const deleteGroceries = (grocery) => {
+    const deleteGroceriesById = (grocery) => {
         console.log("DELETE ID: " + grocery.id);
         axiosClient
             .delete(`/groceries/${grocery.id}`)
             .then((response) => {
-                if (response.status >= 200 && response.status < 300) {
-                    console.log("Löschen erfolgreich");
-                    fetchGroceries();
-                } else {
-                    console.log(
-                        "Fehler beim Löschen:",
-                        response.status,
-                        response.data
-                    );
-                }
+                console.log(response);
+                fetchGroceries();
             })
             .catch((error) => {
-                console.log("Fehler:", error);
-                if (error.response) {
-                    console.log("Serverantwort:", error.response);
-                }
+                console.log(error);
             });
     };
 
@@ -63,22 +50,11 @@ function GetGroceries() {
         axiosClient
             .delete("/groceries")
             .then((response) => {
-                if (response.status === 204) {
-                    console.log("Löschen erfolgreich");
-                    fetchGroceries();
-                } else {
-                    console.log(
-                        "Fehler beim Löschen:",
-                        response.status,
-                        response.data
-                    );
-                }
+                console.log(response);
+                fetchGroceries();
             })
             .catch((error) => {
-                console.log("Fehler:", error);
-                if (error.response) {
-                    console.log("Serverantwort:", error.response);
-                }
+                console.log(error);
             });
     };
 
@@ -89,8 +65,6 @@ function GetGroceries() {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-            <Button onClick={deleteAll}>DELETE ALL</Button>
-
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                 <Box height="5px" backgroundColor="black" />
             </div>
@@ -118,7 +92,9 @@ function GetGroceries() {
                                     {/* isDisabled */}
                                     <Button
                                         colorScheme="red"
-                                        onClick={() => deleteGroceries(grocery)}
+                                        onClick={() =>
+                                            deleteGroceriesById(grocery)
+                                        }
                                     >
                                         Delete
                                     </Button>
@@ -128,6 +104,12 @@ function GetGroceries() {
                     </Tbody>
                 </Table>
             </TableContainer>
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button isDisabled colorScheme="red" onClick={deleteAll}>
+                    DELETE ALL
+                </Button>
+            </div>
         </div>
     );
 }
