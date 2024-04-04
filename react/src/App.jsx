@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./components/views/Login/Login";
-import Signup from "./components/views/Signup";
+import Signup from "./components/views/Login/Signup";
 import Users from "./components/views/Users";
 import Dashboard from "./components/views/Dashboard";
 import DefaultLayout from "./components/DefaultLayout";

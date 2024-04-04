@@ -12,17 +12,14 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const emailRef = useRef();
-    const passwordRef = useRef();
-
     const [errors, setErrors] = useState(null);
     const { setUser, setToken } = useStateContext();
 
     const onSubmit = (event) => {
         event.preventDefault();
         const payload = {
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
+            email: email,
+            password: password,
         };
 
         setErrors(null);
@@ -47,7 +44,7 @@ export default function Login() {
                 }
             });
     };
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div className="background-image">
             <Flex>
@@ -106,6 +103,7 @@ export default function Login() {
                             backgroundColor: "darkgreen",
                             color: "white",
                         }}
+                        onClick={onSubmit}
                     >
                         LOGIN
                     </Button>

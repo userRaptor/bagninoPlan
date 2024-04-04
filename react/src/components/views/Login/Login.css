@@ -1,8 +1,5 @@
 .input-field {
-    max-width: 300px;
-    margin: 10px auto; /* Auto-Margin für Zentrierung horizontal */
-    padding: 20px;
-    display: block; /* Element als Block-Element behandeln */
+    margin-top: 20px;
 }
 
 
