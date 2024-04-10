@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from "react-router-dom";
 
 import Login from "./components/views/Login/Login";
@@ -9,6 +10,7 @@ import GuestLayout from "./components/GuestLayout";
 import UserForm from "./components/views/UserForm";
 
 const router = createBrowserRouter([
+    {/* 
     {
         path: "/",
         element: <DefaultLayout />,
@@ -53,6 +55,8 @@ const router = createBrowserRouter([
             </div>
         ),
     },
+    */}
 ]);
 
 export default router;
+

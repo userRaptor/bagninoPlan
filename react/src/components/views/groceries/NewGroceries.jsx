@@ -5,6 +5,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 import GetGroceries from "./GetGroceries";
+import Header from "../../Header";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -100,6 +101,7 @@ function NewGroceries() {
                 marginBottom: "30px",
             }}
         >
+            <Header />
             <Text
                 style={{
                     marginTop: "50px",

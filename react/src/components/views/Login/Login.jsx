@@ -6,6 +6,9 @@ import { useState, useRef } from "react";
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
+
 import "./Login.css";
 
 export default function Login() {
@@ -14,6 +17,7 @@ export default function Login() {
 
     const [errors, setErrors] = useState(null);
     const { setUser, setToken } = useStateContext();
+    const navigate = useNavigate();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -29,6 +33,8 @@ export default function Login() {
             .then((data) => {
                 setToken(data.token);
                 setUser(data.user);
+                console.log(data);
+                navigate('/dashboard');
             })
             .catch((error) => {
                 const response = error.response;

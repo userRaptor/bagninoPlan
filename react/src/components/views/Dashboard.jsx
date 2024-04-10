@@ -1,7 +1,10 @@
 import React from "react";
 
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "../Header";
+
 
 export default function Dashboard() {
     const addUserSuccNotification = () => {
@@ -12,6 +15,7 @@ export default function Dashboard() {
 
     return (
         <div>
+            <Header />
             <h1>DASHBOARD</h1>
 
             <button onClick={addUserSuccNotification}>Notify</button>
