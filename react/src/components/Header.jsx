@@ -31,7 +31,7 @@ export default function() {
                         UserName
                       </MenuButton>
                       <MenuList>
-                        <MenuItem onClick={onLogout}>Logout</MenuItem>
+                        <MenuItem>Logout</MenuItem>
                         <MenuDivider />
                         <MenuItem>UserSettings</MenuItem>
                       </MenuList>
