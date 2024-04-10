@@ -10,18 +10,21 @@ import GuestLayout from "./components/GuestLayout";
 import UserForm from "./components/views/UserForm";
 import NeueBestellungen from "./components/views/Bestellungen/NeueBestellungen";
 import NewGroceries from "./components/views/groceries/NewGroceries";
-import Header from "./components/Header";
+import Header from "./components/NavBar";
 
 function App() {
     return (
         <BrowserRouter>
-            
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
 
+                <Route path="/" element={<Dashboard />} />
+
+                {/* 
                 <Route path="/" element={<DefaultLayout />} />
                 <Route path="/" element={<GuestLayout />} />
+                */}
 
                 <Route path="/users" element={<Users />} />
                 <Route path="/dashboard" element={<Dashboard />} />

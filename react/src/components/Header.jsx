@@ -1,59 +1,53 @@
-import React from "react";
+import React from 'react';
+import { Text } from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+
 import {
-    Drawer,
-    DrawerBody,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-} from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
-import { IconButton } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+  } from '@chakra-ui/react'
 
-function Header() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const btnRef = React.useRef();
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Button } from '@chakra-ui/react';
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+import NavBar from './NavBar';
+
+
+
+export default function() {
     return (
-        <div>
-            <IconButton
-                aria-label="Open menu"
-                icon={<HamburgerIcon boxSize={30} />}
-                color="black"
-                variant="ghost"
-                onClick={onOpen}
-            />
+        <div style={{backgroundColor: 'green'}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '30px' }}>
+                <NavBar />
+                <Text fontSize='3xl'>Dashboard</Text>
+                <Box>
+                    <Menu>
+                      <MenuButton style={{backgroundColor: 'green'}} as={Button} rightIcon={<ChevronDownIcon />}>
+                        UserName
+                      </MenuButton>
+                      <MenuList>
+                        <MenuItem>Logout</MenuItem>
+                        <MenuDivider />
+                        <MenuItem>UserSettings</MenuItem>
+                      </MenuList>
+                    </Menu>
+                </Box>
 
-            <Drawer
-                isOpen={isOpen}
-                placement="left"
-                onClose={onClose}
-                finalFocusRef={btnRef}
-            >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader>Create your account</DrawerHeader>
-
-                    <DrawerBody>
-                        <Input placeholder="Type here..." />
-                    </DrawerBody>
-
-                    <DrawerFooter>
-                        <Button variant="outline" mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme="blue">Save</Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
+            </div>
         </div>
     );
 }
 
-export default Header;
+/*
+<Select placeholder='Name' style={{width: '100px'}}>
+                      <option value='option1'>Logout</option>
+                      <option value='option2'>UserSettings</option>
+                    </Select>
+*/

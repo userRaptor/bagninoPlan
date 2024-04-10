@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 import GetGroceries from "./GetGroceries";
-import Header from "../../Header";
+import Header from "../../NavBar";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
