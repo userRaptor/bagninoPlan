@@ -9,6 +9,8 @@ import UserForm from "./components/views/UserForm";
 import NeueBestellungen from "./components/views/Bestellungen/NeueBestellungen";
 import NewGroceries from "./components/views/groceries/NewGroceries";
 
+import Testing from "./components/Testing";
+
 function App() {
     useEffect(() => {
         document.title = 'EduEat';
@@ -17,6 +19,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/testing" element={<Testing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
 
