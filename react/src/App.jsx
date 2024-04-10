@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./components/views/Login/Login";
-import Signup from "./components/views/Login/Signup";
+import Login from "./components/views/auth/Login";
+import Signup from "./components/views/auth/Signup";
 import Users from "./components/views/Users";
 import Dashboard from "./components/views/Dashboard";
-import DefaultLayout from "./components/DefaultLayout";
-import GuestLayout from "./components/GuestLayout";
 import UserForm from "./components/views/UserForm";
 import NeueBestellungen from "./components/views/Bestellungen/NeueBestellungen";
 import NewGroceries from "./components/views/groceries/NewGroceries";
 
 function App() {
+    useEffect(() => {
+        document.title = 'EduEat';
+    }, []);
+
     return (
         <BrowserRouter>
             <Routes>

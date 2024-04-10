@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-
+/*
 import Login from "./components/views/Login/Login";
 import Signup from "./components/views/Login/Signup";
 import Users from "./components/views/Users";
@@ -8,6 +8,7 @@ import Dashboard from "./components/views/Dashboard";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import UserForm from "./components/views/UserForm";
+*/
 
 const router = createBrowserRouter([
     {/* 

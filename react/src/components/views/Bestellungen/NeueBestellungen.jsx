@@ -72,7 +72,7 @@ function NeueBestellungen() {
                                         placeholder="Select Date and Time"
                                         size="md"
                                         type="datetime-local"
-                                        onChange={handleDateTimeChange} // Call the function when input changes
+                                        onChange={handleDateTimeChange}
                                     />
                                 </Td>
                                 <Td>

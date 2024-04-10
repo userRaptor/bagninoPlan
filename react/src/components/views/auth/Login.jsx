@@ -116,7 +116,7 @@ export default function Login() {
                     <div>
                         <p>
                             Not registered?{" "}
-                            <Link to="/signup">Create an account</Link>
+                            <Link to="/signup" style={{ color: 'green' }}>Create an account</Link>
                         </p>
                     </div>
                 </Box>

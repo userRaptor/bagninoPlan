@@ -128,7 +128,7 @@ export default function Signup() {
                     <div style={{ marginTop: "30px" }}>
                         <Button onClick={onSubmit}>Submit</Button>
                         <p className="message">
-                            Already registered? <Link to="/login">Login</Link>
+                            Already registered? <Link to="/login" style={{ color: 'green' }}>Login</Link>
                         </p>
                     </div>
                 </Box>
