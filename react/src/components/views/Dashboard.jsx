@@ -1,13 +1,15 @@
 import React from "react";
-import Header from "../Header";
+import { Text } from "@chakra-ui/react";
+import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { ToastContainer, toast } from "react-toastify";
+import Header from "../Header";
+import welcomeIMG from "./../img/welcome.jpg";
 
 export default function Dashboard() {
     const addUserSuccNotification = () => {
-        toast.success("The user was added successfully!", {
+        toast.success("Welcome to EduEat!", {
             position: "bottom-right",
         });
     };
@@ -15,9 +17,10 @@ export default function Dashboard() {
     return (
         <div>
             <Header />
-            <h1>DASHBOARD</h1>
-
-            <button onClick={addUserSuccNotification}>Notify</button>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px'}}>
+                <img src={welcomeIMG} alt="welcome" style={{ width: '35%', height: 'auto' }}/>
+                <Text fontSize='6xl' onClick={addUserSuccNotification} style={{cursor: 'pointer'}}>to EduEat</Text>
+            </div>           
             <ToastContainer />
         </div>
     );
