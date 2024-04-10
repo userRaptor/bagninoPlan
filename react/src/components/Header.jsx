@@ -18,13 +18,12 @@ import {
 import NavBar from './NavBar';
 
 
-export default function() {
-
+function Header ({ title }) {
     return (
         <div style={{backgroundColor: 'green'}}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '30px' }}>
                 <NavBar />
-                <Text fontSize='3xl'>Dashboard</Text>
+                <Text fontSize='3xl'>{title}</Text>
                 <Box>
                     <Menu>
                       <MenuButton style={{backgroundColor: 'green'}} as={Button} rightIcon={<ChevronDownIcon />}>
@@ -42,3 +41,5 @@ export default function() {
         </div>
     );
 }
+
+export default Header;

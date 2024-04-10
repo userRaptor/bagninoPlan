@@ -10,7 +10,6 @@ import GuestLayout from "./components/GuestLayout";
 import UserForm from "./components/views/UserForm";
 import NeueBestellungen from "./components/views/Bestellungen/NeueBestellungen";
 import NewGroceries from "./components/views/groceries/NewGroceries";
-import Header from "./components/NavBar";
 
 function App() {
     return (

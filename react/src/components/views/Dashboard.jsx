@@ -16,7 +16,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            <Header />
+            <Header title="Dashboard" />
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px'}}>
                 <img src={welcomeIMG} alt="welcome" style={{ width: '35%', height: 'auto' }}/>
                 <Text fontSize='6xl' onClick={addUserSuccNotification} style={{cursor: 'pointer'}}>to EduEat</Text>

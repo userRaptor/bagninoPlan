@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 import GetGroceries from "./GetGroceries";
-import Header from "../../NavBar";
+import Header from "../../Header";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -93,183 +93,185 @@ function NewGroceries() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     return (
-        <div
-            style={{
-                marginTop: "30px",
-                marginLeft: "10px",
-                marginRight: "10px",
-                marginBottom: "30px",
-            }}
-        >
-            <Header />
-            <Text
+        <div>
+            <Header title="New Groceries" />
+            <div
                 style={{
-                    marginTop: "50px",
-                    marginLeft: "70px",
-                    marginBottom: "50px",
+                    marginTop: "30px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    marginBottom: "30px",
                 }}
-                fontSize="2xl"
             >
-                ADD NEW GROCERIES:
-            </Text>
+                <Text
+                    style={{
+                        marginTop: "50px",
+                        marginLeft: "70px",
+                        marginBottom: "50px",
+                    }}
+                    fontSize="2xl"
+                >
+                    ADD NEW GROCERIES:
+                </Text>
 
-            <TableContainer>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th>Produktname:</Th>
-                            <Th>Einheit:</Th>
-                            <Th>Kategorie:</Th>
-                            <Th>Lieferant:</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        <Tr>
-                            <Td>
-                                <Input
-                                    value={groceriesName}
-                                    onChange={(event) =>
-                                        setGroceriesName(event.target.value)
-                                    }
-                                    placeholder="Produktname"
-                                />
-                            </Td>
-                            <Td>
-                                <Menu>
-                                    <MenuButton
-                                        as={Button}
-                                        rightIcon={<ChevronDownIcon />}
+                <TableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th>Produktname:</Th>
+                                <Th>Einheit:</Th>
+                                <Th>Kategorie:</Th>
+                                <Th>Lieferant:</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>
+                                    <Input
+                                        value={groceriesName}
+                                        onChange={(event) =>
+                                            setGroceriesName(event.target.value)
+                                        }
+                                        placeholder="Produktname"
+                                    />
+                                </Td>
+                                <Td>
+                                    <Menu>
+                                        <MenuButton
+                                            as={Button}
+                                            rightIcon={<ChevronDownIcon />}
+                                        >
+                                            {groceriesUnit !== ""
+                                                ? groceriesUnit
+                                                : "Einheit"}
+                                        </MenuButton>
+                                        <MenuList>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeUnit("kg")
+                                                }
+                                            >
+                                                Kilogramm
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeUnit("g")
+                                                }
+                                            >
+                                                Gramm
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeUnit("Stück")
+                                                }
+                                            >
+                                                Stück
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeUnit("l")
+                                                }
+                                            >
+                                                Liter
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeUnit("ml")
+                                                }
+                                            >
+                                                Milliliter
+                                            </MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                </Td>
+                                <Td>
+                                    <Menu>
+                                        <MenuButton
+                                            as={Button}
+                                            rightIcon={<ChevronDownIcon />}
+                                        >
+                                            {groceriesCategory !== ""
+                                                ? groceriesCategory
+                                                : "Kategorie"}
+                                        </MenuButton>
+                                        <MenuList>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeCategory("Obst")
+                                                }
+                                            >
+                                                Obst
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeCategory(
+                                                        "Milchprodukte"
+                                                    )
+                                                }
+                                            >
+                                                Milchprodukte
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeCategory("Tiefkühl")
+                                                }
+                                            >
+                                                Tiefkühl
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeCategory("Gemüse")
+                                                }
+                                            >
+                                                Gemüse
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleChangeCategory("Fleisch")
+                                                }
+                                            >
+                                                Fleisch
+                                            </MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                </Td>
+                                <Td>
+                                    <Input
+                                        value={groceriesSupplier}
+                                        onChange={(event) =>
+                                            setGroceriesSupplier(event.target.value)
+                                        }
+                                        placeholder="Lieferant"
+                                    />
+                                </Td>
+                                <Td>
+                                    <Button
+                                        colorScheme="blue"
+                                        onClick={saveGroceries}
                                     >
-                                        {groceriesUnit !== ""
-                                            ? groceriesUnit
-                                            : "Einheit"}
-                                    </MenuButton>
-                                    <MenuList>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeUnit("kg")
-                                            }
-                                        >
-                                            Kilogramm
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeUnit("g")
-                                            }
-                                        >
-                                            Gramm
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeUnit("Stück")
-                                            }
-                                        >
-                                            Stück
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeUnit("l")
-                                            }
-                                        >
-                                            Liter
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeUnit("ml")
-                                            }
-                                        >
-                                            Milliliter
-                                        </MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            </Td>
-                            <Td>
-                                <Menu>
-                                    <MenuButton
-                                        as={Button}
-                                        rightIcon={<ChevronDownIcon />}
-                                    >
-                                        {groceriesCategory !== ""
-                                            ? groceriesCategory
-                                            : "Kategorie"}
-                                    </MenuButton>
-                                    <MenuList>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeCategory("Obst")
-                                            }
-                                        >
-                                            Obst
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeCategory(
-                                                    "Milchprodukte"
-                                                )
-                                            }
-                                        >
-                                            Milchprodukte
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeCategory("Tiefkühl")
-                                            }
-                                        >
-                                            Tiefkühl
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeCategory("Gemüse")
-                                            }
-                                        >
-                                            Gemüse
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() =>
-                                                handleChangeCategory("Fleisch")
-                                            }
-                                        >
-                                            Fleisch
-                                        </MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            </Td>
-                            <Td>
-                                <Input
-                                    value={groceriesSupplier}
-                                    onChange={(event) =>
-                                        setGroceriesSupplier(event.target.value)
-                                    }
-                                    placeholder="Lieferant"
-                                />
-                            </Td>
-                            <Td>
-                                <Button
-                                    colorScheme="blue"
-                                    onClick={saveGroceries}
-                                >
-                                    ADD
-                                </Button>
-                                <ToastContainer
-                                    position="bottom-right"
-                                    autoClose={5000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="colored"
-                                    transition={Bounce}
-                                />
-                            </Td>
-                        </Tr>
-                    </Tbody>
-                </Table>
-            </TableContainer>
+                                        ADD
+                                    </Button>
+                                    <ToastContainer
+                                        position="bottom-right"
+                                        autoClose={5000}
+                                        hideProgressBar={false}
+                                        newestOnTop={false}
+                                        closeOnClick
+                                        rtl={false}
+                                        pauseOnFocusLoss
+                                        draggable
+                                        pauseOnHover
+                                        theme="colored"
+                                        transition={Bounce}
+                                    />
+                                </Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                </TableContainer>
 
-            <GetGroceries key={renderKey} />
+                <GetGroceries key={renderKey} />
+            </div>
         </div>
     );
 }

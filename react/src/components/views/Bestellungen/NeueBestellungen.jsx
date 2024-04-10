@@ -1,7 +1,8 @@
 import React from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import Calendar from "react-calendar";
+import GetGroceriesForUser from "./GetGroceriesForUser";
+
 import { useState } from "react";
 
 import "react-calendar/dist/Calendar.css";
@@ -17,6 +18,7 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
+import Header from "../../Header";
 
 function NeueBestellungen() {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -44,66 +46,71 @@ function NeueBestellungen() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
-        <div style={{
-            marginTop: "10px",
-            marginLeft: "30px",
-            marginRight: "200px",
-            marginBottom: "30px",
-        }}>
-            
-            <TableContainer>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th>Datum und Uhrzeit:</Th>
-                            <Th>Klasse:</Th>
-                            <Th>Ort:</Th>
-                            <Th>Verwendungszweck:</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        <Tr>
-                            <Td>
-                                <Input
-                                    placeholder="Select Date and Time"
-                                    size="md"
-                                    type="datetime-local"
-                                    onChange={handleDateTimeChange} // Call the function when input changes
-                                />
-                            </Td>
-                            <Td>
-                                <Input
-                                    placeholder="Klasse"
-                                    size="md"
-                                    onChange={(event) =>
-                                        setSchoolClass(event.target.value)
-                                    }
-                                />
-                            </Td>
-                            <Td>
-                                <Input
-                                    placeholder="Ort"
-                                    size="md"
-                                    onChange={(event) =>
-                                        setLocation(event.target.value)
-                                    }
-                                />
-                            </Td>
-                            <Td>
-                                <Input
-                                    placeholder="Verwendungszweck"
-                                    size="md"
-                                    onChange={(event) => setPurpose(event.target.value)}
-                                />
-                            </Td>
+        <div>
+            <Header title="New Order" />
+            <div style={{
+                marginTop: "10px",
+                marginLeft: "30px",
+                marginRight: "200px",
+                marginBottom: "30px",
+            }}>
 
-                            <Td>
-                                <Button colorScheme="blue">ADD</Button>
-                            </Td>
-                        </Tr>
-                    </Tbody>
-                </Table>
-            </TableContainer>
+                <TableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th>Datum und Uhrzeit:</Th>
+                                <Th>Klasse:</Th>
+                                <Th>Ort:</Th>
+                                <Th>Verwendungszweck:</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>
+                                    <Input
+                                        placeholder="Select Date and Time"
+                                        size="md"
+                                        type="datetime-local"
+                                        onChange={handleDateTimeChange} // Call the function when input changes
+                                    />
+                                </Td>
+                                <Td>
+                                    <Input
+                                        placeholder="Klasse"
+                                        size="md"
+                                        onChange={(event) =>
+                                            setSchoolClass(event.target.value)
+                                        }
+                                    />
+                                </Td>
+                                <Td>
+                                    <Input
+                                        placeholder="Ort"
+                                        size="md"
+                                        onChange={(event) =>
+                                            setLocation(event.target.value)
+                                        }
+                                    />
+                                </Td>
+                                <Td>
+                                    <Input
+                                        placeholder="Verwendungszweck"
+                                        size="md"
+                                        onChange={(event) => setPurpose(event.target.value)}
+                                    />
+                                </Td>
+
+                                <Td>
+                                    <Button colorScheme="blue">ADD</Button>
+                                </Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </div>
+
+            <GetGroceriesForUser />
         </div>
     );
 }

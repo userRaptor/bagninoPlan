@@ -29,6 +29,15 @@ function Header() {
         navigate("/neworder");
     }
 
+    const navigateToNewGroceries = () => {
+        navigate("/newgroceries");
+    }
+
+    const navigateToUsers = () => {
+        navigate("/users");
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
@@ -56,6 +65,9 @@ function Header() {
                         <Button variant='link' fontSize='lg' onClick={navigateToNewOrder}>New Order</Button>
                         <Button variant='link' fontSize='lg'>My Orders</Button>
                         <Button variant='link' fontSize='lg'>User Settings</Button>
+
+                        <Button variant='link' fontSize='lg' onClick={navigateToNewGroceries}>Groceries</Button>
+                        <Button variant='link' fontSize='lg' onClick={navigateToUsers}>User Managment</Button>
                     </Stack>
                 </DrawerBody>
                     <DrawerFooter>
