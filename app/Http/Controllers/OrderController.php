@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBestellungRequest;
-use App\Http\Requests\UpdateBestellungRequest;
-use App\Models\Bestellung;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Order;
 
-class BestellungsController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class BestellungsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBestellungRequest $request)
+    public function store(StoreOrderRequest $request)
     {
         //
     }
@@ -27,7 +27,7 @@ class BestellungsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bestellung $bestellung)
+    public function show(Order $bestellung)
     {
         //
     }
@@ -35,7 +35,7 @@ class BestellungsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBestellungRequest $request, Bestellung $bestellung)
+    public function update(UpdateOrderRequest $request, Order $bestellung)
     {
         //
     }
@@ -43,7 +43,7 @@ class BestellungsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bestellung $bestellung)
+    public function destroy(Order $bestellung)
     {
         //
     }

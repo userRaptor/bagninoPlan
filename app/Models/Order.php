@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    public function groceries()
+    {
+        return $this->belongsToMany(Groceries::class);
+    }
+    
     public function user()
     {
         return $this->belongsTo(UserX::class);

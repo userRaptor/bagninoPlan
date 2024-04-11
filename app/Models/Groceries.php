@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Groceries extends Model
 {
-    use HasFactory;
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 
     protected $fillable = [
         'name',
