@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\UserX;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -15,8 +15,8 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request){
         $data = $request->validated();
-        /** @var \App\Models\User $user */
-        $user = User::create([
+        /** @var \App\Models\UserX $user */
+        $user = UserX::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
@@ -33,7 +33,7 @@ class AuthController extends Controller
             return response(['message' => 'Invalid credentials'], 422);
         }
 
-        /** @var \App\Models\User $user */
+        /** @var \App\Models\UserX $user */
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
 
@@ -42,7 +42,7 @@ class AuthController extends Controller
 
 
     public function logout(Request $request){
-        /** @var \App\Models\User $user */
+        /** @var \App\Models\UserX $user */
         $user = $request->user();
         //$user ->currentAccessToken()->delete();
 
