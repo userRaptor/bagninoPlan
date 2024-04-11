@@ -5,8 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bestellung extends Model
+class Order extends Model
 {
+    public function user()
+    {
+        return $this->belongsTo(UserX::class);
+    }
+
     use HasFactory;
 
     // Attributes:
