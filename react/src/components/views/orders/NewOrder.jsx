@@ -21,7 +21,7 @@ import {
 import "react-calendar/dist/Calendar.css";
 import Header from "../../Header";
 import AvailableGroceries from "./AvailableGroceries";
-import GroceriesInBuffer from "./GroceriesInBuffer";
+import GroceriesOrders from "./GroceriesOrders";
 import axiosClient from "../../../axios-client";
 
 function NewOrder() {
@@ -78,8 +78,9 @@ function NewOrder() {
         axiosClient
             .post("/orders", payload)
             .then((response) => {
-                //console.log(response);
+                console.log(response);
                 setOrderID(response.id);
+                console.log("ORDER ID: ", orderID);
             })
             .catch((error) => {
                 console.log(error);
@@ -167,8 +168,8 @@ function NewOrder() {
             
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <AvailableGroceries />
-                    <GroceriesInBuffer />
+                    <AvailableGroceries actualOrderId={orderID}/>
+                    <GroceriesOrders />
                 </div>
             ) : (
                 <Box padding='6' boxShadow='lg' bg='white'>

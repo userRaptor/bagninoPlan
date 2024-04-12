@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function GroceriesInBuffer(){
+function GroceriesOrders(){
 
     return (
         <div>
@@ -10,4 +10,4 @@ function GroceriesInBuffer(){
     );
 }
 
-export default GroceriesInBuffer;
+export default GroceriesOrders;

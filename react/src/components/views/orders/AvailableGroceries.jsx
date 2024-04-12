@@ -16,7 +16,7 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function AvailableGroceries() {
+function AvailableGroceries(props) {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
@@ -39,6 +39,7 @@ function AvailableGroceries() {
 
     const addGroceryToOrder = (grocery) => {
         console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id], "Comment: ", comment[grocery.id]);
+        console.log("ORDER ID: ", props.actualOrderId);
     };
 
     //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));

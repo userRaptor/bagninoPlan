@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GroceriesController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\GroceriesOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,7 @@ Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
 //Orders
 Route::post('/orders', [OrderController::class, 'store']);
+
+
+//Groceries_Orders
+Route::post('/groceries_orders', [GroceriesOrderController::class, 'store']);
