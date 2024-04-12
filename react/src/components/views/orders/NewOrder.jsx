@@ -25,7 +25,6 @@ import GroceriesInBuffer from "./GroceriesInBuffer";
 import axiosClient from "../../../axios-client";
 
 function NewOrder() {
-    const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = React.useState("");
     const [internationalDate, setInternationalDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
@@ -34,6 +33,7 @@ function NewOrder() {
     const [location, setLocation] = React.useState("");
     const [purpose, setPurpose] = React.useState("");
 
+    const [orderID, setOrderID] = React.useState("");
     const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(false);
 
     const handleDateTimeChange = (event) => {
@@ -58,7 +58,8 @@ function NewOrder() {
     };
 
     const createNewOrder = (event) => {
-        setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
+        //setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
+        setOrderAlreadyExists(true);
 
         event.preventDefault();
 
@@ -74,18 +75,15 @@ function NewOrder() {
             includeSummary: true,
         };
 
-        console.log(payload);
-
         axiosClient
             .post("/orders", payload)
             .then((response) => {
-                console.log(response.data);
+                //console.log(response);
+                setOrderID(response.id);
             })
             .catch((error) => {
                 console.log(error);
-            });
-            
-        
+            });   
     }
 
     useEffect(() => {
@@ -119,12 +117,14 @@ function NewOrder() {
                                     <Input
                                         placeholder="Select Date and Time"
                                         type="datetime-local"
+                                        disabled={orderAlreadyExists}
                                         onChange={handleDateTimeChange}
                                     />
                                 </Td>
                                 <Td>
                                     <Input
                                         placeholder="Klasse"
+                                        disabled={orderAlreadyExists}
                                         onChange={(event) =>
                                             setSchoolClass(event.target.value)
                                         }
@@ -133,6 +133,7 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Ort"
+                                        disabled={orderAlreadyExists}
                                         onChange={(event) =>
                                             setLocation(event.target.value)
                                         }
@@ -141,13 +142,16 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Verwendungszweck"
+                                        disabled={orderAlreadyExists}
                                         onChange={(event) => setPurpose(event.target.value)}
                                     />
                                 </Td>
 
                                 <Td>
+                                    {/**isDisabled={orderAlreadyExists} */}
                                     <Button 
                                         colorScheme="blue"
+                                        
                                         onClick={createNewOrder}
                                     >
                                         Add gloceries

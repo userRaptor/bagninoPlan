@@ -30,7 +30,7 @@ function AvailableGroceries() {
             .get("/groceries")
             .then((response) => {
                 setGroceries(response.data);
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
