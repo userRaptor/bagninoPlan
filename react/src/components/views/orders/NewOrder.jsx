@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import GetGroceriesForUser from "./GetGroceriesForUser";
+import GetGroceriesForUser from "./AvailableGroceries";
 
 import { useState } from "react";
 

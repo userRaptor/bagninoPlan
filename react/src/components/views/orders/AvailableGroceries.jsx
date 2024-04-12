@@ -102,7 +102,7 @@ function GetGroceriesForUser() {
                                         <Td>{grocery.name}</Td>
                                         <Td>
                                             <Input 
-                                                style={{ border: '1px solid green' }}
+                                                style={{ border: '1px solid grey' }}
                                                 placeholder='...' 
                                                 type='number' 
                                                 width="70px"
