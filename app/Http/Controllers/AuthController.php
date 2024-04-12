@@ -15,16 +15,17 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request){
         $data = $request->validated();
-        /** @var \App\Models\UserX $user */
+
         $user = UserX::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
 
-        $token = $user->createToken(('main'))->plainTextToken;
-
-        return response(compact('user', 'token'));
+        //$token = $user->createToken(('main'))->plainTextToken;
+        //return response(compact('user', 'token'));
+        
+        return response($user);
     }
 
     public function login(LoginRequest $request){
@@ -42,7 +43,6 @@ class AuthController extends Controller
 
 
     public function logout(Request $request){
-        /** @var \App\Models\UserX $user */
         $user = $request->user();
         //$user ->currentAccessToken()->delete();
 

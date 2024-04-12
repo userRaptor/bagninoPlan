@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
+use App\Models\UserX;
 
 class UserController extends Controller
 {
@@ -17,12 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        
         return UserResource::collection(
-            User::query()->orderBy('id', 'desc')->paginate(10)
+            UserX::query()->orderBy('id', 'desc')->paginate(10)
             // User::query()->orderBy('id', 'desc')->get();
-        );
-        
+        );   
     }
 
     /**
@@ -33,14 +31,14 @@ class UserController extends Controller
         $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
 
-        $user = User::create($data);
+        $user = UserX::create($data);
         return response(new UserResource($user), 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(UserX $user)
     {
         return new UserResource($user);
     }
@@ -63,7 +61,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(UserX $user)
     {
         $user->delete();
         return response(null, 204);
