@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Groceries;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreGroceryRequest;
-use App\Http\Resources\GroceryResource;
+use App\Http\Requests\StoreGroceriesRequest;
+use App\Http\Resources\GroceriesResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -18,14 +18,14 @@ class GroceriesController extends Controller
     {
         //return DB::select('select * from groceries');
 
-        return GroceryResource::collection(
+        return GroceriesResource::collection(
             Groceries::query()->orderBy('id', 'desc')->get()
         );
     }
 
     public function getByID($id)
     {
-        return new GroceryResource(Groceries::find($id));
+        return new GroceriesResource(Groceries::find($id));
     }
 
     /**
@@ -51,7 +51,7 @@ class GroceriesController extends Controller
 
         $grocery = Groceries::create($validatedData);
 
-        return new GroceryResource($grocery);
+        return new GroceriesResource($grocery);
     }
 
 
@@ -61,7 +61,7 @@ class GroceriesController extends Controller
      */
     public function show(Groceries $groceries)
     {
-        return new GroceryResource($groceries);
+        return new GroceriesResource($groceries);
     }
 
     /**
