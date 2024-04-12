@@ -21,6 +21,8 @@ function AvailableGroceries() {
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
     const [quantity, setQuantity] = React.useState(0);
+    const [comment, setComment] = React.useState("");
+
     
 
     const fetchGroceries = () => {
@@ -36,8 +38,7 @@ function AvailableGroceries() {
     };
 
     const addGroceryToOrder = (grocery) => {
-        console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id]);
-        
+        console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id], "Comment: ", comment[grocery.id]);
     };
 
     //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
@@ -81,6 +82,7 @@ function AvailableGroceries() {
                             <Th>Quantity:</Th>
                             <Th>Unit:</Th>
                             <Th>Category:</Th>
+                            <Th>Comment:</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -93,12 +95,19 @@ function AvailableGroceries() {
                                         style={{ border: '1px solid grey' }}
                                         placeholder='...' 
                                         type='number' 
-                                        width="70px"
+                                        width="60px"
                                         onChange={(e) => setQuantity({...quantity, [grocery.id]: e.target.value})}
                                     />
                                 </Td>
                                 <Td>{grocery.unit}</Td>
                                 <Td>{grocery.category}</Td>
+                                <Td>
+                                    <Input 
+                                        style={{ border: '1px solid grey' }}
+                                        placeholder='Optional comment ... ' 
+                                        onChange={(e) => setComment({...comment, [grocery.id]: e.target.value})}
+                                    />
+                                </Td>
                                 <Td>
                                     {/* isDisabled */}
                                     <Button

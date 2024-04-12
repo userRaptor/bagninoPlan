@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useState } from "react";
 import { Divider } from "@chakra-ui/react";
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { Box } from "@chakra-ui/react";
 
 import {
     Table,
@@ -30,6 +32,8 @@ function NewOrder() {
     const [location, setLocation] = React.useState("");
     const [purpose, setPurpose] = React.useState("");
 
+    const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(false);
+
     const handleDateTimeChange = (event) => {
         const dateTimeValue = event.target.value;
         const [dateValue, timeValue] = dateTimeValue.split("T");
@@ -45,6 +49,16 @@ function NewOrder() {
         setTime(timeValue);
     };
 
+    const createNewOrder = (event) => {
+        setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
+        console.log(orderAlreadyExists);
+    }
+
+    useEffect(() => {
+
+
+    }, []);
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
@@ -52,7 +66,7 @@ function NewOrder() {
             <div style={{
                 marginTop: "10px",
                 marginLeft: "30px",
-                marginRight: "200px",
+                marginRight: "10px",
                 marginBottom: "30px",
             }}>
 
@@ -71,7 +85,6 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Select Date and Time"
-                                        size="md"
                                         type="datetime-local"
                                         onChange={handleDateTimeChange}
                                     />
@@ -79,7 +92,6 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Klasse"
-                                        size="md"
                                         onChange={(event) =>
                                             setSchoolClass(event.target.value)
                                         }
@@ -88,7 +100,6 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Ort"
-                                        size="md"
                                         onChange={(event) =>
                                             setLocation(event.target.value)
                                         }
@@ -97,13 +108,17 @@ function NewOrder() {
                                 <Td>
                                     <Input
                                         placeholder="Verwendungszweck"
-                                        size="md"
                                         onChange={(event) => setPurpose(event.target.value)}
                                     />
                                 </Td>
 
                                 <Td>
-                                    <Button colorScheme="blue">ADD</Button>
+                                    <Button 
+                                        colorScheme="blue"
+                                        onClick={createNewOrder}
+                                    >
+                                        Add gloceries
+                                    </Button>
                                 </Td>
                             </Tr>
                         </Tbody>
@@ -112,11 +127,20 @@ function NewOrder() {
             </div>
             
             <Divider style={{borderTop: "5px solid", borderColor: "black"}} />
-         
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <AvailableGroceries />
-                <GroceriesInBuffer />
-            </div>
+            
+            {orderAlreadyExists ? (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <AvailableGroceries />
+                    <GroceriesInBuffer />
+                </div>
+            ) : (
+                <Box padding='6' boxShadow='lg' bg='white'>
+                    <SkeletonCircle size='10' />
+                    <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
+                </Box>
+            )}
+
+            
         </div>
     );
 }
