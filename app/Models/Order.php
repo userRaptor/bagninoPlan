@@ -21,11 +21,14 @@ class Order extends Model
 
     // Attributes:
     protected $fillable = [
-        'datum',
-        'uhrzeit',
-        'ort',
-        'verwendungszweck',
-        'bemerkung',
+        'user_id',
+        'date',
+        'weekday',
+        'time',
+        'schoolClass',
+        'location',
+        'purpose',
         'includeSummary'
+
     ];
 }

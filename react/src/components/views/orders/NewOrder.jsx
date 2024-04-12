@@ -22,6 +22,7 @@ import "react-calendar/dist/Calendar.css";
 import Header from "../../Header";
 import AvailableGroceries from "./AvailableGroceries";
 import GroceriesInBuffer from "./GroceriesInBuffer";
+import axiosClient from "../../../axios-client";
 
 function NewOrder() {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -51,7 +52,32 @@ function NewOrder() {
 
     const createNewOrder = (event) => {
         setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
-        console.log(orderAlreadyExists);
+
+        const payload = {
+            user_id: 77,
+            date: date,
+            weekday: weekday,
+            time: time,
+            schoolClass: schoolClass,
+            location: location,
+            purpose: purpose,
+            includeSummary: true,
+        };
+
+        console.log(payload);
+/*
+        axiosClient
+            .post("/groceries", payload)
+            .then((response) => {
+                console.log(response.data);
+                setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
+                successfullAlert();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+            */
+        
     }
 
     useEffect(() => {
@@ -74,10 +100,10 @@ function NewOrder() {
                     <Table variant="simple">
                         <Thead>
                             <Tr>
-                                <Th>Datum und Uhrzeit:</Th>
-                                <Th>Klasse:</Th>
-                                <Th>Ort:</Th>
-                                <Th>Verwendungszweck:</Th>
+                                <Th>Date and Time:</Th>
+                                <Th>Class:</Th>
+                                <Th>Location:</Th>
+                                <Th>Purpose:</Th>
                             </Tr>
                         </Thead>
                         <Tbody>

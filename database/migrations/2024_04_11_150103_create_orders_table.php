@@ -16,8 +16,10 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
+            $table->string('weekday');
             $table->time('time');
-            $table->string('place');
+            $table->string('schoolClass');
+            $table->string('location');
             $table->string('purpose');
             //$table->string('comment');
             $table->boolean('includeSummary');
