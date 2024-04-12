@@ -35,14 +35,9 @@ function GetGroceriesForUser() {
             });
     };
 
-    /*
-    const addGroceryToOrder = (grocery) => {
-        console.log("addGroceryToOrder: ", grocery);
-    };
-    */
-
     const addGroceryToOrder = (grocery) => {
         console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id]);
+        
     };
 
     //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
