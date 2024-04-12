@@ -16,7 +16,7 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function GetGroceriesForUser() {
+function AvailableGroceries() {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
@@ -48,88 +48,75 @@ function GetGroceriesForUser() {
     useEffect(() => {
         fetchGroceries();
     }, []);
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-
-            <div style={{ display: "flex", flexDirection: "row", height: "5px", backgroundColor: "black", width: "100%" }}>
-                <div style={{ flex: "0 1 50%", marginRight: "30px" }}>
-                    <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
-                        <div style={{ width: "40%", marginRight: "20px" }}>
-                            <Text>Search by name ...</Text>
-                            <Input
-                                variant="outline"
-                                placeholder="Search ..."
-                                value={searchByName}
-                                onChange={(e) => setSearchByName(e.target.value)}
-                            />
-                        </div>
-
-                        <div style={{ width: "40%" }}>
-                            <Text>Search by category ...</Text>
-                            <Input
-                                variant="outline"
-                                placeholder="Search ..."
-                                value={searchByCategory}
-                                onChange={(e) => setSearchByCategory(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    <TableContainer>
-                        <Table variant="striped" colorScheme="teal">
-                            <TableCaption>All available products</TableCaption>
-                            <Thead>
-                                <Tr>
-                                    <Th>Id:</Th>
-                                    <Th>Name:</Th>
-                                    <Th>Quantity:</Th>
-                                    <Th>Unit:</Th>
-                                    <Th>Category:</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-
-                                {filteredGroceries.map((grocery) => (
-                                    <Tr key={grocery.id}>
-                                        <Td>{grocery.id}</Td>
-                                        <Td>{grocery.name}</Td>
-                                        <Td>
-                                            <Input 
-                                                style={{ border: '1px solid grey' }}
-                                                placeholder='...' 
-                                                type='number' 
-                                                width="70px"
-                                                onChange={(e) => setQuantity({...quantity, [grocery.id]: e.target.value})}
-                                            />
-                                        </Td>
-                                        <Td>{grocery.unit}</Td>
-                                        <Td>{grocery.category}</Td>
-                                        <Td>
-                                            {/* isDisabled */}
-                                            <Button
-                                                colorScheme="blue"
-                                                onClick={() =>
-                                                    addGroceryToOrder(grocery)
-                                                }
-                                            >
-                                                ADD
-                                            </Button>
-                                        </Td>
-                                    </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
-                    </TableContainer>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
+                <div style={{ width: "40%", marginRight: "20px" }}>
+                    <Text>Search by name ...</Text>
+                    <Input
+                        variant="outline"
+                        placeholder="Search ..."
+                        value={searchByName}
+                        onChange={(e) => setSearchByName(e.target.value)}
+                    />
                 </div>
-                <div style={{ flex: "1", borderLeft: "5px solid black", height: `${document.body.scrollHeight}px`  }}>
-                    {/* Hier kann Inhalt der rechten Seite hinzugefügt werden ... */}
+                <div style={{ width: "40%" }}>
+                    <Text>Search by category ...</Text>
+                    <Input
+                        variant="outline"
+                        placeholder="Search ..."
+                        value={searchByCategory}
+                        onChange={(e) => setSearchByCategory(e.target.value)}
+                    />
                 </div>
             </div>
+            <TableContainer>
+                <Table variant="striped" colorScheme="teal">
+                    <TableCaption>All available products</TableCaption>
+                    <Thead>
+                        <Tr>
+                            <Th>Id:</Th>
+                            <Th>Name:</Th>
+                            <Th>Quantity:</Th>
+                            <Th>Unit:</Th>
+                            <Th>Category:</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {filteredGroceries.map((grocery) => (
+                            <Tr key={grocery.id}>
+                                <Td>{grocery.id}</Td>
+                                <Td>{grocery.name}</Td>
+                                <Td>
+                                    <Input 
+                                        style={{ border: '1px solid grey' }}
+                                        placeholder='...' 
+                                        type='number' 
+                                        width="70px"
+                                        onChange={(e) => setQuantity({...quantity, [grocery.id]: e.target.value})}
+                                    />
+                                </Td>
+                                <Td>{grocery.unit}</Td>
+                                <Td>{grocery.category}</Td>
+                                <Td>
+                                    {/* isDisabled */}
+                                    <Button
+                                        colorScheme="blue"
+                                        onClick={() =>
+                                            addGroceryToOrder(grocery)
+                                        }
+                                    >
+                                        ADD
+                                    </Button>
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </TableContainer>
         </div>
-
-    );
+    );   
 }
 
-export default GetGroceriesForUser;
+export default AvailableGroceries;

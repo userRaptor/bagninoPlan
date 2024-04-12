@@ -43,8 +43,3 @@ Route::delete('/groceries/{id}', [GroceriesController::class, 'deleteByID']);
 Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
 //Orders
-Route::post('/order', [OrderController::class, 'store'])
-
-
-
-

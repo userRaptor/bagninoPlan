@@ -1,11 +1,8 @@
 import React from "react";
 import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import GetGroceriesForUser from "./AvailableGroceries";
-
 import { useState } from "react";
-
-import "react-calendar/dist/Calendar.css";
+import { Divider } from "@chakra-ui/react";
 
 import {
     Table,
@@ -18,9 +15,13 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
-import Header from "../../Header";
 
-function NeueBestellungen() {
+import "react-calendar/dist/Calendar.css";
+import Header from "../../Header";
+import AvailableGroceries from "./AvailableGroceries";
+import GroceriesInBuffer from "./GroceriesInBuffer";
+
+function NewOrder() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
@@ -109,20 +110,16 @@ function NeueBestellungen() {
                     </Table>
                 </TableContainer>
             </div>
+            
+            <Divider style={{borderTop: "5px solid", borderColor: "black"}} />
 
-            <GetGroceriesForUser />
+         
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <AvailableGroceries />
+                <GroceriesInBuffer />
+            </div>
         </div>
     );
 }
 
-export default NeueBestellungen;
-
-{
-    /* 
-    
-        <Text mb="8px">
-            Value: {date} ({weekday})
-        </Text>
-    
-    */
-}
+export default NewOrder;
