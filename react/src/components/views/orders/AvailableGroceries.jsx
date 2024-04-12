@@ -37,12 +37,30 @@ function AvailableGroceries(props) {
             });
     };
 
-    const addGroceryToOrder = (grocery) => {
-        console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id], "Comment: ", comment[grocery.id]);
-        console.log("ORDER ID: ", props.actualOrderId);
+    const addGroceryToOrder = (groceries) => {
+
+        const payload = {
+            order_id: props.actualOrderId,
+            groceries_id: groceries.id,
+            comment: comment[groceries.id],
+            quantity: quantity[groceries.id],
+        };
+
+        console.log("Payload: ", payload);
+
+        axiosClient
+            .post("/groceries_order", payload)
+            .then((response) => {
+                console.log(response);
+                setOrderID(response.id);
+            })
+            .catch((error) => {
+                console.log(error);
+            }); 
+            
+            
     };
 
-    //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
     const filteredGroceries = groceries.filter(grocery => 
         grocery.name.startsWith(searchByName) && grocery.category.startsWith(searchByCategory)
     );

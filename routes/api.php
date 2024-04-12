@@ -47,5 +47,5 @@ Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 Route::post('/orders', [OrderController::class, 'store']);
 
 
-//Groceries_Orders
-Route::post('/groceries_orders', [GroceriesOrderController::class, 'store']);
+//Groceries_Order
+Route::post('/groceries_order', [GroceriesOrderController::class, 'store']);

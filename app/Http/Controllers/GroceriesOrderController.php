@@ -35,9 +35,9 @@ class GroceriesOrderController extends Controller
             'quantity' => 'required|integer',
         ]);
 
-        $groceriesOrders = GroceriesOrders::create($validatedData);
+        $groceriesOrder = GroceriesOrders::create($validatedData);
 
-        return response()->json($groceriesOrders, 201);
+        return response()->json($groceriesOrder, 201);
     }
 
     /**

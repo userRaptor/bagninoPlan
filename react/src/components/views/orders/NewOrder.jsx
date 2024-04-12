@@ -80,7 +80,6 @@ function NewOrder() {
             .then((response) => {
                 console.log(response);
                 setOrderID(response.id);
-                console.log("ORDER ID: ", orderID);
             })
             .catch((error) => {
                 console.log(error);
@@ -184,3 +183,6 @@ function NewOrder() {
 }
 
 export default NewOrder;
+
+// ADD NEW USER: (We need this that we can use the foreignKey in the orders table)
+// INSERT INTO users (name, email, password, created_at, updated_at) VALUES ('Max Mustermann', 'max@example.com', 'password', NOW(), NOW());

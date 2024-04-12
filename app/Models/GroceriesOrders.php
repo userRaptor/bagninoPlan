@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroceriesOrders extends Model
 {
-
     protected $fillable = [
         'groceries_id',
         'order_id',
