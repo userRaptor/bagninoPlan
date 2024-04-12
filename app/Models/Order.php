@@ -17,8 +17,6 @@ class Order extends Model
         return $this->belongsTo(UserX::class);
     }
 
-    use HasFactory;
-
     // Attributes:
     protected $fillable = [
         'user_id',

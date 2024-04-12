@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -19,10 +20,24 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'date' => 'required|date',
+            'weekday' => 'required|string',
+            'time' => 'required',
+            'schoolClass' => 'required|string',
+            'location' => 'required|string',
+            'purpose' => 'required|string',
+            'includeSummary' => 'required|boolean',
+        ]);
+
+        $order = Order::create($validatedData);
+
+        return response()->json($order, 201);
     }
+
 
     /**
      * Display the specified resource.

@@ -27,6 +27,7 @@ import axiosClient from "../../../axios-client";
 function NewOrder() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = React.useState("");
+    const [internationalDate, setInternationalDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
     const [time, setTime] = React.useState("");
     const [schoolClass, setSchoolClass] = React.useState("");
@@ -38,6 +39,12 @@ function NewOrder() {
     const handleDateTimeChange = (event) => {
         const dateTimeValue = event.target.value;
         const [dateValue, timeValue] = dateTimeValue.split("T");
+
+        setInternationalDate(dateValue);
+
+        // console.log("dateValue" + dateValue);
+        // console.log("timeValue" + timeValue);
+
         const [year, month, day] = dateValue.split("-");
 
         const selectedDate = new Date(year, month - 1, day);
@@ -53,9 +60,12 @@ function NewOrder() {
     const createNewOrder = (event) => {
         setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
 
+        event.preventDefault();
+
+
         const payload = {
-            user_id: 77,
-            date: date,
+            user_id: 1,
+            date: internationalDate,
             weekday: weekday,
             time: time,
             schoolClass: schoolClass,
@@ -65,23 +75,20 @@ function NewOrder() {
         };
 
         console.log(payload);
-/*
+
         axiosClient
-            .post("/groceries", payload)
+            .post("/orders", payload)
             .then((response) => {
                 console.log(response.data);
-                setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
-                successfullAlert();
             })
             .catch((error) => {
                 console.log(error);
             });
-            */
+            
         
     }
 
     useEffect(() => {
-
 
     }, []);
 
