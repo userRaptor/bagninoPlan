@@ -21,7 +21,6 @@ class Order extends Model
 
     // Attributes:
     protected $fillable = [
-        'lebensmittel',
         'datum',
         'uhrzeit',
         'ort',

@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('lebensmittel');
             $table->date('date');
             $table->time('time');
             $table->string('place');
             $table->string('purpose');
-            $table->string('comment');
+            //$table->string('comment');
             $table->boolean('includeSummary');
         });
     }

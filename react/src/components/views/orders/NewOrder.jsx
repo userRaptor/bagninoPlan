@@ -112,7 +112,6 @@ function NewOrder() {
             </div>
             
             <Divider style={{borderTop: "5px solid", borderColor: "black"}} />
-
          
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <AvailableGroceries />

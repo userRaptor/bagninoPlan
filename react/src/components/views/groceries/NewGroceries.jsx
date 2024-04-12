@@ -67,7 +67,7 @@ function NewGroceries() {
             .post("/groceries", payload)
             .then((response) => {
                 console.log(response.data);
-                setRenderKey((prevKey) => prevKey + 1);
+                setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
                 successfullAlert();
             })
             .catch((error) => {
