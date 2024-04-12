@@ -20,7 +20,9 @@ import {
 
 function GetGroceriesForUser() {
     const [groceries, setGroceries] = React.useState([]);
-    const [search, setSearch] = React.useState("");
+    const [searchByName, setSearchByName] = React.useState("");
+    const [searchByCategory, setSearchByCategory] = React.useState("");
+    
 
     const fetchGroceries = () => {
         axiosClient
@@ -40,7 +42,10 @@ function GetGroceriesForUser() {
 
 
 
-    const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
+    //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
+    const filteredGroceries = groceries.filter(grocery => 
+        grocery.name.startsWith(searchByName) && grocery.category.startsWith(searchByCategory)
+    );
 
     useEffect(() => {
         fetchGroceries();
@@ -55,10 +60,18 @@ function GetGroceriesForUser() {
                     <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
                         <Input
                             variant="outline"
-                            placeholder="Search"
-                            style={{ width: "30%" }}
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search by name ..."
+                            style={{ width: "40%", marginRight: "20px" }}
+                            value={searchByName}
+                            onChange={(e) => setSearchByName(e.target.value)}
+                        />
+
+                        <Input
+                            variant="outline"
+                            placeholder="Search by category ..."
+                            style={{ width: "40%" }}
+                            value={searchByCategory}
+                            onChange={(e) => setSearchByCategory(e.target.value)}
                         />
                     </div>
 

@@ -6,7 +6,7 @@ import Signup from "./components/views/auth/Signup";
 import Users from "./components/views/Users";
 import Dashboard from "./components/views/Dashboard";
 import UserForm from "./components/views/UserForm";
-import NeueBestellungen from "./components/views/Bestellungen/NeueBestellungen";
+import NewOrder from "./components/views/orders/NewOrder";
 import NewGroceries from "./components/views/groceries/NewGroceries";
 
 import Testing from "./components/Testing";
@@ -40,7 +40,7 @@ function App() {
                     path="/users/:id"
                     element={<UserForm key="userUpdate" />}
                 />
-                <Route path="/neworder" element={<NeueBestellungen />} />
+                <Route path="/neworder" element={<NewOrder />} />
                 <Route path="/newgroceries" element={<NewGroceries />} />
 
                 <Route
