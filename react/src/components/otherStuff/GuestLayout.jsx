@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { useStateContext } from "../contexts/ContextProvider";
+import { useStateContext } from "../../contexts/ContextProvider";
 import { Navigate } from "react-router-dom";
-import React from 'react';
+import React from "react";
 
 export default function GuestLayout() {
     // To render: Login or Signup (password forgotten, etc.)
 
-    const {token} = useStateContext();
+    const { token } = useStateContext();
     //debugger;
 
     if (token) {
-        return <Navigate to="/" />;    // user tries to access a protected route without being authenticated
+        return <Navigate to="/" />; // user tries to access a protected route without being authenticated
     }
 
     return (
@@ -19,5 +19,5 @@ export default function GuestLayout() {
                 <Outlet />
             </div>
         </div>
-    )
+    );
 }

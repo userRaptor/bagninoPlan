@@ -9,11 +9,11 @@ import UserForm from "./components/views/UserForm";
 import NewOrder from "./components/views/orders/NewOrder";
 import NewGroceries from "./components/views/groceries/NewGroceries";
 
-import Testing from "./components/Testing";
+import Testing from "./components/otherStuff/Testing";
 
 function App() {
     useEffect(() => {
-        document.title = 'EduEat';
+        document.title = "EduEat";
     }, []);
 
     return (
