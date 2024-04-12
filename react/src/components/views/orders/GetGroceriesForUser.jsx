@@ -2,9 +2,7 @@ import React from "react";
 import axiosClient from "../../../axios-client";
 
 import { useEffect } from "react";
-
-import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Button, Divider, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import {
     Table,
@@ -22,6 +20,7 @@ function GetGroceriesForUser() {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
+    const [quantity, setQuantity] = React.useState(0);
     
 
     const fetchGroceries = () => {
@@ -36,11 +35,15 @@ function GetGroceriesForUser() {
             });
     };
 
+    /*
     const addGroceryToOrder = (grocery) => {
         console.log("addGroceryToOrder: ", grocery);
     };
+    */
 
-
+    const addGroceryToOrder = (grocery) => {
+        console.log("addGroceryToOrder: ", grocery, "Quantity: ", quantity[grocery.id]);
+    };
 
     //const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
     const filteredGroceries = groceries.filter(grocery => 
@@ -58,21 +61,25 @@ function GetGroceriesForUser() {
             <div style={{ display: "flex", flexDirection: "row", height: "5px", backgroundColor: "black", width: "100%" }}>
                 <div style={{ flex: "0 1 50%", marginRight: "30px" }}>
                     <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
-                        <Input
-                            variant="outline"
-                            placeholder="Search by name ..."
-                            style={{ width: "40%", marginRight: "20px" }}
-                            value={searchByName}
-                            onChange={(e) => setSearchByName(e.target.value)}
-                        />
+                        <div style={{ width: "40%", marginRight: "20px" }}>
+                            <Text>Search by name ...</Text>
+                            <Input
+                                variant="outline"
+                                placeholder="Search ..."
+                                value={searchByName}
+                                onChange={(e) => setSearchByName(e.target.value)}
+                            />
+                        </div>
 
-                        <Input
-                            variant="outline"
-                            placeholder="Search by category ..."
-                            style={{ width: "40%" }}
-                            value={searchByCategory}
-                            onChange={(e) => setSearchByCategory(e.target.value)}
-                        />
+                        <div style={{ width: "40%" }}>
+                            <Text>Search by category ...</Text>
+                            <Input
+                                variant="outline"
+                                placeholder="Search ..."
+                                value={searchByCategory}
+                                onChange={(e) => setSearchByCategory(e.target.value)}
+                            />
+                        </div>
                     </div>
 
                     <TableContainer>
@@ -82,9 +89,9 @@ function GetGroceriesForUser() {
                                 <Tr>
                                     <Th>Id:</Th>
                                     <Th>Name:</Th>
+                                    <Th>Quantity:</Th>
                                     <Th>Unit:</Th>
                                     <Th>Category:</Th>
-                                    <Th>Supplier:</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -93,9 +100,17 @@ function GetGroceriesForUser() {
                                     <Tr key={grocery.id}>
                                         <Td>{grocery.id}</Td>
                                         <Td>{grocery.name}</Td>
+                                        <Td>
+                                            <Input 
+                                                style={{ border: '1px solid green' }}
+                                                placeholder='...' 
+                                                type='number' 
+                                                width="70px"
+                                                onChange={(e) => setQuantity({...quantity, [grocery.id]: e.target.value})}
+                                            />
+                                        </Td>
                                         <Td>{grocery.unit}</Td>
                                         <Td>{grocery.category}</Td>
-                                        <Td>{grocery.supplier}</Td>
                                         <Td>
                                             {/* isDisabled */}
                                             <Button
