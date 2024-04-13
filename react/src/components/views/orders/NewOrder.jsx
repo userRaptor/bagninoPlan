@@ -55,10 +55,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     };
 
     const createNewOrder = (event) => {
-        setOrderAlreadyExistsToParent();
-        setActualOrderIdToParent(orderID);
 
-        setOrderAlreadyExists(true);
+        
 
         event.preventDefault();
 
@@ -78,6 +76,10 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
             .then((response) => {
                 //console.log(response);
                 setOrderID(response.id);
+
+                setOrderAlreadyExists(true);
+                setOrderAlreadyExistsToParent();
+                setActualOrderIdToParent(response.id);
             })
             .catch((error) => {
                 console.log(error);

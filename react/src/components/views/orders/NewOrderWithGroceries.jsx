@@ -13,17 +13,16 @@ function NewOrderWithGroceries() {
 
     const handleOrderAlreadyExists = () => {
         setOrderAlreadyExists(true);
-        console.log("orderAlreadyExists: " + orderAlreadyExists);
     };
 
-    const handleActualOrderId = (actualOrderId) => {
-        setActualOrderId(actualOrderId);
-        console.log("actualOrderId: " + actualOrderId);
+    const handleActualOrderId = (actualOrderIdFromChild) => {
+        setActualOrderId(actualOrderIdFromChild);
     }
 
     return (
         <div>
             <Header title="New Order" />
+            <h1>HELLO WELT: {actualOrderId}</h1>
             <NewOrder 
                 setOrderAlreadyExistsToParent={handleOrderAlreadyExists} 
                 setActualOrderIdToParent={handleActualOrderId}
