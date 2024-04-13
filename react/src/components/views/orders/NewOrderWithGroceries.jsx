@@ -27,11 +27,11 @@ function NewOrderWithGroceries() {
                 setActualOrderIdToParent={handleActualOrderId}
             />
 
-<GroceriesOrders orderId={actualOrderId}/>
+            {/**<GroceriesOrders orderId={actualOrderId}/>/} {/*FOR DEVELOPMENT*/}
 
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <AvailableGroceries actualOrderIdM={actualOrderId}/>
+                    <AvailableGroceries orderId={actualOrderId}/>
                     <GroceriesOrders orderId={actualOrderId}/>
                 </div>
             ) : (

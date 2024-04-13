@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Center } from "@chakra-ui/react";
+import { Text } from '@chakra-ui/react'
 
 import {
     Table,
@@ -25,7 +26,7 @@ function GroceriesOrders( {orderId} ){
 
     const fetchGroceriesOrders = () => {
         axiosClient
-            .get('/groceries_order/13')
+            .get(`/groceries_order/${orderId}`)
             .then((response) => {
                 //console.log(response);
                 setGroceriesOrders(response);
@@ -41,7 +42,9 @@ function GroceriesOrders( {orderId} ){
 
     return (
         <div>
-            <h1>OrderID : {orderId}</h1>
+            <Text fontSize='xl'>OrderID : {orderId}</Text>
+            <Button onClick={fetchGroceriesOrders}>Refresh</Button>
+            <Button>Save</Button>
 
             <TableContainer>
               <Table variant='striped' colorScheme='teal'>
@@ -61,7 +64,10 @@ function GroceriesOrders( {orderId} ){
                             <Td>{order.comment}</Td>
                             <Td>{order.quantity}</Td>
                             <Td>
-                                <Button colorScheme="red">
+                                <Button 
+                                    colorScheme="red"
+                                    isDisabled={true}
+                                >
                                     <Center>
                                         <DeleteIcon />
                                     </Center>

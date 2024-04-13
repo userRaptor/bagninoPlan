@@ -35,11 +35,9 @@ function GetGroceries() {
     };
 
     const deleteGroceriesById = (grocery) => {
-        console.log("DELETE ID: " + grocery.id);
         axiosClient
             .delete(`/groceries/${grocery.id}`)
             .then((response) => {
-                //console.log(response);
                 fetchGroceries();
             })
             .catch((error) => {
@@ -51,7 +49,6 @@ function GetGroceries() {
         axiosClient
             .delete("/groceries")
             .then((response) => {
-                console.log(response);
                 fetchGroceries();
             })
             .catch((error) => {

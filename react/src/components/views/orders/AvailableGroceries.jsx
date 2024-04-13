@@ -16,7 +16,7 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function AvailableGroceries(props) {
+function AvailableGroceries({orderId}) {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
@@ -40,25 +40,23 @@ function AvailableGroceries(props) {
     const addGroceryToOrder = (groceries) => {
 
         const payload = {
-            order_id: props.actualOrderId,
+            order_id: orderId,
             groceries_id: groceries.id,
             comment: comment[groceries.id],
             quantity: quantity[groceries.id],
         };
 
-        //console.log("Payload: ", payload);
+        console.log("Payload: ", payload);
 
         axiosClient
             .post("/groceries_order", payload)
             .then((response) => {
-                //console.log(response);
+                console.log(response);
                 setOrderID(response.id);
             })
             .catch((error) => {
                 console.log(error);
-            }); 
-            
-            
+            });     
     };
 
     const filteredGroceries = groceries.filter(grocery => 
