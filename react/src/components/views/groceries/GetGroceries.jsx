@@ -26,8 +26,8 @@ function GetGroceries() {
         axiosClient
             .get("/groceries")
             .then((response) => {
+                //console.log(response.data);
                 setGroceries(response.data);
-                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -39,7 +39,7 @@ function GetGroceries() {
         axiosClient
             .delete(`/groceries/${grocery.id}`)
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 fetchGroceries();
             })
             .catch((error) => {

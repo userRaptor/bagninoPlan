@@ -27,6 +27,8 @@ function NewOrderWithGroceries() {
                 setActualOrderIdToParent={handleActualOrderId}
             />
 
+<GroceriesOrders orderId={actualOrderId}/>
+
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <AvailableGroceries actualOrderIdM={actualOrderId}/>
