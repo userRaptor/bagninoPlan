@@ -19,12 +19,9 @@ import {
 } from "@chakra-ui/react";
 
 import "react-calendar/dist/Calendar.css";
-import Header from "../../Header";
-import AvailableGroceries from "./AvailableGroceries";
-import GroceriesOrders from "./GroceriesOrders";
 import axiosClient from "../../../axios-client";
 
-function NewOrder() {
+function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     const [date, setDate] = React.useState("");
     const [internationalDate, setInternationalDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
@@ -58,11 +55,12 @@ function NewOrder() {
     };
 
     const createNewOrder = (event) => {
-        //setOrderAlreadyExists(orderAlreadyExists => !orderAlreadyExists);
+        setOrderAlreadyExistsToParent();
+        setActualOrderIdToParent(orderID);
+
         setOrderAlreadyExists(true);
 
         event.preventDefault();
-
 
         const payload = {
             user_id: 1,
@@ -93,7 +91,6 @@ function NewOrder() {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-            <Header title="New Order" />
             <div style={{
                 marginTop: "10px",
                 marginLeft: "30px",
@@ -151,8 +148,8 @@ function NewOrder() {
                                     {/**isDisabled={orderAlreadyExists} */}
                                     <Button 
                                         colorScheme="blue"
-                                        
                                         onClick={createNewOrder}
+                                        isDisabled={orderAlreadyExists}
                                     >
                                         Add gloceries
                                     </Button>
@@ -164,19 +161,6 @@ function NewOrder() {
             </div>
             
             <Divider style={{borderTop: "5px solid", borderColor: "black"}} />
-            
-            {orderAlreadyExists ? (
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <AvailableGroceries actualOrderId={orderID}/>
-                    <GroceriesOrders />
-                </div>
-            ) : (
-                <Box padding='6' boxShadow='lg' bg='white'>
-                    <SkeletonCircle size='10' />
-                    <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
-                </Box>
-            )}
-
             
         </div>
     );
