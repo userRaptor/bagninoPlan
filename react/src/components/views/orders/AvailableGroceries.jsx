@@ -46,12 +46,12 @@ function AvailableGroceries(props) {
             quantity: quantity[groceries.id],
         };
 
-        console.log("Payload: ", payload);
+        //console.log("Payload: ", payload);
 
         axiosClient
             .post("/groceries_order", payload)
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 setOrderID(response.id);
             })
             .catch((error) => {

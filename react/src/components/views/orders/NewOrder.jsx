@@ -78,7 +78,7 @@ function NewOrder() {
         axiosClient
             .post("/orders", payload)
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 setOrderID(response.id);
             })
             .catch((error) => {
