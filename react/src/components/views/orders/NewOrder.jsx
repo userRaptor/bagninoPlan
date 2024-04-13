@@ -153,7 +153,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                                         onClick={createNewOrder}
                                         isDisabled={orderAlreadyExists}
                                     >
-                                        Add gloceries
+                                        Add groceries
                                     </Button>
                                 </Td>
                             </Tr>
