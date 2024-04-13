@@ -22,7 +22,6 @@ function NewOrderWithGroceries() {
     return (
         <div>
             <Header title="New Order" />
-            <h1>HELLO WELT: {actualOrderId}</h1>
             <NewOrder 
                 setOrderAlreadyExistsToParent={handleOrderAlreadyExists} 
                 setActualOrderIdToParent={handleActualOrderId}
@@ -31,7 +30,7 @@ function NewOrderWithGroceries() {
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <AvailableGroceries actualOrderIdM={actualOrderId}/>
-                    <GroceriesOrders />
+                    <GroceriesOrders orderId={actualOrderId}/>
                 </div>
             ) : (
                 <Box padding='6' boxShadow='lg' bg='white'>

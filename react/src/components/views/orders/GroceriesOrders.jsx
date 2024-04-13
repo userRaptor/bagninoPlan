@@ -4,7 +4,7 @@ import axiosClient from "../../../axios-client";
 
 
 
-function GroceriesOrders(){
+function GroceriesOrders( {orderId} ){
 
     const fetchGroceriesOrders = () => {
         axiosClient
@@ -24,6 +24,7 @@ function GroceriesOrders(){
     return (
         <div>
             <h1>Groceries In Buffer</h1>
+            <h1>OrderID : {orderId}</h1>
 
         </div>
     );
