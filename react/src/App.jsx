@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./components/views/auth/Login";
 import Signup from "./components/views/auth/Signup";
-import Users from "./components/views/Users";
 import Dashboard from "./components/views/Dashboard";
-import UserForm from "./components/views/UserForm";
-import NewOrderWithGroceries from "./components/views/orders/NewOrderWithGroceries";
+
 import NewGroceries from "./components/views/groceries/NewGroceries";
+import NewOrderWithGroceries from "./components/views/orders/newOrder/NewOrderWithGroceries";
 import MyOrders from "./components/views/orders/myOrders/MyOrders";
+
+import Users from "./components/views/Users";
+import UserForm from "./components/views/UserForm";
 
 import Testing from "./components/otherStuff/Testing";
 
