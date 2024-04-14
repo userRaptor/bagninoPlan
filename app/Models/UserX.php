@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class UserX extends Authenticatable
 {
+    protected $table = 'users';
+    
     public function order()
     {
         return $this->hasMany(Order::class);

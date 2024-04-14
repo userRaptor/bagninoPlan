@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroceriesController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroceriesOrderController;
