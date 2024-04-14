@@ -161,8 +161,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                     </Table>
                 </TableContainer>
             </div>
-            
-            <Divider style={{borderTop: "5px solid", borderColor: "black"}} />
+
+            <div style={{ borderTop: '5px solid green', h: '100%' }} /> {/**Trennlinie */}
             
         </div>
     );

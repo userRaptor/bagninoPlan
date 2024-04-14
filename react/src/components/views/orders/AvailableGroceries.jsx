@@ -97,8 +97,7 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
                     <TableCaption>All available products</TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Id:</Th>
-                            <Th>Name:</Th>
+                            <Th>Product Name:</Th>
                             <Th>Quantity:</Th>
                             <Th>Unit:</Th>
                             <Th>Category:</Th>
@@ -108,7 +107,6 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
                     <Tbody>
                         {filteredGroceries.map((grocery) => (
                             <Tr key={grocery.id}>
-                                <Td>{grocery.id}</Td>
                                 <Td>{grocery.name}</Td>
                                 <Td>
                                     <Input 
