@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useEffect } from 'react';
 import { Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Center } from "@chakra-ui/react";
 import { Text } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 
 import {
     Table,
@@ -23,6 +24,7 @@ import axiosClient from "../../../axios-client";
 
 function GroceriesOrders( {orderId, booleanUpdateGroceriesOrder} ){
     const [groceriesOrders, setGroceriesOrders] = useState([]);
+    const navigate = useNavigate();
 
     const fetchGroceriesOrders = () => {
         axiosClient
@@ -36,6 +38,10 @@ function GroceriesOrders( {orderId, booleanUpdateGroceriesOrder} ){
             });
     };
 
+    const saveGroceriesOrder = () => {
+        navigate('/myorders');
+    };
+
     useEffect(() => {
         fetchGroceriesOrders();
     }  , [booleanUpdateGroceriesOrder]);
@@ -43,7 +49,7 @@ function GroceriesOrders( {orderId, booleanUpdateGroceriesOrder} ){
     return (
         <div>
             <Text fontSize='xl'>OrderID : {orderId}</Text>
-            <Button colorScheme='green'>SAVE ORDER</Button>
+            <Button colorScheme='green' onClick={saveGroceriesOrder}>SAVE ORDER</Button>
 
             <TableContainer>
               <Table variant='striped' colorScheme='teal'>

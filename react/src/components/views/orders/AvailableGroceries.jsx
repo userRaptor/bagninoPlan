@@ -52,7 +52,7 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
             .post("/groceries_order", payload)
             .then((response) => {
                 //console.log(response);
-                //setOrderID(response.id); //IMPLEMENT???
+                //setOrderID(response.id); //IMPLEMENT??? creates an error!!!
                 setBooleanUpdateGroceriesOrder();
             })
             .catch((error) => {
