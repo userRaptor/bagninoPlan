@@ -8,7 +8,7 @@ import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
 
 
 function NewOrderWithGroceries() {
-    const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(false);
+    const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(true);
     const [actualOrderId, setActualOrderId] = React.useState("");
     const [booleanUpdateGroceriesOrder, setBooleanUpdateGroceriesOrder] = React.useState(false);
 
@@ -38,6 +38,7 @@ function NewOrderWithGroceries() {
                         orderId={actualOrderId}
                         setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
                     />
+                     <div style={{ borderLeft: '5px solid black', height: '500px' }} /> {/**Trennlinie */}
                     <GroceriesOrders 
                         orderId={actualOrderId}
                         booleanUpdateGroceriesOrder={booleanUpdateGroceriesOrder}
