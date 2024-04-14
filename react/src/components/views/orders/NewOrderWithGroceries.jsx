@@ -30,7 +30,7 @@ function NewOrderWithGroceries() {
             <NewOrder 
                 setOrderAlreadyExistsToParent={handleOrderAlreadyExists} 
                 setActualOrderIdToParent={handleActualOrderId}
-            />
+            /> 
 
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>

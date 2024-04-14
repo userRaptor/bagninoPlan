@@ -70,6 +70,8 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
     ///////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
+            <Text fontSize='xl' style={{ display: 'block', textAlign: 'center', color: 'green', fontWeight: 'bold', marginTop: '30px' }}>Available Groceries:</Text>
+            
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
                 <div style={{ width: "40%", marginRight: "20px" }}>
                     <Text>Search by name ...</Text>

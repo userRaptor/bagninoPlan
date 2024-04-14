@@ -48,8 +48,12 @@ function GroceriesOrders( {orderId, booleanUpdateGroceriesOrder} ){
 
     return (
         <div>
-            <Text fontSize='xl'>OrderID : {orderId}</Text>
-            <Button colorScheme='green' onClick={saveGroceriesOrder}>SAVE ORDER</Button>
+            <Text fontSize='xl' style={{ display: 'block', textAlign: 'center', color: 'green', fontWeight: 'bold', marginTop: '30px' }}>Groceries in Order:</Text>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '40px', marginBottom: '30px', marginTop: '30px' }}>
+                <Text fontSize='md' style={{ color: 'grey' }}>OrderID: {orderId}</Text>
+                <Button colorScheme='green' onClick={saveGroceriesOrder}>SAVE ORDER</Button>
+            </div>
 
             <TableContainer>
               <Table variant='striped' colorScheme='teal'>
