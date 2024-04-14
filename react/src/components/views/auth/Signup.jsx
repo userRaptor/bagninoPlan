@@ -35,7 +35,7 @@ export default function Signup() {
             password_confirmation: passwordConfirmation,
         };
 
-        console.log(payload);
+        //console.log(payload);
 
         axiosClient
             .post("/signup", payload)

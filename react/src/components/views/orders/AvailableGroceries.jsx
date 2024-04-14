@@ -16,7 +16,7 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function AvailableGroceries({orderId}) {
+function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
@@ -46,13 +46,14 @@ function AvailableGroceries({orderId}) {
             quantity: quantity[groceries.id],
         };
 
-        console.log("Payload: ", payload);
+        //console.log("Payload: ", payload);
 
         axiosClient
             .post("/groceries_order", payload)
             .then((response) => {
-                console.log(response);
-                setOrderID(response.id);
+                //console.log(response);
+                //setOrderID(response.id); //IMPLEMENT???
+                setBooleanUpdateGroceriesOrder();
             })
             .catch((error) => {
                 console.log(error);

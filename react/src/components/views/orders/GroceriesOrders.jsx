@@ -21,7 +21,7 @@ import {
 import axiosClient from "../../../axios-client";
 
 
-function GroceriesOrders( {orderId} ){
+function GroceriesOrders( {orderId, booleanUpdateGroceriesOrder} ){
     const [groceriesOrders, setGroceriesOrders] = useState([]);
 
     const fetchGroceriesOrders = () => {
@@ -38,13 +38,12 @@ function GroceriesOrders( {orderId} ){
 
     useEffect(() => {
         fetchGroceriesOrders();
-    }  , []);
+    }  , [booleanUpdateGroceriesOrder]);
 
     return (
         <div>
             <Text fontSize='xl'>OrderID : {orderId}</Text>
-            <Button onClick={fetchGroceriesOrders}>Refresh</Button>
-            <Button>Save</Button>
+            <Button colorScheme='green'>SAVE ORDER</Button>
 
             <TableContainer>
               <Table variant='striped' colorScheme='teal'>
@@ -61,6 +60,7 @@ function GroceriesOrders( {orderId} ){
                 <Tbody>
                     {groceriesOrders.map((order) => (
                         <Tr key={order.id}>
+                            {/*<Td>{order.groceries_id}</Td>*/}
                             <Td>{order.groceries.name}</Td>
                             <Td>{order.quantity}</Td>
                             <Td>{order.groceries.unit}</Td>

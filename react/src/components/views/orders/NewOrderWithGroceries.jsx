@@ -10,6 +10,7 @@ import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
 function NewOrderWithGroceries() {
     const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(false);
     const [actualOrderId, setActualOrderId] = React.useState("");
+    const [booleanUpdateGroceriesOrder, setBooleanUpdateGroceriesOrder] = React.useState(false);
 
     const handleOrderAlreadyExists = () => {
         setOrderAlreadyExists(true);
@@ -17,6 +18,10 @@ function NewOrderWithGroceries() {
 
     const handleActualOrderId = (actualOrderIdFromChild) => {
         setActualOrderId(actualOrderIdFromChild);
+    }
+
+    const updateGroceriesOrder = () => {
+        setBooleanUpdateGroceriesOrder(!booleanUpdateGroceriesOrder);
     }
 
     return (
@@ -27,12 +32,16 @@ function NewOrderWithGroceries() {
                 setActualOrderIdToParent={handleActualOrderId}
             />
 
-            {/**<GroceriesOrders orderId={actualOrderId}/>/} {/*FOR DEVELOPMENT*/}
-
             {orderAlreadyExists ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <AvailableGroceries orderId={actualOrderId}/>
-                    <GroceriesOrders orderId={actualOrderId}/>
+                    <AvailableGroceries 
+                        orderId={actualOrderId}
+                        setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
+                    />
+                    <GroceriesOrders 
+                        orderId={actualOrderId}
+                        booleanUpdateGroceriesOrder={booleanUpdateGroceriesOrder}
+                    />
                 </div>
             ) : (
                 <Box padding='6' boxShadow='lg' bg='white'>
