@@ -9,10 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 
-class UserX extends Authenticatable
+class User extends Authenticatable
 {
     protected $table = 'users';
-    
+
     public function order()
     {
         return $this->hasMany(Order::class);
