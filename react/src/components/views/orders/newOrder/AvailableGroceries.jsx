@@ -1,5 +1,5 @@
 import React from "react";
-import axiosClient from "../../../axios-client";
+import axiosClient from "../../../../axios-client";
 
 import { useEffect } from "react";
 import { Button, Divider, Heading, SimpleGrid, Text } from "@chakra-ui/react";
@@ -16,14 +16,12 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
+function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
     const [quantity, setQuantity] = React.useState(0);
     const [comment, setComment] = React.useState("");
-
-    
 
     const fetchGroceries = () => {
         axiosClient
@@ -38,7 +36,6 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
     };
 
     const addGroceryToOrder = (groceries) => {
-
         const payload = {
             order_id: orderId,
             groceries_id: groceries.id,
@@ -57,11 +54,13 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
             })
             .catch((error) => {
                 console.log(error);
-            });     
+            });
     };
 
-    const filteredGroceries = groceries.filter(grocery => 
-        grocery.name.startsWith(searchByName) && grocery.category.startsWith(searchByCategory)
+    const filteredGroceries = groceries.filter(
+        (grocery) =>
+            grocery.name.startsWith(searchByName) &&
+            grocery.category.startsWith(searchByCategory)
     );
 
     useEffect(() => {
@@ -70,9 +69,27 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
     ///////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-            <Text fontSize='xl' style={{ display: 'block', textAlign: 'center', color: 'green', fontWeight: 'bold', marginTop: '30px' }}>Available Groceries:</Text>
-            
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px", marginTop: "30px" }}>
+            <Text
+                fontSize="xl"
+                style={{
+                    display: "block",
+                    textAlign: "center",
+                    color: "green",
+                    fontWeight: "bold",
+                    marginTop: "30px",
+                }}
+            >
+                Available Groceries:
+            </Text>
+
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "30px",
+                    marginTop: "30px",
+                }}
+            >
                 <div style={{ width: "40%", marginRight: "20px" }}>
                     <Text>Search by name ...</Text>
                     <Input
@@ -109,21 +126,31 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
                             <Tr key={grocery.id}>
                                 <Td>{grocery.name}</Td>
                                 <Td>
-                                    <Input 
-                                        style={{ border: '1px solid grey' }}
-                                        placeholder='...' 
-                                        type='number' 
+                                    <Input
+                                        style={{ border: "1px solid grey" }}
+                                        placeholder="..."
+                                        type="number"
                                         width="60px"
-                                        onChange={(e) => setQuantity({...quantity, [grocery.id]: e.target.value})}
+                                        onChange={(e) =>
+                                            setQuantity({
+                                                ...quantity,
+                                                [grocery.id]: e.target.value,
+                                            })
+                                        }
                                     />
                                 </Td>
                                 <Td>{grocery.unit}</Td>
                                 <Td>{grocery.category}</Td>
                                 <Td>
-                                    <Input 
-                                        style={{ border: '1px solid grey' }}
-                                        placeholder='Optional comment ... ' 
-                                        onChange={(e) => setComment({...comment, [grocery.id]: e.target.value})}
+                                    <Input
+                                        style={{ border: "1px solid grey" }}
+                                        placeholder="Optional comment ... "
+                                        onChange={(e) =>
+                                            setComment({
+                                                ...comment,
+                                                [grocery.id]: e.target.value,
+                                            })
+                                        }
                                     />
                                 </Td>
                                 <Td>
@@ -143,7 +170,7 @@ function AvailableGroceries({orderId, setBooleanUpdateGroceriesOrder}) {
                 </Table>
             </TableContainer>
         </div>
-    );   
+    );
 }
 
 export default AvailableGroceries;
