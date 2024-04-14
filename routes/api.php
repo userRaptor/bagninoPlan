@@ -35,6 +35,9 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Users
+Route::get('/users', [UserController::class, 'index']);
+
 
 // Groceries
 Route::post('/groceries', [GroceriesController::class, 'store']);
@@ -43,11 +46,10 @@ Route::get('/groceries/{id}', [GroceriesController::class, 'getByID']);
 Route::delete('/groceries/{id}', [GroceriesController::class, 'deleteByID']);
 Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
-//Orders
+// Orders
 Route::post('/orders', [OrderController::class, 'store']);
 
-
-//Groceries_Order
+// Groceries_Order
 Route::post('/groceries_order', [GroceriesOrderController::class, 'store']);
 Route::get('/groceries_order/{id}', [GroceriesOrderController::class, 'getByOrderId']);
 Route::delete('/groceries_order/{id}', [GroceriesOrderController::class, 'deleteByID']);

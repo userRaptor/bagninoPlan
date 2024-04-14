@@ -37,6 +37,10 @@ function Header() {
         navigate("/users");
     }
 
+    const navigateToUserManagment = () => {
+        navigate("/usermanagment");
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (

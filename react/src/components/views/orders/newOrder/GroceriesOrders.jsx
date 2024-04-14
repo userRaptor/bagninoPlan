@@ -109,11 +109,9 @@ function GroceriesOrders({ orderId, booleanUpdateGroceriesOrder }) {
                                 <Td>{order.groceries.unit}</Td>
                                 <Td>{order.comment}</Td>
                                 <Td>
-                                    {/*isDisabled={true}*/}
                                     <Button 
                                         colorScheme="red" 
-                                        onClick={() => deleteGroceriesOrderById(order)}
-                                        
+                                        onClick={() => deleteGroceriesOrderById(order)}  
                                     >
                                         <Center>
                                             <DeleteIcon />
