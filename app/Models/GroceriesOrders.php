@@ -13,4 +13,9 @@ class GroceriesOrders extends Model
         'comment',
         'quantity',
     ];
+
+    public function groceries() {
+        return $this->belongsTo(Groceries::class, 'groceries_id');
+    }
+    
 }

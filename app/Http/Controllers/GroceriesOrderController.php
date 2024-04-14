@@ -40,10 +40,18 @@ class GroceriesOrderController extends Controller
         return response()->json($groceriesOrder, 201);
     }
 
+/*
     public function getByOrderId($order_id)
     {
         return GroceriesOrders::where('order_id', $order_id)->get();
     }
+*/
+
+    public function getByOrderId($order_id)
+    {
+        return GroceriesOrders::with('groceries')->where('order_id', $order_id)->get();
+    }
+
 
     /**
      * Display the specified resource.

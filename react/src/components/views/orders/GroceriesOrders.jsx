@@ -51,18 +51,20 @@ function GroceriesOrders( {orderId} ){
                 <TableCaption>Groceries included in the order</TableCaption>
                 <Thead>
                   <Tr>
-                    <Th>groceries_id:</Th>
-                    <Th>Comment:</Th>
+                    <Th>Product Name:</Th>
                     <Th>Quantity:</Th>
+                    <Th>Unit:</Th>
+                    <Th>Comment:</Th>  
+                    <Th>Remove:</Th>   
                   </Tr>
                 </Thead>
                 <Tbody>
                     {groceriesOrders.map((order) => (
                         <Tr key={order.id}>
-                            {/*<Td>{order.order_id}</Td>*/}
-                            <Td>{order.groceries_id}</Td>
-                            <Td>{order.comment}</Td>
+                            <Td>{order.groceries.name}</Td>
                             <Td>{order.quantity}</Td>
+                            <Td>{order.groceries.unit}</Td>
+                            <Td>{order.comment}</Td>
                             <Td>
                                 <Button 
                                     colorScheme="red"
