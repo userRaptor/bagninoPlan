@@ -50,3 +50,4 @@ Route::post('/orders', [OrderController::class, 'store']);
 //Groceries_Order
 Route::post('/groceries_order', [GroceriesOrderController::class, 'store']);
 Route::get('/groceries_order/{id}', [GroceriesOrderController::class, 'getByOrderId']);
+Route::delete('/groceries_order/{id}', [GroceriesOrderController::class, 'deleteByID']);

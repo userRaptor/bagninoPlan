@@ -41,6 +41,17 @@ function GroceriesOrders({ orderId, booleanUpdateGroceriesOrder }) {
         navigate("/myorders");
     };
 
+    const deleteGroceriesOrderById = (groceriesOrder) => {
+        axiosClient
+            .delete(`/groceries_order/${groceriesOrder.id}`)
+            .then((response) => {
+                fetchGroceriesOrders();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
         fetchGroceriesOrders();
     }, [booleanUpdateGroceriesOrder]);
@@ -98,7 +109,12 @@ function GroceriesOrders({ orderId, booleanUpdateGroceriesOrder }) {
                                 <Td>{order.groceries.unit}</Td>
                                 <Td>{order.comment}</Td>
                                 <Td>
-                                    <Button colorScheme="red" isDisabled={true}>
+                                    {/*isDisabled={true}*/}
+                                    <Button 
+                                        colorScheme="red" 
+                                        onClick={() => deleteGroceriesOrderById(order)}
+                                        
+                                    >
                                         <Center>
                                             <DeleteIcon />
                                         </Center>
