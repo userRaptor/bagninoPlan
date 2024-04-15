@@ -4,8 +4,10 @@ import axiosClient from "../../../../axios-client";
 import { useEffect } from "react";
 import { Button, Divider, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { toast, ToastContainer } from "react-toastify";
-import { Bounce } from "react-toastify"; 
+import { toast, ToastContainer, Bounce } from "react-toastify";
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import {
     Table,
@@ -23,8 +25,11 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
     const [groceries, setGroceries] = React.useState([]);
     const [searchByName, setSearchByName] = React.useState("");
     const [searchByCategory, setSearchByCategory] = React.useState("");
-    const [quantity, setQuantity] = React.useState(0);
-    const [comment, setComment] = React.useState("");
+    
+    const [quantity, setQuantity] = React.useState({});
+    const [comment, setComment] = React.useState({});
+    const [isLoadingToSendData, setIsLoadingToSendData] = React.useState(false);
+
 
     const fetchGroceries = () => {
         axiosClient
@@ -45,20 +50,27 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             quantity: quantity[groceries.id],
         };
 
-        console.log(payload);
+        //console.log(payload);
 
-        if(payload.quantity === undefined){
-            quantityIsMissingAlert();
+        if(payload.quantity === undefined || payload.quantity === ""){
+            console.log("Quantity is missing!");
+            //quantityIsMissingAlert();
+            emptyFieldAlert("Quantity");
         } else {
-            axiosClient
-            .post("/groceries_order", payload)
-            .then((response) => {
-                //console.log(response);
-                setBooleanUpdateGroceriesOrder();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            toast.dismiss();
+            setIsLoadingToSendData(true);
+            setTimeout(() => {
+                axiosClient
+                .post("/groceries_order", payload)
+                .then((response) => {
+                    setBooleanUpdateGroceriesOrder();
+                    setIsLoadingToSendData(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setIsLoadingToSendData(false);
+                });
+            }, 1000); // Delay of 1000 Milliseconds 
         }
     };
 
@@ -68,8 +80,8 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             grocery.category.startsWith(searchByCategory)
     );
 
-    const quantityIsMissingAlert = () => {
-        toast.error('Quantity field cannot be empty!', {
+    const emptyFieldAlert = (fieldName) => {
+        toast.error(fieldName + ' field cannot be empty!', {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -80,7 +92,7 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             theme: "colored",
             transition: Bounce,
         });
-    };
+    }
 
     useEffect(() => {
         fetchGroceries();
@@ -101,7 +113,7 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                 theme="colored"
                 transition={Bounce}
             />
-
+            
             <Text
                 fontSize="xl"
                 style={{
@@ -152,6 +164,9 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                             <Th>Unit:</Th>
                             <Th>Category:</Th>
                             <Th>Comment:</Th>
+                            <Th display="flex" justifyContent="center" >
+                                {isLoadingToSendData ? <CircularProgress isIndeterminate color='green.300' size="20px" /> : "ADD"}
+                            </Th>
                         </Tr>
                     </Thead>
                     <Tbody>
