@@ -8,6 +8,7 @@ import GetGroceries from "./GetGroceries";
 import Header from "../../Header";
 
 import { ToastContainer, toast } from "react-toastify";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -107,21 +108,28 @@ function NewGroceries() {
                     style={{
                         marginTop: "50px",
                         marginLeft: "70px",
-                        marginBottom: "50px",
+                        marginBottom: "20px",
                     }}
                     fontSize="2xl"
                 >
                     ADD NEW GROCERIES:
                 </Text>
 
+                <Text
+                    style={{marginLeft: "70px", marginRight: '70px', marginBottom: "30px", color: 'grey'}}
+                >
+                    <InfoOutlineIcon /> When creating new groceries, please always include the name first. This can be followed by further details such as: Carrots small. This makes it easier to find products using the built-in search function.
+                </Text>
+
+
                 <TableContainer>
                     <Table variant="simple">
                         <Thead>
                             <Tr>
-                                <Th>Produktname:</Th>
-                                <Th>Einheit:</Th>
-                                <Th>Kategorie:</Th>
-                                <Th>Lieferant:</Th>
+                                <Th>Product name:</Th>
+                                <Th>Unit:</Th>
+                                <Th>Category:</Th>
+                                <Th>Supplier:</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -132,7 +140,7 @@ function NewGroceries() {
                                         onChange={(event) =>
                                             setGroceriesName(event.target.value)
                                         }
-                                        placeholder="Produktname"
+                                        placeholder="Name ..."
                                     />
                                 </Td>
                                 <Td>
@@ -143,7 +151,7 @@ function NewGroceries() {
                                         >
                                             {groceriesUnit !== ""
                                                 ? groceriesUnit
-                                                : "Einheit"}
+                                                : "Unit"}
                                         </MenuButton>
                                         <MenuList>
                                             <MenuItem
@@ -192,7 +200,7 @@ function NewGroceries() {
                                         >
                                             {groceriesCategory !== ""
                                                 ? groceriesCategory
-                                                : "Kategorie"}
+                                                : "Category"}
                                         </MenuButton>
                                         <MenuList>
                                             <MenuItem
@@ -241,7 +249,7 @@ function NewGroceries() {
                                         onChange={(event) =>
                                             setGroceriesSupplier(event.target.value)
                                         }
-                                        placeholder="Lieferant"
+                                        placeholder="Supplier ..."
                                     />
                                 </Td>
                                 <Td>

@@ -66,12 +66,12 @@ function GetGroceries() {
     return (
         <div>
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-                <Box height="5px" backgroundColor="black" />
+                <Box height="5px" backgroundColor="green" />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
                 <Input
                     variant="outline"
-                    placeholder="Search"
+                    placeholder="Search ..."
                     style={{ width: "30%" }}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -84,7 +84,7 @@ function GetGroceries() {
                     <Thead>
                         <Tr>
                             <Th>Id:</Th>
-                            <Th>Name:</Th>
+                            <Th>Product name:</Th>
                             <Th>Unit:</Th>
                             <Th>Category:</Th>
                             <Th>Supplier:</Th>

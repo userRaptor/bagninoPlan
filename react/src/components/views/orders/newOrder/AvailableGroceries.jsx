@@ -4,7 +4,8 @@ import axiosClient from "../../../../axios-client";
 import { useEffect } from "react";
 import { Button, Divider, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { toast, ToastContainer, Bounce } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify"; 
 
 import {
     Table,
@@ -30,7 +31,6 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             .get("/groceries")
             .then((response) => {
                 setGroceries(response.data);
-                //console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -45,7 +45,9 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             quantity: quantity[groceries.id],
         };
 
-        if(comment === "" || comment === null){
+        console.log(payload);
+
+        if(payload.quantity === undefined){
             quantityIsMissingAlert();
         } else {
             axiosClient
