@@ -4,6 +4,8 @@ import axiosClient from "../../../../axios-client";
 import { useEffect } from "react";
 import { Button, Divider, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
+import { toast, ToastContainer, Bounce } from "react-toastify";
+
 import {
     Table,
     Thead,
@@ -43,18 +45,19 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             quantity: quantity[groceries.id],
         };
 
-        //console.log("Payload: ", payload);
-
-        axiosClient
+        if(comment === "" || comment === null){
+            quantityIsMissingAlert();
+        } else {
+            axiosClient
             .post("/groceries_order", payload)
             .then((response) => {
                 //console.log(response);
-                //setOrderID(response.id); //IMPLEMENT??? creates an error!!!
                 setBooleanUpdateGroceriesOrder();
             })
             .catch((error) => {
                 console.log(error);
             });
+        }
     };
 
     const filteredGroceries = groceries.filter(
@@ -63,12 +66,40 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             grocery.category.startsWith(searchByCategory)
     );
 
+    const quantityIsMissingAlert = () => {
+        toast.error('Quantity field cannot be empty!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
     useEffect(() => {
         fetchGroceries();
     }, []);
     ///////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <Text
                 fontSize="xl"
                 style={{

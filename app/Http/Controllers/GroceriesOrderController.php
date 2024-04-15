@@ -16,7 +16,7 @@ class GroceriesOrderController extends Controller
         $validatedData = $request->validate([
             'groceries_id' => 'required|integer',
             'order_id' => 'required|integer',
-            'comment' => 'required|string',
+            'comment' => 'nullable|string',
             'quantity' => 'required|integer',
         ]);
 

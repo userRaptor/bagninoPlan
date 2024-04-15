@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Divider } from "@chakra-ui/react";
 import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
+import { toast, ToastContainer, Bounce } from "react-toastify";
 
 import {
     Table,
@@ -68,7 +69,18 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
             includeSummary: true,
         };
 
-        axiosClient
+        if(date === ""){
+            emptyFieldAlert("Date");
+        } else if(time === ""){
+            emptyFieldAlert("Time");
+        } else if (schoolClass === ""){
+            emptyFieldAlert("Class");
+        } else if (location === ""){
+            emptyFieldAlert("Location");
+        } else if (purpose === ""){
+            emptyFieldAlert("Purpose");
+        } else {
+            axiosClient
             .post("/orders", payload)
             .then((response) => {
                 //console.log(response);
@@ -81,13 +93,43 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
             .catch((error) => {
                 console.log(error);
             });
+        }
+        
     };
+
+    const emptyFieldAlert = (fieldName) => {
+        toast.error(fieldName + ' field cannot be empty!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
 
     useEffect(() => {}, []);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <div
                 style={{
                     marginTop: "10px",
