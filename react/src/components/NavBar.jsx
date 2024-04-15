@@ -71,6 +71,7 @@ function Header() {
                         <Button variant='link' fontSize='lg'>User Settings</Button>
 
                         <Button variant='link' fontSize='lg' onClick={navigateToNewGroceries}>Groceries</Button>
+                        <Button variant='link' fontSize='lg' onClick={navigateToUserManagment}>User Managment NEW</Button>
                         <Button variant='link' fontSize='lg' onClick={navigateToUsers}>User Managment</Button>
                     </Stack>
                 </DrawerBody>
