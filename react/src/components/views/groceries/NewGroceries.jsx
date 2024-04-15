@@ -38,10 +38,10 @@ import axiosClient from "../../../axios-client";
 import { Bounce } from "react-toastify";
 
 function NewGroceries() {
-    const [groceriesName, setGroceriesName] = React.useState([]);
+    const [groceriesName, setGroceriesName] = React.useState("");
     const [groceriesUnit, setGroceriesUnit] = React.useState("");
     const [groceriesCategory, setGroceriesCategory] = React.useState("");
-    const [groceriesSupplier, setGroceriesSupplier] = React.useState([]);
+    const [groceriesSupplier, setGroceriesSupplier] = React.useState("");
 
     const [renderKey, setRenderKey] = useState(0);
 
@@ -54,7 +54,6 @@ function NewGroceries() {
     };
 
     const saveGroceries = () => {
-        groceriesAddedSuccessfullyAlert();
         const payload = {
             name: groceriesName,
             unit: groceriesUnit,
@@ -62,19 +61,40 @@ function NewGroceries() {
             supplier: groceriesSupplier,
         };
 
-        console.log(payload);
-
-        axiosClient
-            .post("/groceries", payload)
-            .then((response) => {
-                console.log(response.data);
-                setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
-                successfullAlert();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if(groceriesName === ""){
+            emptyFieldAlert("Name");
+        } else if(groceriesUnit === ""){
+            emptyFieldAlert("Unit");
+        } else if(groceriesCategory === ""){
+            emptyFieldAlert("Category");
+        } else if(groceriesSupplier === ""){
+            emptyFieldAlert("Supplier");
+        } else {
+            axiosClient
+                .post("/groceries", payload)
+                .then((response) => {
+                    setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
+                    groceriesAddedSuccessfullyAlert();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
+
+    const emptyFieldAlert = (fieldName) => {
+        toast.error(fieldName + ' field cannot be empty!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
 
     const groceriesAddedSuccessfullyAlert = () => {
         toast.success("The product was successfully added!", {
@@ -96,6 +116,21 @@ function NewGroceries() {
     return (
         <div>
             <Header title="New Groceries" />
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <div
                 style={{
                     marginTop: "30px",
@@ -259,19 +294,7 @@ function NewGroceries() {
                                     >
                                         ADD
                                     </Button>
-                                    <ToastContainer
-                                        position="bottom-right"
-                                        autoClose={5000}
-                                        hideProgressBar={false}
-                                        newestOnTop={false}
-                                        closeOnClick
-                                        rtl={false}
-                                        pauseOnFocusLoss
-                                        draggable
-                                        pauseOnHover
-                                        theme="colored"
-                                        transition={Bounce}
-                                    />
+                                    
                                 </Td>
                             </Tr>
                         </Tbody>
