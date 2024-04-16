@@ -26,6 +26,16 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react'
 
+  import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogContent,
+    AlertDialogOverlay,
+    AlertDialogCloseButton,
+  } from '@chakra-ui/react'
+
   
 import Header from "../../Header";
 import axiosClient from "../../../axios-client";
@@ -35,7 +45,19 @@ import axiosClient from "../../../axios-client";
 function AllUsers() {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    
+    //const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure();
+    const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
+    const cancelRef = React.useRef()
+
+    const [user, setUser] = useState({
+        id: null,
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
     const fetchUsers = () => {
         axiosClient
@@ -54,11 +76,62 @@ function AllUsers() {
             });
     };
 
+    const updateUser = (event) => {
+
+        const payload = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            password_confirmation: user.confirmPassword,
+        };
+
+        console.log(payload);
+
+        /*
+        event.preventDefault();
+        if (user.id) {
+            axiosClient
+                .put(`/users/${user.id}`, payload)
+                .then(() => {
+                    console.log("The user was updated successfully!");
+                    
+                })
+                .catch((error) => {
+                    const response = error.response;
+                    if (response && response.status === 422) {
+                        console.log(response.data.errors);
+                        //setErrors(response.data.errors);
+                    }
+                });
+        } 
+        */
+    };
+
+    const deleteUser = (userId) => {
+        axiosClient
+            .delete(`/users/${userId}`)
+            .then(() => {
+                fetchUsers();
+            });
+    };
+
     const editUserOpenModal = (user) => {
         setSelectedUser(user);
-        onOpen();
+        onOpenEdit();
     }
 
+    const deleteUserOpenModal = (user) => {
+        setSelectedUser(user);
+        onOpenDelete();
+    }
+
+    const deleteUserCloseModal = () => {
+        deleteUser(selectedUser.id);
+        setSelectedUser(null);
+        onCloseDelete();
+    }
+        
 
     useEffect(() => {
         fetchUsers();
@@ -90,7 +163,7 @@ function AllUsers() {
                             <Td>{user.created_at}</Td>
                             <Td>
                                 <Button onClick={() => editUserOpenModal(user)} colorScheme="blue" mr={3}>Edit</Button>
-                                <Button colorScheme="red">Delete</Button>
+                                <Button onClick={() => deleteUserOpenModal(user)} colorScheme="red">Delete</Button>
                             </Td>
                         </Tr>
                     ))}
@@ -99,8 +172,8 @@ function AllUsers() {
               </Table>
             </TableContainer>
 
-            {/* Modal */}
-            <Modal isOpen={isOpen} onClose={onClose}>
+            {/* Edit User Modal */}
+            <Modal isOpen={isOpenEdit} onClose={onCloseEdit}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>
@@ -122,6 +195,9 @@ function AllUsers() {
                                         placeholder="Full Name"
                                         type="text"
                                         defaultValue={selectedUser.name}
+                                        onChange={(event) =>
+                                            setUser({ ...user, name: event.target.value })
+                                        }
                                     />
                                 </div>
                                 <div style={{marginBottom: '20px'}}>
@@ -130,6 +206,9 @@ function AllUsers() {
                                         placeholder="Email address"
                                         type="email"
                                         defaultValue={selectedUser.email}
+                                        onChange={(event) =>
+                                            setUser({ ...user, email: event.target.value })
+                                        }
                                     />
                                 </div>
                                 <div style={{marginBottom: '20px'}}>
@@ -138,6 +217,11 @@ function AllUsers() {
                                         placeholder="Password"
                                         type="password"
                                         defaultValue={selectedUser.password}
+                                        onChange={(event) =>
+                                            setUser({
+                                                ...user, password: event.target.value,
+                                            })
+                                        }
                                     />
                                 </div>
                                 <div style={{marginBottom: '20px'}}>
@@ -146,19 +230,59 @@ function AllUsers() {
                                         placeholder="Confirm Password"
                                         type="password"
                                         defaultValue={selectedUser.confirmPassword}
+                                        onChange={(event) =>
+                                            setUser({
+                                                ...user, confirmPassword: event.target.value,
+                                            })
+                                        }
                                     />
                                 </div>
                             </div>
                         )}
                     </ModalBody>    
                     <ModalFooter>
-                        <Button variant='ghost' mr={3} onClick={onClose}>
+                        <Button variant='ghost' mr={3} onClick={onCloseEdit}>
                             Close
                         </Button>
-                    <Button colorScheme="green">Save</Button>
+                    <Button colorScheme="green" onClick={()=>updateUser()}>Save</Button>
                   </ModalFooter>
                 </ModalContent>
             </Modal>
+                        
+            {/* Delete User */}
+            <AlertDialog
+                isOpen={isOpenDelete}
+                leastDestructiveRef={cancelRef}
+                onClose={onCloseDelete}
+            >
+              <AlertDialogOverlay>
+                <AlertDialogContent>
+                    <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                        
+                        {selectedUser === null ? (
+                            "Loading user ..."
+                        ) : (
+                            "Delete user: " + selectedUser.name + " ?"
+                        )}
+
+                    </AlertDialogHeader>
+                        
+                    <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                    </AlertDialogBody>
+                        
+                    <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onCloseDelete}>
+                            Cancel
+                        </Button>
+                        <Button colorScheme='red' onClick={deleteUserCloseModal} ml={3}>
+                            Delete
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialogOverlay>
+            </AlertDialog>
+           
 
         </div>
     );
