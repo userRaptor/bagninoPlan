@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
+import { ToastContainer, Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 
 import {
     Table,
@@ -113,8 +115,23 @@ function AllUsers() {
             .delete(`/users/${userId}`)
             .then(() => {
                 fetchUsers();
+                userDeletedSuccessfullyAlert();
             });
     };
+
+    const userDeletedSuccessfullyAlert = () => {
+        toast.success('User deleted successfully!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
 
     const editUserOpenModal = (user) => {
         setSelectedUser(user);
@@ -141,6 +158,20 @@ function AllUsers() {
     return (
         <div>
             <Header title="User Managment" />
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
 
             <TableContainer>
               <Table variant='striped' colorScheme='teal'>
