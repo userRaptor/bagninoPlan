@@ -40,8 +40,10 @@ function NewOrderWithGroceries() {
                         orderId={actualOrderId}
                         setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
                     />
-                    <div style={{ borderLeft: "5px solid green", h: "100%" }} />{" "}
+
                     {/**Trennlinie */}
+                    <div style={{ borderLeft: "5px solid green", h: "100%" }} />{" "}
+                    
                     <GroceriesOrders
                         orderId={actualOrderId}
                         booleanUpdateGroceriesOrder={

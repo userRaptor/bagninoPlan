@@ -203,8 +203,10 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                     </Table>
                 </TableContainer>
             </div>
-            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}
+
             {/**Trennlinie */}
+            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}
+            
         </div>
     );
 }

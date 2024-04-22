@@ -8,7 +8,8 @@ import Dashboard from "./components/views/Dashboard";
 import NewGroceries from "./components/views/groceries/NewGroceries";
 import NewOrderWithGroceries from "./components/views/orders/newOrder/NewOrderWithGroceries";
 import MyOrders from "./components/views/orders/myOrders/MyOrders";
-import AllUsers from "./components/views/userManagement/AllUsers";
+//import AllUsers from "./components/views/userManagement/AllUsers";
+import MainUserManagment from "./components/views/userManagement/MainUserManagment";
 
 import Users from "./components/views/Users";
 import UserForm from "./components/views/UserForm";
@@ -48,7 +49,7 @@ function App() {
                 <Route path="/newgroceries" element={<NewGroceries />} />
                 <Route path="/myorders" element={<MyOrders />} />
 
-                <Route path="/usermanagment" element={<AllUsers />} />
+                <Route path="/usermanagment" element={<MainUserManagment />} />
 
                 <Route
                     path="*"

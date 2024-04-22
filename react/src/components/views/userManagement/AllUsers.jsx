@@ -5,6 +5,7 @@ import { Button } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { ToastContainer, Bounce } from "react-toastify";
 import { toast } from "react-toastify";
+import { Text } from "@chakra-ui/react";
 
 import {
     Table,
@@ -40,6 +41,7 @@ import {
 
   
 import Header from "../../Header";
+import NewUser from "./NewUser";
 import axiosClient from "../../../axios-client";
 
 
@@ -125,7 +127,6 @@ function AllUsers() {
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
@@ -157,8 +158,9 @@ function AllUsers() {
 ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
-            <Header title="User Managment" />
+            
 
+            <Text fontSize='xl'>All registered users:</Text>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
