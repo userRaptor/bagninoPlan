@@ -11,11 +11,20 @@ class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * getAllOrders
      */
     public function index()
     {
-        //
+        return Order::query()->orderBy('id', 'desc')->get();
     }
+
+    public function getOrdersByUserId($userId)
+    {
+        return Order::collection(
+            Order::query()->where('user_id', $userId)->orderBy('id', 'desc')->get()
+        );
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,6 +63,23 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function updateIncludeSummary(Request $request, $orderId)
+    {
+        // Finde den Eintrag mit der übergebenen ID
+        $order = Order::find($orderId);
+    
+        if ($order) {
+            // Aktualisiere den Wert der Spalte 'includeSummary'
+            $order->update($request->only('includeSummary'));
+        
+            return response()->json($order, 200);
+        } else {
+            // Behandele den Fall, wenn der Eintrag nicht gefunden wurde
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

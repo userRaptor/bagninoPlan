@@ -14,7 +14,7 @@ class Order extends Model
     
     public function user()
     {
-        return $this->belongsTo(UserX::class);
+        return $this->belongsTo(User::class);
     }
 
     // Attributes:

@@ -10,6 +10,7 @@ import NewOrderWithGroceries from "./components/views/orders/newOrder/NewOrderWi
 import MyOrders from "./components/views/orders/myOrders/MyOrders";
 //import AllUsers from "./components/views/userManagement/AllUsers";
 import MainUserManagment from "./components/views/userManagement/MainUserManagment";
+import AllOrdersMain from "./components/views/orders/allOrders/AllOrdersMain";
 
 import Users from "./components/views/Users";
 import UserForm from "./components/views/UserForm";
@@ -45,9 +46,12 @@ function App() {
                     path="/users/:id"
                     element={<UserForm key="userUpdate" />}
                 />
-                <Route path="/neworder" element={<NewOrderWithGroceries />} />
+
                 <Route path="/newgroceries" element={<NewGroceries />} />
+
+                <Route path="/neworder" element={<NewOrderWithGroceries />} />
                 <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/allorders" element={<AllOrdersMain />} />
 
                 <Route path="/usermanagment" element={<MainUserManagment />} />
 

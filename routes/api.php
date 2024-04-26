@@ -48,6 +48,8 @@ Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 
 // Orders
 Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/orders', [OrderController::class, 'index']);
+Route::put('/orders/{orderId}', [OrderController::class, 'updateIncludeSummary']);
 
 // Groceries_Order
 Route::post('/groceries_order', [GroceriesOrderController::class, 'store']);
