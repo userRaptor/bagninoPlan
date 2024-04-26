@@ -5,6 +5,8 @@ import axiosClient from "../../../../axios-client";
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
+import { ArrowDownIcon } from '@chakra-ui/icons';
+
 import {
     Table,
     Thead,
@@ -17,6 +19,18 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverFooter,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverAnchor,
+  } from '@chakra-ui/react'
+
 
 function AllOrdersMain() {
     const [orders, setOrders] = React.useState([]);
@@ -25,7 +39,6 @@ function AllOrdersMain() {
         axiosClient
             .get("/orders")
             .then((response) => {
-                console.log(response);
                 setOrders(response);
             })
             .catch((error) => {
@@ -37,12 +50,15 @@ function AllOrdersMain() {
         axiosClient
             .put(`/orders/${order.id}`, { includeSummary: !order.includeSummary })
             .then((response) => {
-                console.log(response);
                 fetchOrders();
             })
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    const testing = () => {
+        console.log("testing");
     };
     
 
@@ -62,6 +78,7 @@ function AllOrdersMain() {
                     <Thead>
                         <Tr>
                             <Th>Id:</Th>
+                            <Th>Info:</Th>
                             <Th>Date:</Th>
                             <Th>Weekday:</Th>
                             <Th>Time:</Th>
@@ -76,6 +93,19 @@ function AllOrdersMain() {
                         {orders.map((order) => (
                             <Tr key={order.id}>
                                 <Td>{order.id}</Td>
+                                <Td>
+                                    <Popover>
+                                      <PopoverTrigger>
+                                        <Button >{<ArrowDownIcon />}</Button>
+                                      </PopoverTrigger>
+                                      <PopoverContent>
+                                        <PopoverArrow />
+                                        <PopoverCloseButton />
+                                        <PopoverHeader>Confirmation!</PopoverHeader>
+                                        <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
+                                      </PopoverContent>
+                                    </Popover>
+                                </Td>
                                 <Td>{order.date}</Td>
                                 <Td>{order.weekday}</Td>
                                 <Td>{order.time}</Td>
