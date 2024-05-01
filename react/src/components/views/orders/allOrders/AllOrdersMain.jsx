@@ -130,7 +130,7 @@ function AllOrdersMain() {
                                     colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "orange" : "green")} 
                                     onClick={() => changeIncludeSummary(order)}
                                     isLoading={loadingOrderId === order.id}
-                                    loadingText="Loading"
+                                    loadingText=""
                                 >
                                     {order.includeSummary ? "Exclude" : "Include"}
                                 </Button>
