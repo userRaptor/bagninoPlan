@@ -6,6 +6,8 @@ import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { ArrowDownIcon } from '@chakra-ui/icons';
+import { Spinner } from "@chakra-ui/react";
+import { useState } from "react";
 
 import {
     Table,
@@ -34,6 +36,7 @@ import {
 
 function AllOrdersMain() {
     const [orders, setOrders] = React.useState([]);
+    const [loadingOrderId, setLoadingOrderId] = useState(null);
 
     const fetchOrders = () => {
         axiosClient
@@ -47,18 +50,18 @@ function AllOrdersMain() {
     };
 
     const changeIncludeSummary = (order) => {
+        setLoadingOrderId(order.id);
+    
         axiosClient
             .put(`/orders/${order.id}`, { includeSummary: !order.includeSummary })
             .then((response) => {
                 fetchOrders();
+                setLoadingOrderId(null);
             })
             .catch((error) => {
                 console.log(error);
+                setLoadingOrderId(null);
             });
-    };
-
-    const testing = () => {
-        console.log("testing");
     };
     
 
@@ -114,12 +117,14 @@ function AllOrdersMain() {
                                 <Td>{order.user_id}</Td>
                                 <Td>{order.purpose}</Td>
                                 <Td>
-                                    <Button 
-                                        colorScheme={order.includeSummary ? "orange" : "green"} 
-                                        onClick={() => changeIncludeSummary(order)}
-                                    >
-                                        {order.includeSummary ? "Exclude" : "Include"}
-                                    </Button>
+                                <Button 
+                                    colorScheme={order.includeSummary ? "orange" : "green"} 
+                                    onClick={() => changeIncludeSummary(order)}
+                                    isLoading={loadingOrderId === order.id}
+                                    loadingText="Lädt..."
+                                >
+                                    {order.includeSummary ? "Exclude" : "Include"}
+                                </Button>
                                 </Td>
                             </Tr>
                         ))}
