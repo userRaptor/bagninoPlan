@@ -56,13 +56,19 @@ function AllOrdersMain() {
             .put(`/orders/${order.id}`, { includeSummary: !order.includeSummary })
             .then((response) => {
                 fetchOrders();
-                setLoadingOrderId(null);
+                // Ladezustand mit einer Verzögerung von 500ms beenden
+                setTimeout(() => {
+                    setLoadingOrderId(null);
+                }, 500);
             })
             .catch((error) => {
                 console.log(error);
-                setLoadingOrderId(null);
+                setTimeout(() => {
+                    setLoadingOrderId(null);
+                }, 500);
             });
     };
+    
     
 
     useEffect(() => {
@@ -118,13 +124,14 @@ function AllOrdersMain() {
                                 <Td>{order.purpose}</Td>
                                 <Td>
                                 <Button 
-                                    colorScheme={order.includeSummary ? "orange" : "green"} 
+                                    colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "orange" : "green")} 
                                     onClick={() => changeIncludeSummary(order)}
                                     isLoading={loadingOrderId === order.id}
-                                    loadingText="Lädt..."
+                                    loadingText="Loading"
                                 >
                                     {order.includeSummary ? "Exclude" : "Include"}
                                 </Button>
+
                                 </Td>
                             </Tr>
                         ))}
