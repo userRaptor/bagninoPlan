@@ -12,7 +12,19 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
+
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+} from '@chakra-ui/react'
 
 
 
@@ -27,17 +39,41 @@ function DetailViewOrder({ order }) {
 
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
-              <ModalContent>
+              <ModalContent maxW='80%'>
                 <ModalHeader>Included Groceries in the order: {order.purpose}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    {order.groceries ? order.groceries.map((grocery) => (
-                        <div key={grocery.id}>
-                            <h4>{grocery.name}</h4>
-                            <p>Quantity: {grocery.pivot.quantity}</p>
-                            <p>Comment: {grocery.pivot.comment}</p>
-                        </div>
-                    )) : <p>No groceries for this order.</p>}
+                    <TableContainer>
+                      <Table variant='simple'>
+                        <Thead>
+                          <Tr>
+                            <Th>ID:</Th>
+                            <Th>Name:</Th>
+                            <Th>Quantity:</Th>
+                            <Th>Unit:</Th>
+                            <Th>Category</Th>
+                            <Th>Supplier:</Th>
+                            <Th>Comment:</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                            {order.groceries ? order.groceries.map((grocery) => (
+                                <Tr key={grocery.id}>
+                                    <Td>{grocery.id}</Td>
+                                    <Td>{grocery.name}</Td>
+                                    <Td>{grocery.pivot.quantity}</Td>
+                                    <Td>{grocery.unit}</Td>
+                                    <Td>{grocery.category}</Td>
+                                    <Td>{grocery.supplier}</Td>
+                                    <Td>{grocery.pivot.comment}</Td>
+                                </Tr>
+                            )) : <p>No groceries for this order.</p>}
+                            
+                          
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+
                 </ModalBody>
                 <ModalFooter>
                   <Button colorScheme='blue' mr={3} onClick={onClose}>
