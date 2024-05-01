@@ -16,8 +16,10 @@ class Order extends Model
 
     public function groceries()
     {
-        return $this->belongsToMany(Groceries::class)->withPivot('quantity', 'comment');
+        return $this->belongsToMany(Groceries::class, 'groceries_orders')
+                    ->withPivot('quantity', 'comment');
     }
+
     
     public function user()
     {

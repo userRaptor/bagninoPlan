@@ -28,7 +28,7 @@ function DetailViewOrder({ order }) {
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Included Groceries in the order: {order.purpose}!</ModalHeader>
+                <ModalHeader>Included Groceries in the order: {order.purpose}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     {order.groceries ? order.groceries.map((grocery) => (
@@ -46,7 +46,6 @@ function DetailViewOrder({ order }) {
                 </ModalFooter>
               </ModalContent>
             </Modal>
-
         </div>
     );
 }

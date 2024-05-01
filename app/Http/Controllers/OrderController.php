@@ -13,9 +13,10 @@ class OrderController extends Controller
      * Display a listing of the resource.
      * getAllOrders
      */
-    public function index()
+    public function getAllOrders()
     {
-        return Order::query()->orderBy('id', 'desc')->get();
+        //return Order::query()->orderBy('id', 'desc')->get();
+        return Order::with('groceries')->orderBy('id', 'desc')->get();
     }
 
     public function getOrdersByUserId($userId)
@@ -53,7 +54,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return $order->load('groceries');
     }
 
     /**
