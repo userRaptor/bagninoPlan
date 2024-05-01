@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    /*
     public function groceries()
     {
         return $this->belongsToMany(Groceries::class);
+    }
+    */
+
+    public function groceries()
+    {
+        return $this->belongsToMany(Groceries::class)->withPivot('quantity', 'comment');
     }
     
     public function user()

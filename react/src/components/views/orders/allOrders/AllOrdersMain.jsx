@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../../Header";
 import axiosClient from "../../../../axios-client";
+import DetailViewOrder from "./DetailViewOrder";
 
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
@@ -8,6 +9,18 @@ import { Input } from "@chakra-ui/react";
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import { Spinner } from "@chakra-ui/react";
 import { useState } from "react";
+import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
+import { useDisclosure } from "@chakra-ui/react";
+
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+  } from '@chakra-ui/react'
 
 import {
     Table,
@@ -37,6 +50,7 @@ import {
 function AllOrdersMain() {
     const [orders, setOrders] = React.useState([]);
     const [loadingOrderId, setLoadingOrderId] = useState(null);
+    
 
     const fetchOrders = () => {
         axiosClient
@@ -80,7 +94,6 @@ function AllOrdersMain() {
         <div>
             <Header title="All Orders" />
 
-
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">
                     <TableCaption>All orders</TableCaption>
@@ -103,17 +116,7 @@ function AllOrdersMain() {
                             <Tr key={order.id}>
                                 <Td>{order.id}</Td>
                                 <Td>
-                                    <Popover>
-                                      <PopoverTrigger>
-                                        <Button >{<ArrowDownIcon />}</Button>
-                                      </PopoverTrigger>
-                                      <PopoverContent>
-                                        <PopoverArrow />
-                                        <PopoverCloseButton />
-                                        <PopoverHeader>Confirmation!</PopoverHeader>
-                                        <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
-                                      </PopoverContent>
-                                    </Popover>
+                                    <DetailViewOrder order={order} />
                                 </Td>
                                 <Td>{order.date}</Td>
                                 <Td>{order.weekday}</Td>
