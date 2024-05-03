@@ -16,8 +16,11 @@ class OrderController extends Controller
     public function getAllOrders()
     {
         //return Order::query()->orderBy('id', 'desc')->get();
-        return Order::with('groceries')->orderBy('id', 'desc')->get();
+        //return Order::with('groceries')->orderBy('id', 'desc')->get();
+        return Order::with(['groceries', 'user'])->orderBy('id', 'desc')->get();
     }
+
+
 
     public function getOrdersByUserId($userId)
     {

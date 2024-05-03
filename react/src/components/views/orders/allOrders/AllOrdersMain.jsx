@@ -149,7 +149,7 @@ function AllOrdersMain() {
                                 <Td>{order.time}</Td>
                                 <Td>{order.schoolClass}</Td>
                                 <Td>{order.location}</Td>
-                                <Td>{order.user_id}</Td>
+                                <Td>{order.user.name}</Td>
                                 <Td>{order.purpose}</Td>
                                 <Td>
                                 <Button 

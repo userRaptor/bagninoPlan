@@ -68,19 +68,19 @@ function Header() {
                 finalFocusRef={btnRef}
             >
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent style={{ backgroundColor: 'green' }}>
                     <DrawerCloseButton />
                     <DrawerHeader>Menu</DrawerHeader>
                 <DrawerBody>
                     <Stack spacing={10}>
-                        <Button variant='link' fontSize='lg' onClick={navigateToDashboard}>Dashboard</Button>
-                        <Button variant='link' fontSize='lg' onClick={navigateToNewOrder}>New Order</Button>
-                        <Button variant='link' fontSize='lg' onClick={navigateToMyOrders}>My Orders</Button>
-                        <Button variant='link' fontSize='lg' onClick={navigateToAllOrders}>All Orders</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToDashboard}>Dashboard</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToNewOrder}>New Order</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToMyOrders}>My Orders</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToAllOrders}>All Orders</Button>
 
-                        <Button variant='link' fontSize='lg' onClick={navigateToNewGroceries}>Groceries</Button>
-                        <Button variant='link' fontSize='lg' onClick={navigateToUserManagment}>User Managment NEW</Button>
-                        <Button variant='link' fontSize='lg' onClick={navigateToUsers}>User Managment</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToNewGroceries}>Groceries</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToUserManagment}>User Managment NEW</Button>
+                        <Button variant='link' fontSize='lg' style={{ color: 'black' }} onClick={navigateToUsers}>User Managment</Button>
                     </Stack>
                 </DrawerBody>
                     <DrawerFooter>
