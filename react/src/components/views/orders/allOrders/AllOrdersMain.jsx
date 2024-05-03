@@ -42,12 +42,10 @@ function AllOrdersMain() {
     const [endDate, setEndDate] = useState(null);
 
     const updateStartDate = (e) => {
-        console.log(e.target.value);
         setStartDate(e.target.value);
     };
 
     const updateEndDate = (e) => {
-        console.log(e.target.value);
         setEndDate(e.target.value);
     };
     
@@ -83,10 +81,30 @@ function AllOrdersMain() {
             });
     };
 
+    /*
     const filteredOrders = orders.filter((order) => {
         const orderDate = new Date(order.date);
         return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
     });
+    */
+
+    const filteredOrders = orders.filter((order) => {
+        const orderDate = new Date(order.date);
+        if (startDate && endDate) {
+            // Wenn sowohl Start- als auch Enddatum ausgewählt sind
+            return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
+        } else if (startDate) {
+            // Wenn nur das Startdatum ausgewählt ist
+            return orderDate >= new Date(startDate);
+        } else if (endDate) {
+            // Wenn nur das Enddatum ausgewählt ist
+            return orderDate <= new Date(endDate);
+        } else {
+            // Wenn kein Datum ausgewählt ist
+            return true;
+        }
+    });
+    
     
     
     
