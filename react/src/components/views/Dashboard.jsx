@@ -11,9 +11,13 @@ import Header from "../Header";
 import welcomeIMG from "./../img/welcome.jpg";
 import axiosClient from "../../axios-client";
 
+import { useStateContext } from "../../contexts/ContextProvider";
+
 
 export default function Dashboard() {
     const [userName, setUserName] = useState('');
+
+    const { user, token } = useStateContext();
 
     const getUser = () => {
         axiosClient.get('/user')
@@ -35,6 +39,10 @@ export default function Dashboard() {
     return (
         <div>
             <Header title="Dashboard" />
+
+            {token ? 'Token exits' : 'No Token'}
+
+
             <Button onClick={getUser}>Load Username</Button>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px'}}>
                 <img src={welcomeIMG} alt="welcome" style={{ width: '35%', height: 'auto' }}/>
