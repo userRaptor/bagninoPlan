@@ -6,7 +6,7 @@ import DetailViewOrder from "./DetailViewOrder";
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { ArrowDownIcon } from '@chakra-ui/icons';
+import { ArrowDownIcon, DownloadIcon } from '@chakra-ui/icons';
 import { Spinner } from "@chakra-ui/react";
 import { useState } from "react";
 import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
@@ -90,15 +90,17 @@ function AllOrdersMain() {
                     <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
                     <Text fontWeight='bold' style={{ marginLeft: '40px', marginRight: '10px' }}>to:</Text>
                     <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
+                    <Button colorScheme="green" style={{marginLeft: '40px'}}>
+                        Export <DownloadIcon style={{marginLeft: '10px'}}/>
+                    </Button>
+
                 </div>
 
-  
             </div>
             
             {/**Trennlinie waagerecht*/}
-            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}  
+            <div style={{ borderTop: "5px solid green", h: "100%", marginBottom: '40px' }} />{" "}  
 
-           
 
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">

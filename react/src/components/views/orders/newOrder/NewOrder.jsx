@@ -72,7 +72,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         };
 
         if(date === ""){
-            emptyFieldAlert("Date");
+            emptyFieldAlert("Date and Time");
         } else if(time === ""){
             emptyFieldAlert("Time");
         } else if (schoolClass === ""){
