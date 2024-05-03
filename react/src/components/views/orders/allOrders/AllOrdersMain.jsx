@@ -38,6 +38,18 @@ import {
 function AllOrdersMain() {
     const [orders, setOrders] = React.useState([]);
     const [loadingOrderId, setLoadingOrderId] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
+    const updateStartDate = (e) => {
+        console.log(e.target.value);
+        setStartDate(e.target.value);
+    };
+
+    const updateEndDate = (e) => {
+        console.log(e.target.value);
+        setEndDate(e.target.value);
+    };
     
 
     const fetchOrders = () => {
@@ -70,12 +82,30 @@ function AllOrdersMain() {
                 }, 500);
             });
     };
+
+    const filteredOrders = orders.filter((order) => {
+        const orderDate = new Date(order.date);
+        return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
+    });
+    
     
     
 
     useEffect(() => {
         fetchOrders();
     }, []);
+
+    /*
+    useEffect(() => {
+        if (startDate && endDate) {
+          const filteredOrders = orders.filter(order => {
+            const orderDate = new Date(order.date);
+            return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
+          });
+          setOrders(filteredOrders);
+        }
+    }, [startDate, endDate]);
+    */
 
 //////////////////////////////////////////////////////////////////////////////////////////
     return (  
@@ -87,9 +117,9 @@ function AllOrdersMain() {
 
                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40px', marginTop: '20px', marginBottom: '40px'}}>
                     <Text fontWeight='bold' style={{marginRight: '10px'}}>from:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => updateStartDate(e)}/>
                     <Text fontWeight='bold' style={{ marginLeft: '40px', marginRight: '10px' }}>to:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => updateEndDate(e)}/>
                     <Button colorScheme="green" style={{marginLeft: '40px'}}>
                         Export <DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
@@ -119,7 +149,8 @@ function AllOrdersMain() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {orders.map((order) => (
+                        {/** {orders.map((order) => ( */}
+                        {filteredOrders.map((order) => (
                             <Tr key={order.id}>
                                 <Td>{order.id}</Td>
                                 <Td>
