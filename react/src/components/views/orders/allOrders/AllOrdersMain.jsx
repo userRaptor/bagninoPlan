@@ -121,6 +121,7 @@ function AllOrdersMain() {
 
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">
+                    <TableCaption>All orders</TableCaption>
                     <Thead>
                         <Tr>
                             <Th>Id:</Th>
