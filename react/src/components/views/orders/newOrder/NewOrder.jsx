@@ -204,7 +204,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                 </TableContainer>
             </div>
 
-            {/**Trennlinie */}
+            {/**Trennlinie Waagerecht*/}
             <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}
             
         </div>

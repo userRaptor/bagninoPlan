@@ -41,7 +41,7 @@ function NewOrderWithGroceries() {
                         setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
                     />
 
-                    {/**Trennlinie */}
+                    {/**Trennlinie Senkrecht*/}
                     <div style={{ borderLeft: "5px solid green", h: "100%" }} />{" "}
                     
                     <GroceriesOrders

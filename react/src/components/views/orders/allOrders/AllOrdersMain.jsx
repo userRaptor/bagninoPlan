@@ -34,18 +34,6 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-import {
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
-    PopoverCloseButton,
-    PopoverAnchor,
-  } from '@chakra-ui/react'
-
 
 function AllOrdersMain() {
     const [orders, setOrders] = React.useState([]);
@@ -89,14 +77,31 @@ function AllOrdersMain() {
         fetchOrders();
     }, []);
 
-
+//////////////////////////////////////////////////////////////////////////////////////////
     return (  
         <div>
             <Header title="All Orders" />
 
+            <div style={{margin: '20px'}}>
+                <Text fontSize='lg' fontWeight='bold'>Please select period:</Text>
+
+                <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40px', marginTop: '20px', marginBottom: '40px'}}>
+                    <Text fontWeight='bold' style={{marginRight: '10px'}}>from:</Text>
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
+                    <Text fontWeight='bold' style={{ marginLeft: '40px', marginRight: '10px' }}>to:</Text>
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} />
+                </div>
+
+  
+            </div>
+            
+            {/**Trennlinie waagerecht*/}
+            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}  
+
+           
+
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">
-                    <TableCaption>All orders</TableCaption>
                     <Thead>
                         <Tr>
                             <Th>Id:</Th>
@@ -127,7 +132,7 @@ function AllOrdersMain() {
                                 <Td>{order.purpose}</Td>
                                 <Td>
                                 <Button 
-                                    colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "orange" : "green")} 
+                                    colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "green" : "orange")} 
                                     onClick={() => changeIncludeSummary(order)}
                                     isLoading={loadingOrderId === order.id}
                                     loadingText=""
@@ -141,8 +146,7 @@ function AllOrdersMain() {
                         
                     </Tbody>
                 </Table>
-            </TableContainer>
-        
+            </TableContainer>      
         
         </div>
     );
