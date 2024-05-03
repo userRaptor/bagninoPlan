@@ -41,15 +41,6 @@ function AllOrdersMain() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
-    const updateStartDate = (e) => {
-        setStartDate(e.target.value);
-    };
-
-    const updateEndDate = (e) => {
-        setEndDate(e.target.value);
-    };
-    
-
     const fetchOrders = () => {
         axiosClient
             .get("/orders")
@@ -81,49 +72,27 @@ function AllOrdersMain() {
             });
     };
 
-    /*
-    const filteredOrders = orders.filter((order) => {
-        const orderDate = new Date(order.date);
-        return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
-    });
-    */
-
     const filteredOrders = orders.filter((order) => {
         const orderDate = new Date(order.date);
         if (startDate && endDate) {
-            // Wenn sowohl Start- als auch Enddatum ausgewählt sind
+            // start and end date are selected
             return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
         } else if (startDate) {
-            // Wenn nur das Startdatum ausgewählt ist
+            // only the start date is selected
             return orderDate >= new Date(startDate);
         } else if (endDate) {
-            // Wenn nur das Enddatum ausgewählt ist
+            // only the end date is selected
             return orderDate <= new Date(endDate);
         } else {
-            // Wenn kein Datum ausgewählt ist
+            // no date is selected
             return true;
         }
     });
-    
-    
-    
-    
 
     useEffect(() => {
         fetchOrders();
     }, []);
 
-    /*
-    useEffect(() => {
-        if (startDate && endDate) {
-          const filteredOrders = orders.filter(order => {
-            const orderDate = new Date(order.date);
-            return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
-          });
-          setOrders(filteredOrders);
-        }
-    }, [startDate, endDate]);
-    */
 
 //////////////////////////////////////////////////////////////////////////////////////////
     return (  
@@ -135,9 +104,9 @@ function AllOrdersMain() {
 
                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40px', marginTop: '20px', marginBottom: '40px'}}>
                     <Text fontWeight='bold' style={{marginRight: '10px'}}>from:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => updateStartDate(e)}/>
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => setStartDate(e.target.value)}/>
                     <Text fontWeight='bold' style={{ marginLeft: '40px', marginRight: '10px' }}>to:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => updateEndDate(e)}/>
+                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => setEndDate(e.target.value)}/>
                     <Button colorScheme="green" style={{marginLeft: '40px'}}>
                         Export <DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
