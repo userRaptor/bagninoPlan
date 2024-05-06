@@ -20,15 +20,13 @@ class OrderController extends Controller
         return Order::with(['groceries', 'user'])->orderBy('id', 'desc')->get();
     }
 
-
-
     public function getOrdersByUserId($userId)
     {
-        return Order::collection(
-            Order::query()->where('user_id', $userId)->orderBy('id', 'desc')->get()
-        );
+        return Order::with(['groceries', 'user'])
+                    ->where('user_id', $userId)
+                    ->orderBy('id', 'desc')
+                    ->get();
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -85,11 +83,18 @@ class OrderController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
+    public function deleteByID($id)
     {
-        //
+        $grocery = Order::find($id);
+        $grocery->delete();
+
+        return response()->json(null, 204);
+    }
+
+    public function deleteAll()
+    {
+        Order::query()->delete();
+
+        return response()->json(null, 204);
     }
 }

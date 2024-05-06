@@ -49,7 +49,11 @@ Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 // Orders
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/orders', [OrderController::class, 'getAllOrders']);
+Route::get('/orders/{userId}', [OrderController::class, 'getOrdersByUserId']);
 Route::put('/orders/{orderId}', [OrderController::class, 'updateIncludeSummary']);
+Route::delete('/orders/{orderId}', [OrderController::class, 'deleteByID']);
+Route::delete('/orders', [OrderController::class, 'deleteAll']);
+
 
 // Groceries_Order
 Route::post('/groceries_order', [GroceriesOrderController::class, 'store']);

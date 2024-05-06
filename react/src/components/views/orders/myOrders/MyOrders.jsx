@@ -5,9 +5,13 @@ import { useEffect } from "react";
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 import Header from "../../../Header";
 import axiosClient from "../../../../axios-client";
+import DetailViewOrder from "../allOrders/DetailViewOrder";
 
 import {
     Table,
@@ -23,26 +27,52 @@ import {
 
 
 function MyOrders() {
-    const [orders, setOrders] = React.useState([{}]);
-    const [search, setSearch] = React.useState("");
+    const [orders, setOrders] = React.useState([]);
     const [searchByPurpose, setSearchByPurpose] = React.useState("");
 
     const getOrdersById = (id) => {
         axiosClient
             .get(`/orders/${id}`)
             .then((response) => {
-                console.log(response.data);
-                setOrders(response.data);
+                setOrders(response);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
+    const deleteOrderById = (order) => {
+        if (window.confirm("Delete order with ID: " + order.id)) {
+            axiosClient
+                .delete(`/orders/${order.id}`)
+                .then((response) => {
+                    getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+    const deleteAllOrders = () => {
+        if (window.confirm("Are you sure? You can't undo this action afterwards.")) {
+            axiosClient
+                .delete("/orders")
+                .then((response) => {
+                    getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+
     const filteredOrders = orders.filter(order => order.purpose.startsWith(searchByPurpose));
 
+
     useEffect(() => {
-        getOrdersById();
+        getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
     }, []);
 
 
@@ -54,19 +84,22 @@ function MyOrders() {
                     variant="outline"
                     placeholder="Search by purpose ..."
                     style={{ width: "30%" }}
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => setSearchByPurpose(e.target.value)}
                 />
             </div>
 
             <TableContainer>
                 <Table variant="striped" colorScheme="teal">
-                    <TableCaption>All orders</TableCaption>
+                    <TableCaption>My orders</TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Order Id:</Th>
+                            <Th>Id::</Th>
+                            <Th>Info:</Th>
                             <Th>Purpose:</Th>
                             <Th>Date:</Th>
+                            <Th>Class:</Th>
+                            <Th>Reuse:</Th>
+                            <Th>Delete:</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -74,15 +107,26 @@ function MyOrders() {
                         {filteredOrders.map((order) => (
                             <Tr key={order.id}>
                                 <Td>{order.id}</Td>
+                                <Td>
+                                    <DetailViewOrder order={order} />
+                                </Td>
                                 <Td>{order.purpose}</Td>
                                 <Td>{order.date}</Td>
+                                <Td>{order.schoolClass}</Td>
+                                <Td>
+                                    <Button
+                                        colorScheme="blue"
+                                    >
+                                        Reuse
+                                    </Button>
+                                </Td>
                                 <Td>
                                     {/* isDisabled */}
-                                    <Button
-                                        colorScheme="red"
-                                        isDisabled
+                                    <Button 
+                                        colorScheme="red"  
+                                        onClick={() => deleteOrderById(order)}
                                     >
-                                        Delete
+                                        <DeleteIcon />
                                     </Button>
                                 </Td>
                             </Tr>
@@ -92,10 +136,11 @@ function MyOrders() {
             </TableContainer>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-                <Button isDisabled colorScheme="red" >
+                <Button colorScheme="red" onClick={deleteAllOrders}>
                     DELETE ALL
                 </Button>
             </div>
+            
         </div>
     );
 }   
