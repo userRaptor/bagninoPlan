@@ -1,13 +1,12 @@
 import React from "react";
 
 import { useEffect } from "react";
-
+import { ToastContainer, Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { useDisclosure } from "@chakra-ui/react";
-
 
 import Header from "../../../Header";
 import axiosClient from "../../../../axios-client";
@@ -42,11 +41,12 @@ function MyOrders() {
     };
 
     const deleteOrderById = (order) => {
-        if (window.confirm("Delete order with ID: " + order.id)) {
+        if (window.confirm("Are you sure to delete the order with ID " + order.id + " ? \nYou can't undo this action afterwards.")) {
             axiosClient
                 .delete(`/orders/${order.id}`)
                 .then((response) => {
                     getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
+                    orderDeletedSuccessfullyAlert();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -55,17 +55,31 @@ function MyOrders() {
     };
 
     const deleteAllOrders = () => {
-        if (window.confirm("Are you sure? You can't undo this action afterwards.")) {
+        if (window.confirm("Are you sure to delete all orders? \nYou can't undo this action afterwards.")) {
             axiosClient
                 .delete("/orders")
                 .then((response) => {
                     getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
+                    orderDeletedSuccessfullyAlert();
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
     };
+
+    const orderDeletedSuccessfullyAlert = () => {
+        toast.success('Order deleted successfully!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
 
 
     const filteredOrders = orders.filter(order => order.purpose.startsWith(searchByPurpose));
@@ -136,10 +150,24 @@ function MyOrders() {
             </TableContainer>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-                <Button colorScheme="red" onClick={deleteAllOrders}>
+                <Button isDisabled colorScheme="red" onClick={deleteAllOrders}>
                     DELETE ALL
                 </Button>
             </div>
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
             
         </div>
     );
