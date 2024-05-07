@@ -35,25 +35,29 @@ function GetGroceries() {
     };
 
     const deleteGroceriesById = (grocery) => {
-        axiosClient
-            .delete(`/groceries/${grocery.id}`)
-            .then((response) => {
-                fetchGroceries();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (window.confirm("Are you sure to delete this grocery? \nYou can't undo this action afterwards.")) {
+            axiosClient
+                .delete(`/groceries/${grocery.id}`)
+                .then((response) => {
+                    fetchGroceries();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
     const deleteAll = () => {
-        axiosClient
-            .delete("/groceries")
-            .then((response) => {
-                fetchGroceries();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (window.confirm("Are you sure to delete all groceries? \nYou can't undo this action afterwards.")) {
+            axiosClient
+                .delete("/groceries")
+                .then((response) => {
+                    fetchGroceries();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
     const filteredGroceries = groceries.filter(grocery => grocery.name.startsWith(search));
