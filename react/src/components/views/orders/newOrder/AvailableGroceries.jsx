@@ -53,9 +53,7 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
         //console.log(payload);
 
         if(payload.quantity === undefined || payload.quantity === ""){
-            console.log("Quantity is missing!");
-            //quantityIsMissingAlert();
-            emptyFieldAlert("Quantity");
+            errorAlert("Quantity field cannot be empty!");
         } else {
             toast.dismiss();
             setIsLoadingToSendData(true);
@@ -65,12 +63,15 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                 .then((response) => {
                     setBooleanUpdateGroceriesOrder();
                     setIsLoadingToSendData(false);
+                    setTimeout(() => {
+                        successAlert("Grocery added to order!");
+                    }, 400); 
                 })
                 .catch((error) => {
                     console.log(error);
                     setIsLoadingToSendData(false);
                 });
-            }, 1000); // Delay of 1000 Milliseconds 
+            }, 800); // Delay of 1000 Milliseconds 
         }
     };
 
@@ -80,8 +81,8 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             grocery.category.startsWith(searchByCategory)
     );
 
-    const emptyFieldAlert = (fieldName) => {
-        toast.error(fieldName + ' field cannot be empty!', {
+    const successAlert = (infoSuccess) => {
+        toast.success(infoSuccess, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -92,7 +93,35 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             theme: "colored",
             transition: Bounce,
         });
-    }
+      };
+    
+      const errorAlert = (infoError) => {
+        toast.error(infoError, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+      };
+    
+      const warningAlert = (infoWarning) => {
+        toast.warn(infoWarning, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+      };
 
     useEffect(() => {
         fetchGroceries();
@@ -208,6 +237,7 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                                         onClick={() =>
                                             addGroceryToOrder(grocery)
                                         }
+                                        isDisabled={isLoadingToSendData}
                                     >
                                         ADD
                                     </Button>
