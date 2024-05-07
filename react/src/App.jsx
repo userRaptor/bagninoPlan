@@ -6,9 +6,9 @@ import Signup from "./components/views/auth/Signup";
 import Dashboard from "./components/views/Dashboard";
 
 import NewGroceries from "./components/views/groceries/NewGroceries";
-import NewOrderWithGroceries from "./components/views/orders/newOrder/NewOrderWithGroceries";
+import MainNewOrderGroceries from "./components/views/orders/newOrder/MainNewOrderGroceries";
 import MyOrders from "./components/views/orders/myOrders/MyOrders";
-//import AllUsers from "./components/views/userManagement/AllUsers";
+
 import MainUserManagment from "./components/views/userManagement/MainUserManagment";
 import AllOrdersMain from "./components/views/orders/allOrders/AllOrdersMain";
 
@@ -49,7 +49,7 @@ function App() {
 
                 <Route path="/newgroceries" element={<NewGroceries />} />
 
-                <Route path="/neworder" element={<NewOrderWithGroceries />} />
+                <Route path="/neworder" element={<MainNewOrderGroceries />} />
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/allorders" element={<AllOrdersMain />} />
 

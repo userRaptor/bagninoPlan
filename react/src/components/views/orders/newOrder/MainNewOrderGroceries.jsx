@@ -6,7 +6,7 @@ import AvailableGroceries from "./AvailableGroceries";
 import MyOrder from "./MyOrder";
 import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
-function NewOrderWithGroceries() {
+function MainNewOrderGroceries() {
     const [orderAlreadyExists, setOrderAlreadyExists] = React.useState(false);
     const [actualOrderId, setActualOrderId] = React.useState("");
     const [booleanUpdateGroceriesOrder, setBooleanUpdateGroceriesOrder] =
@@ -62,4 +62,4 @@ function NewOrderWithGroceries() {
     );
 }
 
-export default NewOrderWithGroceries;
+export default MainNewOrderGroceries;
