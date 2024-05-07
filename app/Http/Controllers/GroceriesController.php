@@ -49,13 +49,16 @@ class GroceriesController extends Controller
         $data = $request->all();
 
         foreach ($data as $row) {
-            Groceries::create([
-                'name' => $row[0],
-                'unit' => $row[1],
-                'category' => $row[2],
-                'supplier' => $row[3],
-            ]);
+            if (count($row) >= 4) {
+                Groceries::create([
+                    'name' => $row[0],
+                    'unit' => $row[1],
+                    'category' => $row[2],
+                    'supplier' => $row[3],
+                ]);
+            }
         }
+        
 
         return response()->json(null, 204);
     }

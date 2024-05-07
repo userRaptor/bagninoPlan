@@ -1,11 +1,12 @@
 import React from 'react';
 import CSVReader from 'react-csv-reader';
 import axiosClient from '../../axios-client';
+import { Button } from '@chakra-ui/react';
 
 
 function Testing (){
 
-  const handleForce = (data, fileInfo) => {
+  const handleFileUpload = (data, fileInfo) => {
     console.log(data);
     axiosClient
       .post("/groceriescsv", data)
@@ -17,13 +18,12 @@ function Testing (){
       });
   }
 
-
   return (
     <div className="App">
       <CSVReader
         cssClass="csv-reader-input"
         label="Select CSV with secret Death Star blueprints"
-        onFileLoaded={handleForce}
+        onFileLoaded={handleFileUpload}
       />
     </div>
 

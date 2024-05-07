@@ -4,6 +4,8 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+
 import CSVReader from 'react-csv-reader';
 
 import GetGroceries from "./GetGroceries";
@@ -45,6 +47,7 @@ function NewGroceries() {
     const [groceriesCategory, setGroceriesCategory] = React.useState("");
     const [groceriesSupplier, setGroceriesSupplier] = React.useState("");
 
+    const [csvData, setCsvData] = useState(null);
     const [renderKey, setRenderKey] = useState(0);
 
     const handleChangeUnit = (event) => {
@@ -64,19 +67,19 @@ function NewGroceries() {
         };
 
         if(groceriesName === ""){
-            emptyFieldAlert("Name");
+            errorAlert("Name field cannot be empty!");
         } else if(groceriesUnit === ""){
-            emptyFieldAlert("Unit");
+            errorAlert("Unit field cannot be empty!");
         } else if(groceriesCategory === ""){
-            emptyFieldAlert("Category");
+            errorAlert("Category field cannot be empty!");
         } else if(groceriesSupplier === ""){
-            emptyFieldAlert("Supplier");
+            errorAlert("Supplier field cannot be empty!");
         } else {
             axiosClient
                 .post("/groceries", payload)
                 .then((response) => {
                     setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
-                    groceriesAddedSuccessfullyAlert();
+                    successAlert("The product was added successfully!");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -86,18 +89,27 @@ function NewGroceries() {
 
     const handleCsvInput = (data, fileInfo) => {
         //console.log(data);
-        axiosClient
-          .post("/groceriescsv", data)
-          .then((response) => {
-    
-          })
-          .catch((error) => {
-              console.log(error);
-          });
+        setCsvData(data);
     }
 
-    const emptyFieldAlert = (fieldName) => {
-        toast.error(fieldName + ' field cannot be empty!', {
+    const handleSendCsvData = () => {
+        if (csvData) {
+            axiosClient
+                .post("/groceriescsv", csvData)
+                .then((response) => {
+                    setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
+                    successAlert("The csv file was imported successfully!");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            warningAlert("No csv file was selected!");
+        }
+    }
+
+    const successAlert = (infoSuccess) => {
+        toast.success(infoSuccess, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -108,10 +120,10 @@ function NewGroceries() {
             theme: "colored",
             transition: Bounce,
         });
-    }
+    };
 
-    const groceriesAddedSuccessfullyAlert = () => {
-        toast.success("The product was successfully added!", {
+    const errorAlert = (infoError) => {
+        toast.error(infoError, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -121,7 +133,21 @@ function NewGroceries() {
             progress: undefined,
             theme: "colored",
             transition: Bounce,
-        });
+            });
+    };
+
+    const warningAlert = (infoWarning) => {
+        toast.warn(infoWarning, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+            });
     };
 
     useEffect(() => {}, []);
@@ -319,14 +345,13 @@ function NewGroceries() {
                 <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                     <Box height="5px" backgroundColor="black" />
                 </div>
-                <div>
-                    <Text fontSize='lg' as='b'>Select CSV with secret Death Star blueprints:</Text>
-                    
-                    <CSVReader
-                        onFileLoaded={handleCsvInput}
-                    />
-
+                <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
+                    <Text fontSize='lg' as='b'>Import groceries with a CSV-File:</Text>
+                    <CSVReader onFileLoaded={handleCsvInput} />
+                    <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>
                 </div>
+
+
                 <GetGroceries key={renderKey} />
             </div>
         </div>
