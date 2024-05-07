@@ -29,17 +29,6 @@ class GroceriesController extends Controller
         return new GroceriesResource(Groceries::find($id));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
 
     public function store(Request $request)
     {
@@ -55,6 +44,22 @@ class GroceriesController extends Controller
         return new GroceriesResource($grocery);
     }
 
+    public function uploadCsv(Request $request)
+    {
+        $data = $request->all();
+
+        foreach ($data as $row) {
+            Groceries::create([
+                'name' => $row[0],
+                'unit' => $row[1],
+                'category' => $row[2],
+                'supplier' => $row[3],
+            ]);
+        }
+
+        return response()->json(null, 204);
+    }
+
 
 
     /**
@@ -65,25 +70,7 @@ class GroceriesController extends Controller
         return new GroceriesResource($groceries);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Groceries $groceries)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Groceries $groceries)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    /*
     public function destroy(Groceries $groceries)
     {
         // Daten werden in die log-Datei von Laravel geschrieben (storage/logs/laravel.log)
@@ -95,6 +82,7 @@ class GroceriesController extends Controller
 
         return response()->json(null, 204);
     }
+    */
 
     public function deleteByID($id)
     {

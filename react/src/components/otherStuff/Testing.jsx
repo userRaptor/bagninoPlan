@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
-import { Input } from "@chakra-ui/react";
+import React from 'react';
+import CSVReader from 'react-csv-reader';
+import axiosClient from '../../axios-client';
 
 
 function Testing (){
 
-    const [selectedDate, setSelectedDate] = useState("");
+  const handleForce = (data, fileInfo) => {
+    console.log(data);
+    // Hier können Sie einen POST-Request an Ihren Laravel-Server senden, um die Daten zu speichern
+    axiosClient
+      .post("/groceriescsv", data)
+      .then((response) => {
 
-  const handleDateTimeChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  }
 
-  // Aktuelles Datum und Uhrzeit erhalten
-  const currentDate = new Date().toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:MM
 
   return (
-    <Input
-      placeholder="Select Date and Time"
-      size="md"
-      type="datetime-local"
-      min={currentDate} // Setze das Minimum-Datum auf das aktuelle Datum
-      value={selectedDate}
-      onChange={handleDateTimeChange}
-    />
+    <div className="App">
+      <CSVReader
+        cssClass="csv-reader-input"
+        label="Select CSV with secret Death Star blueprints"
+        onFileLoaded={handleForce}
+      />
+    </div>
+
   );
 }
 
