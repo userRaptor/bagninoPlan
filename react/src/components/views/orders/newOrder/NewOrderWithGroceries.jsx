@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../Header";
 import NewOrder from "./NewOrder";
 import AvailableGroceries from "./AvailableGroceries";
-import GroceriesOrders from "./GroceriesOrders";
+import MyOrder from "./MyOrder";
 import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
 function NewOrderWithGroceries() {
@@ -33,23 +33,19 @@ function NewOrderWithGroceries() {
             />
 
             {orderAlreadyExists ? (
-                <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                    <AvailableGroceries
-                        orderId={actualOrderId}
-                        setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
-                    />
-
-                    {/**Trennlinie Senkrecht*/}
-                    <div style={{ borderLeft: "5px solid green", h: "100%" }} />{" "}
-                    
-                    <GroceriesOrders
+                <div>
+                    <MyOrder
                         orderId={actualOrderId}
                         booleanUpdateGroceriesOrder={
                             booleanUpdateGroceriesOrder
                         }
                     />
+
+                    <AvailableGroceries
+                        orderId={actualOrderId}
+                        setBooleanUpdateGroceriesOrder={updateGroceriesOrder}
+                    />
+                      
                 </div>
             ) : (
                 <Box padding="6" boxShadow="lg" bg="white">

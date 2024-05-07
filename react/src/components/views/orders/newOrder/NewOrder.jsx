@@ -162,7 +162,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                                 </Td>
                                 <Td>
                                     <Input
-                                        placeholder="Klasse"
+                                        placeholder="Class ..."
                                         disabled={orderAlreadyExists}
                                         onChange={(event) =>
                                             setSchoolClass(event.target.value)
@@ -171,7 +171,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                                 </Td>
                                 <Td>
                                     <Input
-                                        placeholder="Ort"
+                                        placeholder="Location ..."
                                         disabled={orderAlreadyExists}
                                         onChange={(event) =>
                                             setLocation(event.target.value)
@@ -180,7 +180,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                                 </Td>
                                 <Td>
                                     <Input
-                                        placeholder="Verwendungszweck"
+                                        placeholder="Purpose ..."
                                         disabled={orderAlreadyExists}
                                         onChange={(event) =>
                                             setPurpose(event.target.value)
