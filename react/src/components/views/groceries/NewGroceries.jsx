@@ -103,6 +103,7 @@ function NewGroceries() {
                 .catch((error) => {
                     console.log(error);
                 });
+            setCsvData(null);
         } else {
             warningAlert("No csv file was selected!");
         }
