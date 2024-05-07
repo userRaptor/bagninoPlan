@@ -3,6 +3,8 @@ import { Input, Text } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import { Box } from "@chakra-ui/react";
+import CSVReader from 'react-csv-reader';
 
 import GetGroceries from "./GetGroceries";
 import Header from "../../Header";
@@ -81,6 +83,18 @@ function NewGroceries() {
                 });
         }
     };
+
+    const handleCsvInput = (data, fileInfo) => {
+        //console.log(data);
+        axiosClient
+          .post("/groceriescsv", data)
+          .then((response) => {
+    
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+    }
 
     const emptyFieldAlert = (fieldName) => {
         toast.error(fieldName + ' field cannot be empty!', {
@@ -301,6 +315,18 @@ function NewGroceries() {
                     </Table>
                 </TableContainer>
 
+                {/**Trennlinie waagerecht */}
+                <div style={{ marginTop: "50px", marginBottom: "50px" }}>
+                    <Box height="5px" backgroundColor="black" />
+                </div>
+                <div>
+                    <Text fontSize='lg' as='b'>Select CSV with secret Death Star blueprints:</Text>
+                    
+                    <CSVReader
+                        onFileLoaded={handleCsvInput}
+                    />
+
+                </div>
                 <GetGroceries key={renderKey} />
             </div>
         </div>

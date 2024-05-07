@@ -117,7 +117,8 @@ function GetGroceries() {
             </TableContainer>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-                <Button isDisabled colorScheme="red" onClick={deleteAll}>
+                {/* isDisabled */}
+                <Button colorScheme="red" onClick={deleteAll}>
                     DELETE ALL
                 </Button>
             </div>
