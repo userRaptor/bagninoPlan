@@ -352,8 +352,9 @@ function NewGroceries() {
                     <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>
                 </div>
 
-
                 <GetGroceries key={renderKey} />
+
+                {/*<GetGroceries key={renderKey} />*/}
             </div>
         </div>
     );

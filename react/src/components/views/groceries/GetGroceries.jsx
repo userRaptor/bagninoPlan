@@ -7,6 +7,9 @@ import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { Bounce } from "react-toastify";
+
 import {
     Table,
     Thead,
@@ -44,6 +47,7 @@ function GetGroceries() {
                 .delete(`/groceries/${grocery.id}`)
                 .then((response) => {
                     fetchGroceries();
+                    successAlert("Grocery has been deleted successfully.");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -57,6 +61,7 @@ function GetGroceries() {
                 .delete("/groceries")
                 .then((response) => {
                     fetchGroceries();
+                    successAlert("All groceries have been deleted successfully.");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -72,6 +77,20 @@ function GetGroceries() {
         pages.push(i);
     }
 
+    const successAlert = (infoSuccess) => {
+        toast.success(infoSuccess, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
     useEffect(() => {
         fetchGroceries();
     }, []);
@@ -79,6 +98,20 @@ function GetGroceries() {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                 <Box height="5px" backgroundColor="green" />
             </div>
