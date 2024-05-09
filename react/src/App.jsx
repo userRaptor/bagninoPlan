@@ -11,6 +11,7 @@ import MyOrders from "./components/views/orders/myOrders/MyOrders";
 
 import MainUserManagment from "./components/views/userManagement/MainUserManagment";
 import AllOrdersMain from "./components/views/orders/allOrders/AllOrdersMain";
+import MainReuseOrder from "./components/views/orders/reuseOrder/MainReuseOrder";
 
 import Users from "./components/views/Users";
 import UserForm from "./components/views/UserForm";
@@ -26,15 +27,11 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/summary" element={<Summary />} />
+                
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
 
                 <Route path="/" element={<Dashboard />} />
-
-                {/* 
-                <Route path="/" element={<DefaultLayout />} />
-                <Route path="/" element={<GuestLayout />} />
-                */}
 
                 <Route path="/users" element={<Users />} />
                 <Route path="/dashboard" element={<Dashboard />} />
@@ -50,6 +47,8 @@ function App() {
                 <Route path="/newgroceries" element={<NewGroceries />} />
 
                 <Route path="/neworder" element={<MainNewOrderGroceries />} />
+                <Route path="/reuseorder/:orderId" element={<MainReuseOrder />} />
+
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/allorders" element={<AllOrdersMain />} />
 

@@ -8,6 +8,7 @@ import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../../../Header";
 import axiosClient from "../../../../axios-client";
@@ -29,6 +30,8 @@ import {
 function MyOrders() {
     const [orders, setOrders] = React.useState([]);
     const [searchByPurpose, setSearchByPurpose] = React.useState("");
+
+    const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState(1);      // Pagination
     const itemsPerPage = 10;                                // Pagination
@@ -76,6 +79,10 @@ function MyOrders() {
                     console.log(error);
                 });
         }
+    };
+
+    const navigateToReuseOrder = (orderId) => {
+        navigate(`/reuseorder/${orderId}`);
     };
 
     const successAlert = (infoSuccess) => {
@@ -159,6 +166,7 @@ function MyOrders() {
                                     <Td>
                                         <Button
                                             colorScheme="blue"
+                                            onClick={() => navigateToReuseOrder(order.id)}
                                         >
                                             Reuse
                                         </Button>

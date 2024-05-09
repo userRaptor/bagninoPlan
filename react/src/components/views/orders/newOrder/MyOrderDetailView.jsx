@@ -32,7 +32,7 @@ import {
 
 import axiosClient from "../../../../axios-client";
 
-function MyOrder({ orderId, booleanUpdateGroceriesOrder }) {
+function MyOrderDetailView ({ orderId, booleanUpdateGroceriesOrder }) {
     const [groceriesOrders, setGroceriesOrders] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -161,4 +161,4 @@ function MyOrder({ orderId, booleanUpdateGroceriesOrder }) {
     );
 }
 
-export default MyOrder;
+export default MyOrderDetailView;

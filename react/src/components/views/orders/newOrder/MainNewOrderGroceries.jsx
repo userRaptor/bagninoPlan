@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../Header";
 import NewOrder from "./NewOrder";
 import AvailableGroceries from "./AvailableGroceries";
-import MyOrder from "./MyOrder";
+import MyOrderDetailView from "./MyOrderDetailView";
 import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
 function MainNewOrderGroceries() {
@@ -34,7 +34,7 @@ function MainNewOrderGroceries() {
 
             {orderAlreadyExists ? (
                 <div>
-                    <MyOrder
+                    <MyOrderDetailView
                         orderId={actualOrderId}
                         booleanUpdateGroceriesOrder={
                             booleanUpdateGroceriesOrder
