@@ -185,14 +185,7 @@ function NewGroceries() {
                 transition={Bounce}
             />
 
-            <div
-                style={{
-                    marginTop: "30px",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                    marginBottom: "30px",
-                }}
-            >
+            <div>
                 <Text
                     style={{
                         marginTop: "50px",
@@ -359,10 +352,8 @@ function NewGroceries() {
                 <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                     <Box height="5px" backgroundColor="black" />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '25px', marginLeft: "20px" }}>
                     <Text fontSize='lg' as='b'>Import groceries with a CSV-File:</Text>
-                    <CSVReader onFileLoaded={handleCsvInput} />
-                    <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>
                     <Popover>
                         <PopoverTrigger>
                             <Button bgColor="transparent" color="black">
@@ -376,7 +367,8 @@ function NewGroceries() {
                             <PopoverBody>The csv file must have the following structure: <br /> <strong>name,unit,category,supplier</strong></PopoverBody>
                         </PopoverContent>
                     </Popover>
-   
+                    <CSVReader onFileLoaded={handleCsvInput} />
+                    <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>     
                 </div>
 
                 <GetGroceries key={renderKey} />

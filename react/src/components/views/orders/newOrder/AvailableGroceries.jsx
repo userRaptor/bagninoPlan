@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import axiosClient from "../../../../axios-client";
 
 import { useEffect } from "react";
@@ -29,6 +30,9 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
     const [quantity, setQuantity] = React.useState({});
     const [comment, setComment] = React.useState({});
     const [isLoadingToSendData, setIsLoadingToSendData] = React.useState(false);
+
+    const [currentPage, setCurrentPage] = useState(1);      // Pagination
+    const itemsPerPage = 20;                                // Pagination
 
 
     const fetchGroceries = () => {
@@ -80,6 +84,12 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             grocery.name.startsWith(searchByName) &&
             grocery.category.startsWith(searchByCategory)
     );
+
+    // Pagination
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(filteredGroceries.length / itemsPerPage); i++) {
+        pages.push(i);
+    }
 
     const successAlert = (infoSuccess) => {
         toast.success(infoSuccess, {
@@ -199,54 +209,70 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {filteredGroceries.map((grocery) => (
-                            <Tr key={grocery.id}>
-                                <Td>{grocery.name}</Td>
-                                <Td>
-                                    <Input
-                                        style={{ border: "1px solid grey" }}
-                                        placeholder="..."
-                                        type="number"
-                                        width="60px"
-                                        onChange={(e) =>
-                                            setQuantity({
-                                                ...quantity,
-                                                [grocery.id]: e.target.value,
-                                            })
-                                        }
-                                    />
-                                </Td>
-                                <Td>{grocery.unit}</Td>
-                                <Td>{grocery.category}</Td>
-                                <Td>
-                                    <Input
-                                        style={{ border: "1px solid grey" }}
-                                        placeholder="Optional comment ... "
-                                        onChange={(e) =>
-                                            setComment({
-                                                ...comment,
-                                                [grocery.id]: e.target.value,
-                                            })
-                                        }
-                                    />
-                                </Td>
-                                <Td>
-                                    {/* isDisabled */}
-                                    <Button
-                                        colorScheme="blue"
-                                        onClick={() =>
-                                            addGroceryToOrder(grocery)
-                                        }
-                                        isDisabled={isLoadingToSendData}
-                                    >
-                                        ADD
-                                    </Button>
-                                </Td>
-                            </Tr>
-                        ))}
+                        {filteredGroceries
+                            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) // Pagination
+                            .map((grocery) => (
+                                <Tr key={grocery.id}>
+                                    <Td>{grocery.name}</Td>
+                                    <Td>
+                                        <Input
+                                            style={{ border: "1px solid grey" }}
+                                            placeholder="..."
+                                            type="number"
+                                            width="60px"
+                                            onChange={(e) =>
+                                                setQuantity({
+                                                    ...quantity,
+                                                    [grocery.id]: e.target.value,
+                                                })
+                                            }
+                                        />
+                                    </Td>
+                                    <Td>{grocery.unit}</Td>
+                                    <Td>{grocery.category}</Td>
+                                    <Td>
+                                        <Input
+                                            style={{ border: "1px solid grey" }}
+                                            placeholder="Optional comment ... "
+                                            onChange={(e) =>
+                                                setComment({
+                                                    ...comment,
+                                                    [grocery.id]: e.target.value,
+                                                })
+                                            }
+                                        />
+                                    </Td>
+                                    <Td>
+                                        {/* isDisabled */}
+                                        <Button
+                                            colorScheme="blue"
+                                            onClick={() =>
+                                                addGroceryToOrder(grocery)
+                                            }
+                                            isDisabled={isLoadingToSendData}
+                                        >
+                                            ADD
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))
+                        }
                     </Tbody>
                 </Table>
             </TableContainer>
+
+            {/* Pagination */}
+            <div style={{marginLeft: "20px", marginRight: "20px", marginBottom: "50px"}}>
+                <Text fontSize='lg' mb={"20px"} mr={"20px"}>
+                    Current Page: {currentPage} of {pages.length}
+                </Text>
+                <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>         
+                {pages.map((number) => (
+                    <Button key={number} onClick={() => setCurrentPage(number)} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                        {number}
+                    </Button>
+                ))}
+            </div>
         </div>
     );
 }

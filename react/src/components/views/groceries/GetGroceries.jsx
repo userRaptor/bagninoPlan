@@ -26,8 +26,8 @@ function GetGroceries() {
     const [groceries, setGroceries] = React.useState([]);
     const [search, setSearch] = React.useState("");
     
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20;
+    const [currentPage, setCurrentPage] = useState(1);      // Pagination
+    const itemsPerPage = 20;                                // Pagination
 
     const fetchGroceries = () => {
         axiosClient
@@ -164,9 +164,9 @@ function GetGroceries() {
             </TableContainer>
 
             {/* Pagination */}
-            <div>
+            <div style={{marginLeft: "20px", marginRight: "20px"}}>
                 <Text fontSize='lg' mb={"20px"} mr={"20px"}>
-                    Current Page: {currentPage} of {pages.length}
+                    Page: {currentPage} of {pages.length}
                 </Text>
                 <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>         
                 {pages.map((number) => (
@@ -176,7 +176,7 @@ function GetGroceries() {
                 ))}
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
                 {/* isDisabled */}
                 <Button mt={"20px"} colorScheme="red" onClick={deleteAll}>
                     DELETE ALL
