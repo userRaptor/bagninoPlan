@@ -4,15 +4,15 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
 import CSVReader from 'react-csv-reader';
 
 import GetGroceries from "./GetGroceries";
 import Header from "../../Header";
 
+
 import { ToastContainer, toast } from "react-toastify";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -37,6 +37,19 @@ import {
     MenuOptionGroup,
     MenuDivider,
 } from "@chakra-ui/react";
+
+
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverFooter,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverAnchor,
+  } from '@chakra-ui/react'
 
 import axiosClient from "../../../axios-client";
 import { Bounce } from "react-toastify";
@@ -350,6 +363,20 @@ function NewGroceries() {
                     <Text fontSize='lg' as='b'>Import groceries with a CSV-File:</Text>
                     <CSVReader onFileLoaded={handleCsvInput} />
                     <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>
+                    <Popover>
+                        <PopoverTrigger>
+                            <Button bgColor="transparent" color="black">
+                                <InfoOutlineIcon color="black" boxSize={5} />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Structure of the CSV file!</PopoverHeader>
+                            <PopoverBody>The csv file must have the following structure: <br /> <strong>name,unit,category,supplier</strong></PopoverBody>
+                        </PopoverContent>
+                    </Popover>
+   
                 </div>
 
                 <GetGroceries key={renderKey} />

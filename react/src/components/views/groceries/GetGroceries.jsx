@@ -165,7 +165,10 @@ function GetGroceries() {
 
             {/* Pagination */}
             <div>
-                <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>
+                <Text fontSize='lg' mb={"20px"} mr={"20px"}>
+                    Current Page: {currentPage} of {pages.length}
+                </Text>
+                <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>         
                 {pages.map((number) => (
                     <Button key={number} onClick={() => setCurrentPage(number)} style={{ marginRight: '10px', marginBottom: '10px' }}>
                         {number}
