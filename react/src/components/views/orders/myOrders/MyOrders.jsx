@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 import { useEffect } from "react";
 import { ToastContainer, Bounce } from "react-toastify";
@@ -29,6 +30,15 @@ function MyOrders() {
     const [orders, setOrders] = React.useState([]);
     const [searchByPurpose, setSearchByPurpose] = React.useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);      // Pagination
+    const itemsPerPage = 10;                                // Pagination
+
+    // Pagination
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(orders.length / itemsPerPage); i++) {
+        pages.push(i);
+    }
+
     const getOrdersById = (id) => {
         axiosClient
             .get(`/orders/${id}`)
@@ -46,7 +56,7 @@ function MyOrders() {
                 .delete(`/orders/${order.id}`)
                 .then((response) => {
                     getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
-                    orderDeletedSuccessfullyAlert();
+                    successAlert("Order has been deleted successfully!");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -60,7 +70,7 @@ function MyOrders() {
                 .delete("/orders")
                 .then((response) => {
                     getOrdersById(1);   ////////////////// CHANGE THE USER ID //////////////////
-                    orderDeletedSuccessfullyAlert();
+                    successAlert("All orders have been deleted successfully!");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -68,18 +78,19 @@ function MyOrders() {
         }
     };
 
-    const orderDeletedSuccessfullyAlert = () => {
-        toast.success('Order deleted successfully!', {
+    const successAlert = (infoSuccess) => {
+        toast.success(infoSuccess, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
+            pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
             transition: Bounce,
         });
-    }
+      };
 
 
     const filteredOrders = orders.filter(order => order.purpose.startsWith(searchByPurpose));
@@ -92,13 +103,30 @@ function MyOrders() {
 
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
+
             <Header title="My Orders" />
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px", marginTop:"50px" }}>
                 <Input
                     variant="outline"
                     placeholder="Search by purpose ..."
                     style={{ width: "30%" }}
-                    onChange={(e) => setSearchByPurpose(e.target.value)}
+                    onChange={(e) => {
+                        setSearchByPurpose(e.target.value)
+                        setCurrentPage(1);            // reset pagination
+                    }}
                 />
             </div>
 
@@ -117,58 +145,59 @@ function MyOrders() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        
-                        {filteredOrders.map((order) => (
-                            <Tr key={order.id}>
-                                <Td>{order.id}</Td>
-                                <Td>
-                                    <DetailViewOrder order={order} />
-                                </Td>
-                                <Td>{order.purpose}</Td>
-                                <Td>{order.date}</Td>
-                                <Td>{order.schoolClass}</Td>
-                                <Td>
-                                    <Button
-                                        colorScheme="blue"
-                                    >
-                                        Reuse
-                                    </Button>
-                                </Td>
-                                <Td>
-                                    {/* isDisabled */}
-                                    <Button 
-                                        colorScheme="red"  
-                                        onClick={() => deleteOrderById(order)}
-                                    >
-                                        <DeleteIcon />
-                                    </Button>
-                                </Td>
-                            </Tr>
-                        ))}
+                        {filteredOrders
+                            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) // Pagination
+                            .map((order) => (
+                                <Tr key={order.id}>
+                                    <Td>{order.id}</Td>
+                                    <Td>
+                                        <DetailViewOrder order={order} />
+                                    </Td>
+                                    <Td>{order.purpose}</Td>
+                                    <Td>{order.date}</Td>
+                                    <Td>{order.schoolClass}</Td>
+                                    <Td>
+                                        <Button
+                                            colorScheme="blue"
+                                        >
+                                            Reuse
+                                        </Button>
+                                    </Td>
+                                    <Td>
+                                        {/* isDisabled */}
+                                        <Button 
+                                            colorScheme="red"  
+                                            onClick={() => deleteOrderById(order)}
+                                        >
+                                            <DeleteIcon />
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))
+                        }
                     </Tbody>
                 </Table>
             </TableContainer>
 
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* Pagination */}
+            <div style={{marginLeft: "20px", marginRight: "20px"}}>
+                <Text fontSize='lg' mb={"20px"} mr={"20px"}>
+                    Page: {currentPage} of {pages.length}
+                </Text>
+                <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>         
+                {pages.map((number) => (
+                    <Button key={number} onClick={() => setCurrentPage(number)} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                        {number}
+                    </Button>
+                ))}
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
                 <Button isDisabled colorScheme="red" onClick={deleteAllOrders}>
                     DELETE ALL
                 </Button>
             </div>
 
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
-            
         </div>
     );
 }   

@@ -123,9 +123,8 @@ function GetGroceries() {
                     value={search}
                     onChange={(e) => {
                         setSearch(e.target.value);
-                        setCurrentPage(1); // Set page back to 1 when search changes (Pagination)
+                        setCurrentPage(1); // reset pagination
                     }}
-                    
                 />
             </div>
 

@@ -180,7 +180,10 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                         variant="outline"
                         placeholder="Search ..."
                         value={searchByName}
-                        onChange={(e) => setSearchByName(e.target.value)}
+                        onChange={(e) => {
+                            setSearchByName(e.target.value)
+                            setCurrentPage(1);            // reset pagination
+                        }}
                     />
                 </div>
                 <div style={{ width: "40%" }}>
@@ -189,7 +192,10 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
                         variant="outline"
                         placeholder="Search ..."
                         value={searchByCategory}
-                        onChange={(e) => setSearchByCategory(e.target.value)}
+                        onChange={(e) => {
+                            setSearchByCategory(e.target.value)
+                            setCurrentPage(1);            // reset pagination
+                        }}
                     />
                 </div>
             </div>

@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react";   
+import { useState } from "react";
+import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+
 import Header from "../../../Header";
 import axiosClient from "../../../../axios-client";
 import DetailViewOrder from "./DetailViewOrder";
 
-import { Button, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+
 import { Box, Flex } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { ArrowDownIcon, DownloadIcon } from '@chakra-ui/icons';
 import { Spinner } from "@chakra-ui/react";
-import { useState } from "react";
+
 import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
 import { useDisclosure } from "@chakra-ui/react";
 
@@ -40,6 +43,9 @@ function AllOrdersMain() {
     const [loadingOrderId, setLoadingOrderId] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+
+    const [currentPage, setCurrentPage] = useState(1);      // Pagination
+    const itemsPerPage = 20;                                // Pagination
 
     const fetchOrders = () => {
         axiosClient
@@ -89,6 +95,12 @@ function AllOrdersMain() {
         }
     });
 
+    // Pagination
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(filteredOrders.length / itemsPerPage); i++) {
+        pages.push(i);
+    }
+
     useEffect(() => {
         fetchOrders();
     }, []);
@@ -104,9 +116,26 @@ function AllOrdersMain() {
 
                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40px', marginTop: '20px', marginBottom: '40px'}}>
                     <Text fontWeight='bold' style={{marginRight: '10px'}}>from:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => setStartDate(e.target.value)}/>
+                    <Input 
+                        placeholder='Select Date and Time' 
+                        size='md' type='date' 
+                        style={{ width: '200px'}} 
+                        onChange={(e) => {
+                            setStartDate(e.target.value)
+                            setCurrentPage(1);            // reset pagination
+                        }}
+                    />
                     <Text fontWeight='bold' style={{ marginLeft: '40px', marginRight: '10px' }}>to:</Text>
-                    <Input placeholder='Select Date and Time' size='md' type='date' style={{ width: '200px'}} onChange={(e) => setEndDate(e.target.value)}/>
+                    <Input 
+                        placeholder='Select Date and Time' 
+                        size='md' 
+                        type='date' 
+                        style={{ width: '200px'}} 
+                        onChange={(e) => {
+                            setEndDate(e.target.value)
+                            setCurrentPage(1);            // reset pagination
+                        }}
+                    />
                     <Button colorScheme="green" style={{marginLeft: '40px'}}>
                         Export <DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
@@ -138,36 +167,51 @@ function AllOrdersMain() {
                     </Thead>
                     <Tbody>
                         {/** {orders.map((order) => ( */}
-                        {filteredOrders.map((order) => (
-                            <Tr key={order.id}>
-                                <Td>{order.id}</Td>
-                                <Td>
-                                    <DetailViewOrder order={order} />
-                                </Td>
-                                <Td>{order.date}</Td>
-                                <Td>{order.weekday}</Td>
-                                <Td>{order.time}</Td>
-                                <Td>{order.schoolClass}</Td>
-                                <Td>{order.location}</Td>
-                                <Td>{order.user.name}</Td>
-                                <Td>{order.purpose}</Td>
-                                <Td>
-                                <Button 
-                                    colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "green" : "orange")} 
-                                    onClick={() => changeIncludeSummary(order)}
-                                    isLoading={loadingOrderId === order.id}
-                                    loadingText=""
-                                >
-                                    {order.includeSummary ? "Exclude" : "Include"}
-                                </Button>
+                        {filteredOrders
+                            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) // Pagination
+                            .map((order) => (
+                                <Tr key={order.id}>
+                                    <Td>{order.id}</Td>
+                                    <Td>
+                                        <DetailViewOrder order={order} />
+                                    </Td>
+                                    <Td>{order.date}</Td>
+                                    <Td>{order.weekday}</Td>
+                                    <Td>{order.time}</Td>
+                                    <Td>{order.schoolClass}</Td>
+                                    <Td>{order.location}</Td>
+                                    <Td>{order.user.name}</Td>
+                                    <Td>{order.purpose}</Td>
+                                    <Td>
+                                    <Button 
+                                        colorScheme={loadingOrderId === order.id ? "gray" : (order.includeSummary ? "green" : "orange")} 
+                                        onClick={() => changeIncludeSummary(order)}
+                                        isLoading={loadingOrderId === order.id}
+                                        loadingText=""
+                                    >
+                                        {order.includeSummary ? "Exclude" : "Include"}
+                                    </Button>
 
-                                </Td>
-                            </Tr>
-                        ))}
-                        
+                                    </Td>
+                                </Tr>
+                            ))
+                        }
                     </Tbody>
                 </Table>
-            </TableContainer>      
+            </TableContainer>   
+
+            {/* Pagination */}
+            <div style={{marginLeft: "20px", marginRight: "20px"}}>
+                <Text fontSize='lg' mb={"20px"} mr={"20px"}>
+                    Page: {currentPage} of {pages.length}
+                </Text>
+                <Text as='b' fontSize='lg' mb={"20px"} mr={"20px"}>Pagination, Select your page:</Text>         
+                {pages.map((number) => (
+                    <Button key={number} onClick={() => setCurrentPage(number)} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                        {number}
+                    </Button>
+                ))}
+            </div>   
         
         </div>
     );
