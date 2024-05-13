@@ -110,7 +110,7 @@ function AllOrdersMain() {
         const tableColumn = ["Id", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose", "Include Summary"];
         const tableRows = [];
     
-        orders.map(order => {
+        filteredOrders.map(order => {
             const orderData = [
                 order.id,
                 order.date,
@@ -124,11 +124,11 @@ function AllOrdersMain() {
             ];
             tableRows.push(orderData);
         });
-
+        
         doc.setFontSize(20);
-        doc.text("Titel", 20, 15); // Title
+        doc.text("Orders from: " + startDate + " to: " + endDate, 20, 15); // Title
         doc.setFontSize(12);
-        doc.text("Subtitel", 15, 30); // Subtitle
+        doc.text("ID: ", 15, 30); // Subtitle
 
         autoTable(doc, { 
             head: [tableColumn], 

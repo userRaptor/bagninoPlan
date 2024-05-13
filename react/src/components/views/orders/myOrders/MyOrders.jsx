@@ -36,12 +36,6 @@ function MyOrders() {
     const [currentPage, setCurrentPage] = useState(1);      // Pagination
     const itemsPerPage = 10;                                // Pagination
 
-    // Pagination
-    const pages = [];
-    for (let i = 1; i <= Math.ceil(orders.length / itemsPerPage); i++) {
-        pages.push(i);
-    }
-
     const getOrdersById = (id) => {
         axiosClient
             .get(`/orders/${id}`)
@@ -101,6 +95,12 @@ function MyOrders() {
 
 
     const filteredOrders = orders.filter(order => order.purpose.startsWith(searchByPurpose));
+
+    // Pagination
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(filteredOrders.length / itemsPerPage); i++) {
+        pages.push(i);
+    }
 
 
     useEffect(() => {
