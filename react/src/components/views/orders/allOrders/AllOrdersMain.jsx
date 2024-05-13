@@ -107,13 +107,12 @@ function AllOrdersMain() {
 
     const exportPDF = () => {
         const doc = new jsPDF();
-        const tableColumn = ["Id", "Info", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose", "Include Summary"];
+        const tableColumn = ["Id", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose", "Include Summary"];
         const tableRows = [];
     
         orders.map(order => {
             const orderData = [
                 order.id,
-                order.info,
                 order.date,
                 order.weekday,
                 order.time,
@@ -125,8 +124,23 @@ function AllOrdersMain() {
             ];
             tableRows.push(orderData);
         });
-    
-        autoTable(doc, { head: [tableColumn], body: tableRows, });
+
+        doc.setFontSize(20);
+        doc.text("Titel", 20, 15); // Title
+        doc.setFontSize(12);
+        doc.text("Subtitel", 15, 30); // Subtitle
+
+        autoTable(doc, { 
+            head: [tableColumn], 
+            body: tableRows,
+            startY: 35,
+            didDrawPage: function (data) {
+                doc.setFontSize(10);
+                doc.text("Page " + doc.internal.getNumberOfPages(), data.settings.margin.left, doc.internal.pageSize.height - 10 );
+                doc.text("additional Text", data.settings.margin.left + 50, doc.internal.pageSize.height - 10);
+            },
+        });
+
         doc.save(`report.pdf`);
     };
 
@@ -166,7 +180,11 @@ function AllOrdersMain() {
                         }}
                     />
                     <Button colorScheme="green" style={{marginLeft: '40px'}} onClick={exportPDF}>
-                        Export <DownloadIcon style={{marginLeft: '10px'}}/>
+                        Export by supplier<DownloadIcon style={{marginLeft: '10px'}}/>
+                    </Button>
+
+                    <Button colorScheme="green" style={{marginLeft: '40px'}} onClick={exportPDF}>
+                        Export by person<DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
 
                 </div>
