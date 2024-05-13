@@ -15,6 +15,10 @@ import { Spinner } from "@chakra-ui/react";
 import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
 import { useDisclosure } from "@chakra-ui/react";
 
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
+import autoTable from 'jspdf-autotable';
+
 import {
     Modal,
     ModalOverlay,
@@ -101,6 +105,31 @@ function AllOrdersMain() {
         pages.push(i);
     }
 
+    const exportPDF = () => {
+        const doc = new jsPDF();
+        const tableColumn = ["Id", "Info", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose", "Include Summary"];
+        const tableRows = [];
+    
+        orders.map(order => {
+            const orderData = [
+                order.id,
+                order.info,
+                order.date,
+                order.weekday,
+                order.time,
+                order.schoolClass,
+                order.location,
+                order.user.name,
+                order.purpose,
+                order.includeSummary ? "Include" : "Exclude"
+            ];
+            tableRows.push(orderData);
+        });
+    
+        autoTable(doc, { head: [tableColumn], body: tableRows, });
+        doc.save(`report.pdf`);
+    };
+
     useEffect(() => {
         fetchOrders();
     }, []);
@@ -136,7 +165,7 @@ function AllOrdersMain() {
                             setCurrentPage(1);            // reset pagination
                         }}
                     />
-                    <Button colorScheme="green" style={{marginLeft: '40px'}}>
+                    <Button colorScheme="green" style={{marginLeft: '40px'}} onClick={exportPDF}>
                         Export <DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
 
@@ -148,7 +177,7 @@ function AllOrdersMain() {
             <div style={{ borderTop: "5px solid green", h: "100%", marginBottom: '40px' }} />{" "}  
 
 
-            <TableContainer>
+            <TableContainer id="my-table">
                 <Table variant="striped" colorScheme="teal">
                     <TableCaption>All orders</TableCaption>
                     <Thead>
