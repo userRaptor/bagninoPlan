@@ -49,7 +49,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
 
         const selectedDate = new Date(year, month - 1, day);
         const options = { weekday: "long" };
-        const weekdayValue = selectedDate.toLocaleDateString("de-DE", options);
+        const weekdayValue = selectedDate.toLocaleDateString("en-EN", options);
 
         // Update state with extracted values
         setDate(`${day}-${month}-${year}`);

@@ -107,10 +107,12 @@ function AllOrdersMain() {
 
     const exportPDF = () => {
         const doc = new jsPDF();
-        const tableColumn = ["Id", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose", "Include Summary"];
+        const tableColumn = ["Id", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose"];
         const tableRows = [];
     
-        filteredOrders.map(order => {
+        filteredOrders
+        .filter(order => order.includeSummary)
+        .map(order => {
             const orderData = [
                 order.id,
                 order.date,
@@ -120,7 +122,6 @@ function AllOrdersMain() {
                 order.location,
                 order.user.name,
                 order.purpose,
-                order.includeSummary ? "Include" : "Exclude"
             ];
             tableRows.push(orderData);
         });
