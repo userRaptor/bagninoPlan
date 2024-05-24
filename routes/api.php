@@ -46,6 +46,7 @@ Route::get('/groceries/{id}', [GroceriesController::class, 'getByID']);
 Route::delete('/groceries/{id}', [GroceriesController::class, 'deleteByID']);
 Route::delete('/groceries', [GroceriesController::class, 'deleteAll']);
 Route::post('/groceriescsv', [GroceriesController::class, 'uploadCsv']);
+Route::post('/copyitems', [OrderController::class, 'copyItems']);
 
 // Orders
 Route::post('/orders', [OrderController::class, 'store']);

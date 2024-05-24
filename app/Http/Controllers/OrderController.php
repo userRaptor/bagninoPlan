@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\GroceriesOrders;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -80,6 +81,27 @@ class OrderController extends Controller
             // Behandele den Fall, wenn der Eintrag nicht gefunden wurde
             return response()->json(['message' => 'Order not found'], 404);
         }
+    }
+
+    public function copyItems(Request $request)
+    {
+        $sourceOrderId = $request->input('source_order_id');
+        $targetOrderId = $request->input('target_order_id');
+
+        // get groceries from source order
+        $groceries = GroceriesOrders::where('order_id', $sourceOrderId)->get();
+
+        // copy groceries to target order
+        foreach ($groceries as $grocery) {
+            GroceriesOrders::create([
+                'order_id' => $targetOrderId,
+                'groceries_id' => $grocery->groceries_id,
+                'comment' => $grocery->comment,
+                'quantity' => $grocery->quantity,
+            ]);
+        }
+
+        return response()->json(['message' => 'Items copied successfully!']);
     }
 
 

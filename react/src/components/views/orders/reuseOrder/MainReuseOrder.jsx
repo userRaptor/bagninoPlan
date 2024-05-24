@@ -42,7 +42,7 @@ function MainReuseOrder(){
 
             {orderAlreadyExists ? (
                 <div>
-                    <CopyGroceries toCopyOrderId={orderId}/>
+                    <CopyGroceries toCopyOrderId={orderId} actualOrderId={actualOrderId}/>
 
                     <MyOrderDetailView
                         orderId={actualOrderId}
@@ -68,10 +68,6 @@ function MainReuseOrder(){
                     />
                 </Box>
             )}
-
-            <p>Order ID: {orderId}</p>
-
-
         </div>
     )
 }
