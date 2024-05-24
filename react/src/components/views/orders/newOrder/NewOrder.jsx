@@ -205,7 +205,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
             </div>
 
             {/**Trennlinie Waagerecht*/}
-            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}
+            <div style={{ borderTop: "5px solid orange", h: "100%" }} />{" "}
             
         </div>
     );

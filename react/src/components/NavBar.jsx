@@ -68,7 +68,7 @@ function Header() {
                 finalFocusRef={btnRef}
             >
                 <DrawerOverlay />
-                <DrawerContent style={{ backgroundColor: 'green' }}>
+                <DrawerContent style={{ backgroundColor: 'orange' }}>
                     <DrawerCloseButton />
                     <DrawerHeader>Menu</DrawerHeader>
                 <DrawerBody>

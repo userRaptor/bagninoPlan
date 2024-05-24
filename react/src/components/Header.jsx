@@ -20,13 +20,13 @@ import NavBar from './NavBar';
 
 function Header ({ title }) {
     return (
-        <div style={{backgroundColor: 'green'}}>
+        <div style={{backgroundColor: 'orange'}}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '30px' }}>
                 <NavBar />
                 <Text fontSize='3xl'>{title}</Text>
                 <Box>
                     <Menu>
-                      <MenuButton style={{backgroundColor: 'green'}} as={Button} rightIcon={<ChevronDownIcon />}>
+                      <MenuButton style={{backgroundColor: 'orange'}} as={Button} rightIcon={<ChevronDownIcon />}>
                         UserName
                       </MenuButton>
                       <MenuList>

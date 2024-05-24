@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import Header from '../../../Header';
+import NewOrder from '../newOrder/NewOrder';
 
 
 function MainReuseOrder(){
@@ -10,8 +11,12 @@ function MainReuseOrder(){
     return (
         <div>
             <Header title="Reuse Order" />
-            <h1>MainReuseOrder</h1>
+            
+            <NewOrder />
+
             <p>Order ID: {orderId}</p>
+
+
         </div>
     )
 }
