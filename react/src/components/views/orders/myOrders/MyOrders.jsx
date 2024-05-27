@@ -79,6 +79,11 @@ function MyOrders() {
         navigate(`/reuseorder/${orderId}`);
     };
 
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        return `${day}-${month}-${year}`;
+    };
+
     const successAlert = (infoSuccess) => {
         toast.success(infoSuccess, {
             position: "bottom-right",
@@ -91,7 +96,7 @@ function MyOrders() {
             theme: "colored",
             transition: Bounce,
         });
-      };
+    };
 
 
     const filteredOrders = orders.filter(order => order.purpose.startsWith(searchByPurpose));
@@ -161,7 +166,7 @@ function MyOrders() {
                                         <DetailViewOrder order={order} />
                                     </Td>
                                     <Td>{order.purpose}</Td>
-                                    <Td>{order.date}</Td>
+                                    <Td>{formatDate(order.date)}</Td>
                                     <Td>{order.schoolClass}</Td>
                                     <Td>
                                         <Button

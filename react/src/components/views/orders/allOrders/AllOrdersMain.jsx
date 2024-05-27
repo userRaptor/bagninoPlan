@@ -145,6 +145,11 @@ function AllOrdersMain() {
         doc.save(`report.pdf`);
     };
 
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        return `${day}-${month}-${year}`;
+    };
+
     useEffect(() => {
         fetchOrders();
     }, []);
@@ -223,7 +228,7 @@ function AllOrdersMain() {
                                     <Td>
                                         <DetailViewOrder order={order} />
                                     </Td>
-                                    <Td>{order.date}</Td>
+                                    <Td>{formatDate(order.date)}</Td>
                                     <Td>{order.weekday}</Td>
                                     <Td>{order.time}</Td>
                                     <Td>{order.schoolClass}</Td>
