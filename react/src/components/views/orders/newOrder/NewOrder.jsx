@@ -29,6 +29,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     const [internationalDate, setInternationalDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
     const [time, setTime] = React.useState("");
+    const [minDate, setMinDate] = useState(''); // minDate to realize that the user can only select a date from the next Wednesday on
+
     const [schoolClass, setSchoolClass] = React.useState("");
     const [location, setLocation] = React.useState("");
     const [purpose, setPurpose] = React.useState("");
@@ -113,7 +115,20 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         });
     }
 
-    useEffect(() => {}, []);
+    const dateTime = "2024-05-27T18:15";
+
+    useEffect(() => {
+        // const date = new Date(); // get current date
+        const date = new Date('2024-05-23T00:00:00');   // For testing purposes
+        const day = date.getDay(); // Sunday - Saturday : 0 - 6
+        
+        const difference = (day < 5) ? (5 - day) : (12 - day);
+        date.setDate(date.getDate() + difference);
+        setMinDate(date.toISOString().substr(0, 16));
+        
+    }, []);
+
+    // <p><strong>Note:</strong> Please be aware that due to our implementation, it is only possible to select a date that is after Wednesday.</p>
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
@@ -156,6 +171,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                                     <Input
                                         placeholder="Select Date and Time"
                                         type="datetime-local"
+                                        min={minDate}
                                         disabled={orderAlreadyExists}
                                         onChange={handleDateTimeChange}
                                     />
