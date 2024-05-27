@@ -58,7 +58,7 @@ function DetailViewOrder({ order }) {
                         </Thead>
                         <Tbody>
                             {order.groceries ? order.groceries.map((grocery) => (
-                                <Tr key={grocery.id}>
+                                <Tr key={grocery.pivot.id}>
                                     <Td>{grocery.id}</Td>
                                     <Td>{grocery.name}</Td>
                                     <Td>{grocery.pivot.quantity}</Td>

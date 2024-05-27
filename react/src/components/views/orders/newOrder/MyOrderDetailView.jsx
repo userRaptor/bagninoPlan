@@ -123,7 +123,6 @@ function MyOrderDetailView ({ orderId, booleanUpdateGroceriesOrder }) {
                             <Tbody>
                                 {groceriesOrders.map((order) => (
                                     <Tr key={order.id}>
-                                        {/*<Td>{order.groceries_id}</Td>*/}
                                         <Td>{order.groceries.name}</Td>
                                         <Td>{order.quantity}</Td>
                                         <Td>{order.groceries.unit}</Td>
