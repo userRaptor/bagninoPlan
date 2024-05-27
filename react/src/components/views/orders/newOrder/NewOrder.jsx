@@ -116,8 +116,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     }
 
     useEffect(() => {
-        const date = new Date(); // get current date
-        // const date = new Date('2024-05-30T00:00:00');   // For testing purposes
+        //const date = new Date(); // get current date
+        const date = new Date('2024-05-15T00:00:00');   // For testing purposes
         const day = date.getDay(); // Sunday - Saturday : 0 - 6
     
         const difference = (day < 5) ? (5 - day) : (12 - day);
@@ -125,6 +125,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     
         // If the selected day is Thursday, add 7 days to the date
         if (day === 4) {
+            date.setDate(date.getDate() + 7);
+        } else if(day === 3){
             date.setDate(date.getDate() + 7);
         }
     
