@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Text } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-import { Box } from "@chakra-ui/react";
-import { AddIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { Button, Box } from "@chakra-ui/react";
+import { ChevronDownIcon, AddIcon, InfoOutlineIcon} from "@chakra-ui/icons";
 
 import CSVReader from 'react-csv-reader';
 
@@ -63,6 +60,8 @@ function NewGroceries() {
     const [csvData, setCsvData] = useState(null);
     const [renderKey, setRenderKey] = useState(0);
 
+    const [isAlertOpen, setIsAlertOpen] = React.useState(false);
+
     const handleChangeUnit = (event) => {
         setGroceriesUnit(event);
     };
@@ -92,7 +91,10 @@ function NewGroceries() {
                 .post("/groceries", payload)
                 .then((response) => {
                     setRenderKey((prevKey) => prevKey + 1); // to rerender the GetGroceries component
-                    successAlert("The product was added successfully!");
+                    setTimeout(() => {
+                        successAlert("The product was added successfully!");
+                    }, 1000);
+                    
                 })
                 .catch((error) => {
                     console.log(error);
@@ -137,6 +139,7 @@ function NewGroceries() {
     };
 
     const errorAlert = (infoError) => {
+        setIsAlertOpen(true);
         toast.error(infoError, {
             position: "bottom-right",
             autoClose: 5000,
@@ -147,6 +150,7 @@ function NewGroceries() {
             progress: undefined,
             theme: "colored",
             transition: Bounce,
+            onClose: () => setIsAlertOpen(false)
             });
     };
 
@@ -219,9 +223,11 @@ function NewGroceries() {
                                 <Td>
                                     <Input
                                         value={groceriesName}
-                                        onChange={(event) =>
-                                            setGroceriesName(event.target.value)
-                                        }
+                                        onChange={(event) => {
+                                            if (!isAlertOpen) {
+                                                setGroceriesName(event.target.value);
+                                            }
+                                        }}
                                         placeholder="Name ..."
                                     />
                                 </Td>
