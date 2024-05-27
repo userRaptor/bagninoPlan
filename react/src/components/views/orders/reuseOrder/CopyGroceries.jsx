@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, Text } from "@chakra-ui/react";
+import { useState } from 'react';
 
-import axiosClient from "../../../../axios-client";
+import axiosClient from '../../../../axios-client';
 
 function CopyGroceries({toCopyOrderId, actualOrderId}) {
 
-    const copyItemsToAnotherOrder = (sourceOrderId, targetOrderId) => {
+    const copyItemsToAnotherOrder = () => {
+
+        const sourceOrderId = +toCopyOrderId;
+
         const payload = {
-            source_order_id: toCopyOrderId,
-            target_order_id: actualOrderId
+            from_order_id: sourceOrderId,
+            to_order_id: actualOrderId
         };
+
+        console.log(payload);
     
         axiosClient
             .post("/copyitems", payload)
@@ -23,13 +29,19 @@ function CopyGroceries({toCopyOrderId, actualOrderId}) {
     };
 
 
+    useEffect(() => {
+        //copyItemsToAnotherOrder();
+
+    }, []);
+
+
     return(
         <div>
             <Text>CopyGroceries from order: {toCopyOrderId}</Text>
             <Text>actualOrderId from order: {actualOrderId}</Text>
 
             <Button onClick={copyItemsToAnotherOrder}>Copy</Button>
-            
+
         </div>
     )
 }

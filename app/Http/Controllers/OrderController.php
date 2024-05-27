@@ -7,6 +7,10 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\GroceriesOrders;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Log as FacadesLog;
+use Log;
+
 
 class OrderController extends Controller
 {
@@ -85,23 +89,40 @@ class OrderController extends Controller
 
     public function copyItems(Request $request)
     {
-        $sourceOrderId = $request->input('source_order_id');
-        $targetOrderId = $request->input('target_order_id');
+        $fromOrderId = $request->input('from_order_id');
+        $toOrderId = $request->input('to_order_id');
 
-        // get groceries from source order
-        $groceries = GroceriesOrders::where('order_id', $sourceOrderId)->get();
+        //Log::info('Request received:', $request->all());
+        //FacadesLog::info('Request received:', $request->all());
+        FacadesLog::info('From order ID:', [$fromOrderId]);
+        FacadesLog::info('To order ID:', [$toOrderId]);
 
-        // copy groceries to target order
-        foreach ($groceries as $grocery) {
+        if (!$fromOrderId || !$toOrderId) {
+            return response()->json(['error' => 'Invalid order IDs'], 400);
+        }
+        
+
+        $fromOrder = Order::find($fromOrderId);
+        $toOrder = Order::find($toOrderId);
+
+        if (!$fromOrder || !$toOrder) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+
+        // Kopiere die Groceries
+        foreach ($fromOrder->groceries as $grocery) {
             GroceriesOrders::create([
-                'order_id' => $targetOrderId,
-                'groceries_id' => $grocery->groceries_id,
-                'comment' => $grocery->comment,
-                'quantity' => $grocery->quantity,
+                'groceries_id' => $grocery->id,
+                'order_id' => $toOrder->id,
+                'quantity' => $grocery->pivot->quantity,
+                'comment' => $grocery->pivot->comment
             ]);
         }
 
-        return response()->json(['message' => 'Items copied successfully!']);
+        return response()->json(['success' => 'Items copied successfully']);
+               
+        
     }
 
 
