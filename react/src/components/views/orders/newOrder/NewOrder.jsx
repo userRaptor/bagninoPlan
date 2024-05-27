@@ -7,6 +7,8 @@ import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 
+import {InfoOutlineIcon} from "@chakra-ui/icons";
+
 import {
     Table,
     Thead,
@@ -116,8 +118,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     }
 
     useEffect(() => {
-        //const date = new Date(); // get current date
-        const date = new Date('2024-05-15T00:00:00');   // For testing purposes
+        const date = new Date(); // get current date
+        //const date = new Date('2024-05-15T00:00:00');   // For testing purposes
         const day = date.getDay(); // Sunday - Saturday : 0 - 6
     
         const difference = (day < 5) ? (5 - day) : (12 - day);
@@ -161,6 +163,12 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                     marginBottom: "30px",
                 }}
             >
+                <Text
+                    style={{marginLeft: "10px", marginTop:"20px", marginBottom: "10px", color: 'grey'}}
+                >
+                    <InfoOutlineIcon /> Please note that the date selection in this application is designed to only allow dates that are after every Wednesday. This is because orders are placed every Wednesday. 
+                </Text>
+
                 <TableContainer>
                     <Table variant="simple">
                         <Thead>
