@@ -16,6 +16,9 @@ function Summary (){
       pages.push(i);
   }
 
+
+  // Aufruf von Alert: successAlert("Order has been deleted successfully!");
+
   const successAlert = (infoSuccess) => {
     toast.success(infoSuccess, {
         position: "bottom-right",

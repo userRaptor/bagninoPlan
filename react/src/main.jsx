@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import router from "./router.jsx";
@@ -8,7 +8,8 @@ import { ContextProvider } from "./contexts/ContextProvider.jsx";
 import { ChakraProvider } from "@chakra-ui/react"; 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+
+    //<React.StrictMode> // Hilfswerkzeug für die Entwicklung, das potenzielle Probleme in Anwendungen aufdeckt.
         <ChakraProvider>
             <ContextProvider>
                 {/* <RouterProvider router={router} /> */}
@@ -17,5 +18,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             </ContextProvider>
         </ChakraProvider>
-    </React.StrictMode>
+    //</React.StrictMode>
 );

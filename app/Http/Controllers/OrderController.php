@@ -94,8 +94,8 @@ class OrderController extends Controller
 
         //Log::info('Request received:', $request->all());
         //FacadesLog::info('Request received:', $request->all());
-        FacadesLog::info('From order ID:', [$fromOrderId]);
-        FacadesLog::info('To order ID:', [$toOrderId]);
+        //FacadesLog::info('From order ID:', [$fromOrderId]);
+        //FacadesLog::info('To order ID:', [$toOrderId]);
 
         if (!$fromOrderId || !$toOrderId) {
             return response()->json(['error' => 'Invalid order IDs'], 400);
@@ -110,7 +110,7 @@ class OrderController extends Controller
         }
 
 
-        // Kopiere die Groceries
+        // copy groceries
         foreach ($fromOrder->groceries as $grocery) {
             GroceriesOrders::create([
                 'groceries_id' => $grocery->id,
