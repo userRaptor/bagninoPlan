@@ -352,12 +352,13 @@ function NewGroceries() {
                 <div style={{ marginTop: "50px", marginBottom: "50px" }}>
                     <Box height="5px" backgroundColor="black" />
                 </div>
+                
                 <div style={{ display: 'flex', alignItems: 'center', gap: '25px', marginLeft: "20px" }}>
                     <Text fontSize='lg' as='b'>Import groceries with a CSV-File:</Text>
                     <Popover>
                         <PopoverTrigger>
                             <Button bgColor="transparent" color="black">
-                                <InfoOutlineIcon color="black" boxSize={5} />
+                                <InfoOutlineIcon  boxSize={20} />
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent>
@@ -368,7 +369,7 @@ function NewGroceries() {
                         </PopoverContent>
                     </Popover>
                     <CSVReader onFileLoaded={handleCsvInput} />
-                    <Button colorScheme="blue" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>     
+                    <Button backgroundColor="#FFA500" onClick={handleSendCsvData}>Import <AddIcon style={{marginLeft: '10px'}} /></Button>     
                 </div>
 
                 <GetGroceries key={renderKey} />

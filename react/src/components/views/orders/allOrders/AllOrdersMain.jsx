@@ -180,11 +180,11 @@ function AllOrdersMain() {
                             setCurrentPage(1);            // reset pagination
                         }}
                     />
-                    <Button colorScheme="green" style={{marginLeft: '40px'}} onClick={exportPDF}>
+                    <Button backgroundColor="#FFA500" style={{marginLeft: '40px'}} onClick={exportPDF}>
                         Export by supplier<DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
 
-                    <Button colorScheme="green" style={{marginLeft: '40px'}} onClick={exportPDF}>
+                    <Button backgroundColor="#FFA500" style={{marginLeft: '40px'}} onClick={exportPDF}>
                         Export by person<DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
 
@@ -193,7 +193,7 @@ function AllOrdersMain() {
             </div>
             
             {/**Trennlinie waagerecht*/}
-            <div style={{ borderTop: "5px solid green", h: "100%", marginBottom: '40px' }} />{" "}  
+            <div style={{ borderTop: "5px solid orange", h: "100%", marginBottom: '40px' }} />{" "}  
 
 
             <TableContainer id="my-table">

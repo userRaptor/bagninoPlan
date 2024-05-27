@@ -154,11 +154,11 @@ function AvailableGroceries({ orderId, setBooleanUpdateGroceriesOrder }) {
             />
             
             <Text
-                fontSize="xl"
+                fontSize="2xl"
                 style={{
                     display: "block",
                     textAlign: "center",
-                    color: "green",
+                    color: "black",
                     fontWeight: "bold",
                     marginTop: "30px",
                 }}

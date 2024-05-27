@@ -92,11 +92,11 @@ function MyOrderDetailView ({ orderId, booleanUpdateGroceriesOrder }) {
                     View OrderDetails
                 </Button>
 
-                <Button colorScheme="green" onClick={navigateNewOrder}>
+                <Button  backgroundColor="#FFA500" onClick={navigateNewOrder}>
                     New Order
                 </Button>
 
-                <Button colorScheme="green" onClick={navigateMyOrders}>
+                <Button  backgroundColor="#FFA500" onClick={navigateMyOrders}>
                     Navigate MyOrders
                 </Button>
 
@@ -154,7 +154,7 @@ function MyOrderDetailView ({ orderId, booleanUpdateGroceriesOrder }) {
 
 
             {/**Trennlinie Waagerecht*/}
-            <div style={{ borderTop: "5px solid green", h: "100%" }} />{" "}
+            <div style={{ borderTop: "5px solid orange", h: "100%" }} />{" "}
             
         </div>
     );

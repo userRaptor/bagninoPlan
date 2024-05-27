@@ -113,12 +113,12 @@ function GetGroceries() {
             />
 
             <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-                <Box height="5px" backgroundColor="green" />
+                <Box height="5px" backgroundColor="orange" />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
                 <Input
                     variant="outline"
-                    placeholder="Search ..."
+                    placeholder="Search by name..."
                     style={{ width: "30%" }}
                     value={search}
                     onChange={(e) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { ToastContainer, toast } from "react-toastify";
 import { Bounce } from "react-toastify";
@@ -21,7 +22,7 @@ function CopyGroceries({toCopyOrderId, actualOrderId}) {
         axiosClient
             .post("/copyitems", payload)
             .then((response) => {
-                //console.log(response);
+                //console.log(response);   
                 successAlert("Items copied successfully!");
             })
             .catch((error) => {
@@ -65,7 +66,7 @@ function CopyGroceries({toCopyOrderId, actualOrderId}) {
 
 
     return(
-        <div>
+        <div style={{marginTop: '10px', marginLeft: '20px', marginBottom: '20px'}}>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -78,14 +79,8 @@ function CopyGroceries({toCopyOrderId, actualOrderId}) {
                 pauseOnHover
                 theme="colored"
                 transition={Bounce}
-            />
-
-            <div style={{marginTop: '10px', marginLeft: '20px', marginBottom: '20px'}}>
-                <Text fontSize='lg'>SourceID: <span style={{ fontWeight: 'bold' }}>{toCopyOrderId}</span></Text>
-            </div>
+            />           
             
-            {/**Trennlinie Waagerecht*/}
-            <div style={{ borderTop: "5px solid orange", h: "100%" }} />{" "} 
         </div>
 
         
