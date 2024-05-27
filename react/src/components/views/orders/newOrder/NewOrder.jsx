@@ -115,18 +115,22 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         });
     }
 
-    const dateTime = "2024-05-27T18:15";
-
     useEffect(() => {
-        // const date = new Date(); // get current date
-        const date = new Date('2024-05-23T00:00:00');   // For testing purposes
+        const date = new Date(); // get current date
+        // const date = new Date('2024-05-30T00:00:00');   // For testing purposes
         const day = date.getDay(); // Sunday - Saturday : 0 - 6
-        
+    
         const difference = (day < 5) ? (5 - day) : (12 - day);
         date.setDate(date.getDate() + difference);
+    
+        // If the selected day is Thursday, add 7 days to the date
+        if (day === 4) {
+            date.setDate(date.getDate() + 7);
+        }
+    
         setMinDate(date.toISOString().substr(0, 16));
-        
     }, []);
+    
 
     // <p><strong>Note:</strong> Please be aware that due to our implementation, it is only possible to select a date that is after Wednesday.</p>
 
