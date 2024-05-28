@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Header from "../Header";
 import welcomeIMG from "./../img/welcome.jpg";
+import EducoLogo from "./../img/EducoLogo.png";
+
 import axiosClient from "../../axios-client";
 
 import { useStateContext } from "../../contexts/ContextProvider";
@@ -44,10 +46,17 @@ export default function Dashboard() {
 
 
             <Button onClick={getUser}>Load Username</Button>
+            {/**
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px'}}>
                 <img src={welcomeIMG} alt="welcome" style={{ width: '35%', height: 'auto' }}/>
                 <Text fontSize='6xl' onClick={addUserSuccNotification} style={{cursor: 'pointer'}}>to EduEat</Text>
-            </div>           
+            </div>  
+             */}
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '50px'}}>
+                <img src={EducoLogo} alt="welcome" style={{ width: '50%', height: 'auto' }}/>
+            </div>    
+
             <ToastContainer />
         </div>
     );
