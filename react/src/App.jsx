@@ -20,7 +20,7 @@ import Summary from "./components/otherStuff/Summary";
 
 function App() {
     useEffect(() => {
-        document.title = "EduEat";
+        //document.title = "EduEat";
     }, []);
 
     return (

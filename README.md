@@ -7,3 +7,6 @@ Add Breeze:
 
 YouTube:
     https://www.youtube.com/watch?v=gm5oYOZGN00
+
+Favicon und Name (des Tabs) ändern: Datei index.html
+Favicon generator: https://realfavicongenerator.net/
