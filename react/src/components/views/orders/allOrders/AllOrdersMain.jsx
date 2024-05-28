@@ -138,33 +138,34 @@ function AllOrdersMain() {
             didDrawPage: function (data) {
                 doc.setFontSize(10);
                 doc.text("Page " + doc.internal.getNumberOfPages(), data.settings.margin.left, doc.internal.pageSize.height - 10 );
-                doc.text("additional Text", data.settings.margin.left + 50, doc.internal.pageSize.height - 10);
+                doc.text("Year: " + getCalendarWeekAndYear().year + ", CalendarWeek: " + getCalendarWeekAndYear().week, data.settings.margin.left + 50, doc.internal.pageSize.height - 10);
             },
         });
 
-        doc.save(`report.pdf`);
+        doc.save(`report_week${getCalendarWeekAndYear().week}.pdf`);
     };
 
     const formatDate = (dateString) => {
+        if (!dateString) {
+            return "null";
+        }
         const [year, month, day] = dateString.split("-");
-        return `${day}-${month}-${year}`;
+        return `${day}.${month}.${year}`;
     };
 
-    function getWeekNumber(date) {
+    function getCalendarWeekAndYear() {
+        const date = new Date();
         const tempDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
         
         tempDate.setUTCDate(tempDate.getUTCDate() + 4 - (tempDate.getUTCDay() || 7));
         const yearStart = new Date(Date.UTC(tempDate.getUTCFullYear(), 0, 1));
         const weekNo = Math.ceil((((tempDate - yearStart) / 86400000) + 1) / 7);
 
-        console.log("Week: " + weekNo);
-        console.log("Year: " + tempDate.getUTCFullYear());
         return { year: tempDate.getUTCFullYear(), week: weekNo };
     }
 
     useEffect(() => {
         fetchOrders();
-        getWeekNumber(new Date());
     }, []);
 
 
