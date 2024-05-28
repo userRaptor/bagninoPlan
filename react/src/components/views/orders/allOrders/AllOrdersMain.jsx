@@ -127,7 +127,7 @@ function AllOrdersMain() {
         });
         
         doc.setFontSize(20);
-        doc.text("Orders from: " + startDate + " to: " + endDate, 20, 15); // Title
+        doc.text("Orders from: " + formatDate(startDate) + " to: " + formatDate(endDate), 20, 15); // Title
         doc.setFontSize(12);
         doc.text("ID: ", 15, 30); // Subtitle
 
@@ -150,8 +150,21 @@ function AllOrdersMain() {
         return `${day}-${month}-${year}`;
     };
 
+    function getWeekNumber(date) {
+        const tempDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        
+        tempDate.setUTCDate(tempDate.getUTCDate() + 4 - (tempDate.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(tempDate.getUTCFullYear(), 0, 1));
+        const weekNo = Math.ceil((((tempDate - yearStart) / 86400000) + 1) / 7);
+
+        console.log("Week: " + weekNo);
+        console.log("Year: " + tempDate.getUTCFullYear());
+        return { year: tempDate.getUTCFullYear(), week: weekNo };
+    }
+
     useEffect(() => {
         fetchOrders();
+        getWeekNumber(new Date());
     }, []);
 
 

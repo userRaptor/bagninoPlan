@@ -12,7 +12,7 @@ class Order extends Model
     {
         // return $this->belongsToMany(Groceries::class);
         return $this->belongsToMany(Groceries::class, 'groceries_orders')
-                    ->withPivot('quantity', 'comment');
+                    ->withPivot('id','quantity', 'comment');
     }
 
     
