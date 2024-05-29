@@ -139,8 +139,9 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     const [currentTime, setCurrentTime] = useState(new Date());
 
     const calculateMinDate = () => {
-        //const date = new Date(); // get current date
-        const date = new Date('2024-06-03T10:00:00');   // For testing purposes
+        const date = new Date(); // get current date
+        //const date = new Date('2024-08-31T09:00:00');   // For testing purposes
+        
         const day = date.getDay(); // Sunday - Saturday : 0 - 6
         const hours = date.getHours();
 
@@ -152,18 +153,17 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
 
         let minDeliveryDate;
 
-        if (day === 1 || day === 2) {
-            // Monday or Tuesday
+        if (day === 0) {
+            minDeliveryDate = addDays(8); // Next Monday
+        } else if (day === 1 || day === 2) {
             minDeliveryDate = addDays(7 + (1 - day)); // Next Monday
         } else if (day === 3) {
-            // Wednesday
             if (hours < 9) {
                 minDeliveryDate = addDays(7 + (1 - day)); // Next Monday
             } else {
                 minDeliveryDate = addDays(14 + (1 - day)); // Monday after next
             }
-        } else if (day === 4 || day === 5 || day === 6 || day === 0) {
-            // Thursday to Sunday
+        } else if (day === 4 || day === 5 || day === 6) {
             minDeliveryDate = addDays(14 + (1 - day)); // Monday after next
         }
 
@@ -172,7 +172,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
 
     useEffect(() => {
         calculateMinDate();
-      }, []);
+    }, []);
     
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,7 +205,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                 <Text
                     style={{marginLeft: "10px", marginTop:"20px", marginBottom: "10px", color: 'grey'}}
                 >
-                    <InfoOutlineIcon /> Please note that the date selection in this application is designed to only allow dates that are after every Wednesday. This is because orders are placed every Wednesday. 
+                    <InfoOutlineIcon /> Note: Certain dates are unavailable for selection because all orders are collected every Wednesday at 09:00 AM. Therefore, delivery dates are calculated based on this schedule.
                 </Text>
 
                 <TableContainer>
