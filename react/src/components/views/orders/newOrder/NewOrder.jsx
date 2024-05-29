@@ -117,6 +117,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         });
     }
 
+/*
     useEffect(() => {
         const date = new Date(); // get current date
         //const date = new Date('2024-05-15T00:00:00');   // For testing purposes
@@ -134,9 +135,45 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     
         setMinDate(date.toISOString().substr(0, 16));
     }, []);
-    
+*/
+    const [currentTime, setCurrentTime] = useState(new Date());
 
-    // <p><strong>Note:</strong> Please be aware that due to our implementation, it is only possible to select a date that is after Wednesday.</p>
+    const calculateMinDate = () => {
+        //const date = new Date(); // get current date
+        const date = new Date('2024-06-03T10:00:00');   // For testing purposes
+        const day = date.getDay(); // Sunday - Saturday : 0 - 6
+        const hours = date.getHours();
+
+        const addDays = (days) => {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        };
+
+        let minDeliveryDate;
+
+        if (day === 1 || day === 2) {
+            // Monday or Tuesday
+            minDeliveryDate = addDays(7 + (1 - day)); // Next Monday
+        } else if (day === 3) {
+            // Wednesday
+            if (hours < 9) {
+                minDeliveryDate = addDays(7 + (1 - day)); // Next Monday
+            } else {
+                minDeliveryDate = addDays(14 + (1 - day)); // Monday after next
+            }
+        } else if (day === 4 || day === 5 || day === 6 || day === 0) {
+            // Thursday to Sunday
+            minDeliveryDate = addDays(14 + (1 - day)); // Monday after next
+        }
+
+        setMinDate(minDeliveryDate.toISOString().substr(0, 16));
+    };
+
+    useEffect(() => {
+        calculateMinDate();
+      }, []);
+    
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
@@ -154,6 +191,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                 theme="colored"
                 transition={Bounce}
             />
+            
+            <div>Aktuelle Uhrzeit: {currentTime.toLocaleTimeString()}</div>
 
             <div
                 style={{
