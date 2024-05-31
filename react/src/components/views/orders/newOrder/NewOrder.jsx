@@ -27,12 +27,15 @@ import "react-calendar/dist/Calendar.css";
 import axiosClient from "../../../../axios-client";
 
 function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
-    const [date, setDate] = React.useState("");
+    const [selectedDate, setSelectedDate] = React.useState("");
     const [internationalDate, setInternationalDate] = React.useState("");
     const [weekday, setWeekday] = React.useState("");
     const [time, setTime] = React.useState("");
     const [minDate, setMinDate] = useState(''); // minDate to realize that the user can only select a date from the next Wednesday on
 
+    const [actualDate, setActualDate] = useState(new Date());
+    const [reloadPage, setReloadPage] = useState(false);
+    
     const [schoolClass, setSchoolClass] = React.useState("");
     const [location, setLocation] = React.useState("");
     const [purpose, setPurpose] = React.useState("");
@@ -46,9 +49,6 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
 
         setInternationalDate(dateValue);
 
-        // console.log("dateValue" + dateValue);
-        // console.log("timeValue" + timeValue);
-
         const [year, month, day] = dateValue.split("-");
 
         const selectedDate = new Date(year, month - 1, day);
@@ -56,7 +56,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         const weekdayValue = selectedDate.toLocaleDateString("en-EN", options);
 
         // Update state with extracted values
-        setDate(`${day}-${month}-${year}`);
+        setSelectedDate(`${day}-${month}-${year}`);
         setWeekday(weekdayValue);
         setTime(timeValue);
     };
@@ -75,7 +75,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
             includeSummary: true,
         };
 
-        if(date === ""){
+        if(selectedDate === ""){
             emptyFieldAlert("Date and Time");
         } else if(time === ""){
             emptyFieldAlert("Time");
@@ -117,26 +117,6 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         });
     }
 
-/*
-    useEffect(() => {
-        const date = new Date(); // get current date
-        //const date = new Date('2024-05-15T00:00:00');   // For testing purposes
-        const day = date.getDay(); // Sunday - Saturday : 0 - 6
-    
-        const difference = (day < 5) ? (5 - day) : (12 - day);
-        date.setDate(date.getDate() + difference);
-    
-        // If the selected day is Thursday, add 7 days to the date
-        if (day === 4) {
-            date.setDate(date.getDate() + 7);
-        } else if(day === 3){
-            date.setDate(date.getDate() + 7);
-        }
-    
-        setMinDate(date.toISOString().substr(0, 16));
-    }, []);
-*/
-    const [currentTime, setCurrentTime] = useState(new Date());
 
     const calculateMinDate = () => {
         const date = new Date(); // get current date
@@ -170,9 +150,62 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         setMinDate(minDeliveryDate.toISOString().substr(0, 16));
     };
 
+    // WEDNESDAY BARRIER:
+    // ACHTUNG (barrierMinute-1) führt zu Fehler bei barrierMinute = 0
+
+    const barrierDate = 5;      // Sunday - Saturday : 0 - 6
+    const barrierHour = 16;
+    const barrierMinute = 8;
+
+
+    const calculateTimer = () => {
+        const nextWednesday = new Date(actualDate);
+        nextWednesday.setDate(actualDate.getDate() + ((barrierDate + 7 - actualDate.getDay()) % 7));
+        nextWednesday.setHours(barrierHour, barrierMinute, 0, 0);
+
+        let diff = nextWednesday - actualDate;
+
+        if (diff <= 0) {
+            // Timer ist abgelaufen, berechne den nächsten Mittwoch
+            nextWednesday.setDate(nextWednesday.getDate() + 7);
+            diff = nextWednesday - actualDate;
+        }
+    
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+    
+        return { days, hours, minutes, seconds };
+    };
+
+    
+
     useEffect(() => {
         calculateMinDate();
+
+        const timer = setInterval(() => {
+            setActualDate(new Date());
+        }, 1000);
+    
+        return function cleanup() {
+            clearInterval(timer);
+        };
     }, []);
+    
+    
+    useEffect(() => {
+        console.log("ReloadPage: " + reloadPage);
+        if (reloadPage && actualDate.getDay() === barrierDate && actualDate.getHours() === barrierHour && actualDate.getMinutes() === barrierMinute) {
+            window.location.reload();
+        }
+
+        if (actualDate.getDay() === barrierDate && actualDate.getHours() === barrierHour && actualDate.getMinutes() === barrierMinute-1) {
+            setReloadPage(true);
+        }
+    }, [actualDate]);
+    
+    const timeForTimer = calculateTimer();
     
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,8 +224,6 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                 theme="colored"
                 transition={Bounce}
             />
-            
-            <div>Aktuelle Uhrzeit: {currentTime.toLocaleTimeString()}</div>
 
             <div
                 style={{
@@ -202,6 +233,9 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                     marginBottom: "30px",
                 }}
             >
+                <p>Current time: {actualDate.toString()}</p>
+                <p>Time until next Wednesday 9:00: {timeForTimer.days} days, {timeForTimer.hours} hours, {timeForTimer.minutes} minutes, {timeForTimer.seconds} seconds</p>
+                
                 <Text
                     style={{marginLeft: "10px", marginTop:"20px", marginBottom: "10px", color: 'grey'}}
                 >

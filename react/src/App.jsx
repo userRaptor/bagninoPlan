@@ -17,6 +17,7 @@ import Users from "./components/views/Users";
 import UserForm from "./components/views/UserForm";
 
 import Summary from "./components/otherStuff/Summary";
+import Testing from "./components/otherStuff/Testing";
 
 function App() {
     useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/summary" element={<Summary />} />
+                <Route path="/testing" element={<Testing />} />
                 
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
