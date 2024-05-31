@@ -25,6 +25,7 @@ import {
 
 import "react-calendar/dist/Calendar.css";
 import axiosClient from "../../../../axios-client";
+import BarrierForCollection from "./BarrierForCollection";
 
 function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     const [selectedDate, setSelectedDate] = React.useState("");
@@ -32,9 +33,6 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
     const [weekday, setWeekday] = React.useState("");
     const [time, setTime] = React.useState("");
     const [minDate, setMinDate] = useState(''); // minDate to realize that the user can only select a date from the next Wednesday on
-
-    const [actualDate, setActualDate] = useState(new Date());
-    const [reloadPage, setReloadPage] = useState(false);
     
     const [schoolClass, setSchoolClass] = React.useState("");
     const [location, setLocation] = React.useState("");
@@ -150,63 +148,12 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
         setMinDate(minDeliveryDate.toISOString().substr(0, 16));
     };
 
-    // WEDNESDAY BARRIER:
-    // ACHTUNG (barrierMinute-1) führt zu Fehler bei barrierMinute = 0
-
-    const barrierDate = 5;      // Sunday - Saturday : 0 - 6
-    const barrierHour = 16;
-    const barrierMinute = 8;
-
-
-    const calculateTimer = () => {
-        const nextWednesday = new Date(actualDate);
-        nextWednesday.setDate(actualDate.getDate() + ((barrierDate + 7 - actualDate.getDay()) % 7));
-        nextWednesday.setHours(barrierHour, barrierMinute, 0, 0);
-
-        let diff = nextWednesday - actualDate;
-
-        if (diff <= 0) {
-            // Timer ist abgelaufen, berechne den nächsten Mittwoch
-            nextWednesday.setDate(nextWednesday.getDate() + 7);
-            diff = nextWednesday - actualDate;
-        }
-    
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / 1000 / 60) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-    
-        return { days, hours, minutes, seconds };
-    };
-
     
 
+   
     useEffect(() => {
         calculateMinDate();
-
-        const timer = setInterval(() => {
-            setActualDate(new Date());
-        }, 1000);
-    
-        return function cleanup() {
-            clearInterval(timer);
-        };
     }, []);
-    
-    
-    useEffect(() => {
-        console.log("ReloadPage: " + reloadPage);
-        if (reloadPage && actualDate.getDay() === barrierDate && actualDate.getHours() === barrierHour && actualDate.getMinutes() === barrierMinute) {
-            window.location.reload();
-        }
-
-        if (actualDate.getDay() === barrierDate && actualDate.getHours() === barrierHour && actualDate.getMinutes() === barrierMinute-1) {
-            setReloadPage(true);
-        }
-    }, [actualDate]);
-    
-    const timeForTimer = calculateTimer();
-    
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     return (
@@ -233,8 +180,8 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
                     marginBottom: "30px",
                 }}
             >
-                <p>Current time: {actualDate.toString()}</p>
-                <p>Time until next Wednesday 9:00: {timeForTimer.days} days, {timeForTimer.hours} hours, {timeForTimer.minutes} minutes, {timeForTimer.seconds} seconds</p>
+
+                <BarrierForCollection />
                 
                 <Text
                     style={{marginLeft: "10px", marginTop:"20px", marginBottom: "10px", color: 'grey'}}
