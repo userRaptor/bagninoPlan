@@ -118,7 +118,7 @@ function NewOrder({ setOrderAlreadyExistsToParent, setActualOrderIdToParent }) {
 
     const calculateMinDate = () => {
         const date = new Date(); // get current date
-        //const date = new Date('2024-08-31T09:00:00');   // For testing purposes
+        //const date = new Date('2024-06-10T09:00:00');   // For testing purposes
         
         const day = date.getDay(); // Sunday - Saturday : 0 - 6
         const hours = date.getHours();

@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 function BarrierForCollection() {
     const [actualDate, setActualDate] = useState(new Date());
 
-    const barrierDate = 5;      // Sunday - Saturday : 0 - 6
-    const barrierHour = 16;
-    const barrierMinute = 35; 
+    const barrierDate = 3;      // Sunday - Saturday : 0 - 6
+    const barrierHour = 9;
+    const barrierMinute = 0; 
 
     const calculateTimer = () => {
         const nextWednesday = new Date(actualDate);
@@ -43,7 +43,6 @@ function BarrierForCollection() {
     
     useEffect(() => {
         if (actualDate.getDay() === barrierDate && actualDate.getHours() === barrierHour && actualDate.getMinutes() === barrierMinute && actualDate.getSeconds() === 0){
-            console.log("RELAOD");
             window.location.reload();
         }
     }, [actualDate]);
