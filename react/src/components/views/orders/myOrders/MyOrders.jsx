@@ -151,6 +151,7 @@ function MyOrders() {
                             <Th>Info:</Th>
                             <Th>Purpose:</Th>
                             <Th>Date:</Th>
+                            <Th>Time:</Th>
                             <Th>Class:</Th>
                             <Th>Reuse:</Th>
                             <Th>Delete:</Th>
@@ -167,6 +168,7 @@ function MyOrders() {
                                     </Td>
                                     <Td>{order.purpose}</Td>
                                     <Td>{formatDate(order.date)}</Td>
+                                    <Td>{order.time}</Td>
                                     <Td>{order.schoolClass}</Td>
                                     <Td>
                                         <Button
