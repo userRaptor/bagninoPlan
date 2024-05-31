@@ -145,6 +145,47 @@ function AllOrdersMain() {
         doc.save(`report_week${getCalendarWeekAndYear().week}.pdf`);
     };
 
+    const exportPdfBySupplier = () => {
+        const doc = new jsPDF();
+        const tableColumn = ["Id", "Date", "Weekday", "Time", "Class", "Location", "Teacher", "Purpose"];
+        const tableRows = [];
+    
+        filteredOrders
+        .filter(order => order.includeSummary)
+        .map(order => {
+            const orderData = [
+                order.id,
+                order.date,
+                order.weekday,
+                order.time,
+                order.schoolClass,
+                order.location,
+                order.user.name,
+                order.purpose,
+            ];
+            tableRows.push(orderData);
+        });
+        
+        doc.setFontSize(20);
+        doc.text("Orders from: " + formatDate(startDate) + " to: " + formatDate(endDate), 20, 15); // Title
+        doc.setFontSize(12);
+        doc.text("ID: ", 15, 30); // Subtitle
+
+        autoTable(doc, { 
+            head: [tableColumn], 
+            body: tableRows,
+            startY: 35,
+            didDrawPage: function (data) {
+                doc.setFontSize(10);
+                doc.text("Page " + doc.internal.getNumberOfPages(), data.settings.margin.left, doc.internal.pageSize.height - 10 );
+                doc.text("Year: " + getCalendarWeekAndYear().year + ", CalendarWeek: " + getCalendarWeekAndYear().week, data.settings.margin.left + 50, doc.internal.pageSize.height - 10);
+            },
+        });
+
+        doc.save(`report_week${getCalendarWeekAndYear().week}.pdf`);
+    };
+
+
     const formatDate = (dateString) => {
         if (!dateString) {
             return "null";
@@ -199,7 +240,7 @@ function AllOrdersMain() {
                             setCurrentPage(1);            // reset pagination
                         }}
                     />
-                    <Button backgroundColor="#FFA500" style={{marginLeft: '40px'}} onClick={exportPDF}>
+                    <Button backgroundColor="#FFA500" style={{marginLeft: '40px'}} onClick={exportPdfBySupplier}>
                         Export by supplier<DownloadIcon style={{marginLeft: '10px'}}/>
                     </Button>
 
