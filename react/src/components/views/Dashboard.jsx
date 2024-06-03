@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "../Header";
-import welcomeIMG from "./../img/welcome.jpg";
 import EducoLogo from "./../img/EducoLogo.png";
 
 import axiosClient from "../../axios-client";
@@ -40,7 +39,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            <Header title="Dashboard" />
+            <Header title="" />
 
             {token ? 'Token exits' : 'No Token'}
 
