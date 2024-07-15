@@ -10,3 +10,8 @@ YouTube:
 
 Favicon und Name (des Tabs) ändern: Datei index.html
 Favicon generator: https://realfavicongenerator.net/
+
+
+
+multi-guard authentication:
+* https://webjourney.dev/how-to-implements-multiple-authentication-for-a-website-using-laravel-10-with-guards
